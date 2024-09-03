@@ -1,0 +1,21 @@
+<?php
+
+use Livewire\Volt\Component;
+
+new class extends Component {
+    //
+}; ?>
+
+<div class=" flex items-center justify-between h-20">
+    <div class="hidden md:block">
+        <h1 class="text-xl font-bold text-blue-500">Hello world!</h1>
+    </div>
+    <div class="flex gap-4 items-center text-sm">
+        <a href="/" wire:navigate>Home</a>
+        <a href="">Schedule</a>
+        <a href="">help</a>
+    </div>
+    <div class="text-sm font-semibold self-right">
+        login
+    </div>
+</div>
