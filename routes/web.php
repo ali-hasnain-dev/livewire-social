@@ -10,6 +10,9 @@ use Livewire\Volt\Volt;
 //     return view('welcome');
 // });
 
-Route::get('/', Home::class)->name('home');
 Route::get('/signin', Signin::class)->name('signin');
 Route::get('/signup', Signup::class)->name('signup');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/', Home::class)->name('home');
+});

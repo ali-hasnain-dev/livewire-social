@@ -1,14 +1,19 @@
 <div class="h-[calc(100vh-98px)] flex items-center justify-center">
     <div class="bg-white p-8 rounded-md shadow-md w-[400px]">
-        <h1 class="mb-4 text-lg font-semibold text-blue-500">Welcome to Livewire Social</h1>
-        <form class="flex flex-col gap-4" wire:submit.prevent="submitLogin">
+        <h1 class="mb-1 text-lg font-semibold text-blue-500">Welcome to Livewire Social</h1>
+        <form class="flex flex-col gap-2" wire:submit.prevent="submitLogin">
             <p class="text-red-500 text-xs self-center font-bold">
                 @session('error')
                     {{ session()->pull('error') }}
                 @endsession
             </p>
+            <p class="text-green-500 text-xs self-center font-bold">
+                @session('success')
+                    {{ session()->pull('success') }}
+                @endsession
+            </p>
             <div class="flex flex-col gap-2">
-                <label for="" class="text-sm">Email</label>
+                <label for="" class="text-xs font-semibold">Email</label>
                 <input type="text" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Email"
                     wire:model="email" required>
                 <p class="text-red-500 text-xs">
@@ -18,7 +23,7 @@
                 </p>
             </div>
             <div class="flex flex-col gap-2">
-                <label for="" class="text-sm">Password</label>
+                <label for="" class="text-xs font-semibold">Password</label>
                 <input type="password" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Password"
                     wire:model="password" required>
                 <p class="text-red-500 text-xs">

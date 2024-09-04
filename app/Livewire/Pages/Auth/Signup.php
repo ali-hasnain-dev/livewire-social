@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Auth;
 
+use App\Models\User;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -24,7 +25,15 @@ class Signup extends Component
     public function submitsignup()
     {
         $this->validate();
-        dd('submitSignup');
+        User::Create([
+            'name' => $this->name,
+            'username' => $this->username,
+            'email' => $this->email,
+            'password' => bcrypt($this->password),
+        ]);
+
+        session()->flash('success', 'Account created successfully');
+        return $this->redirect(Signin::class, true);
     }
 
     public function render()
