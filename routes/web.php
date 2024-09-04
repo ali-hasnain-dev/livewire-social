@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Pages\Auth\Signin;
+use App\Livewire\Pages\Home;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -7,5 +9,5 @@ use Livewire\Volt\Volt;
 //     return view('welcome');
 // });
 
-Volt::route('/', 'home')->name('home');
-Volt::route('/signin', 'pages.signin')->name('signin');
+Route::get('/', Home::class)->name('home');
+Route::get('/signin', Signin::class)->name('signin');
