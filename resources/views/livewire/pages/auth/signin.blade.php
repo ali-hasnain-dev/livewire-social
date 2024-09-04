@@ -31,7 +31,7 @@
                 wire:loading.attr="disabled">login</button>
         </form>
         <div class="flex items-center justify-center mt-4">
-            <p>Don't have an account? <a href="" wire:navigate class="text-blue-500"><b>Signup</b></a>
+            <p>Don't have an account? <a href="/signup" wire:navigate class="text-blue-500"><b>Signup</b></a>
             </p>
         </div>
     </div>
