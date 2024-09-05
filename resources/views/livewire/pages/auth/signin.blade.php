@@ -1,4 +1,4 @@
-<div class="h-[calc(100vh-98px)] flex items-center justify-center">
+<div class="{{ auth()->check() ? 'h-[calc(100vh-98px)]' : 'h-screen' }}  flex items-center justify-center">
     <div class="bg-white p-8 rounded-md shadow-md w-[400px]">
         <h1 class="mb-1 text-lg font-semibold text-blue-500">Welcome to Livewire Social</h1>
         <form class="flex flex-col gap-2" wire:submit.prevent="submitLogin">
@@ -32,6 +32,8 @@
                     @enderror
                 </p>
             </div>
+            <a href="/forgot-password" wire:navigate class="text-blue-500 text-xs self-end"><b>Forgot
+                    Password?</b></a>
             <button class="p-2 bg-blue-500 text-white rounded-md" type="submit"
                 wire:loading.attr="disabled">login</button>
         </form>

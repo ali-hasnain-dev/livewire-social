@@ -1,6 +1,6 @@
-<div class="h-[calc(100vh-98px)] flex items-center justify-center">
-    <div class="bg-white p-8 rounded-md shadow-md w-[400px]">
-        <h1 class="mb-1 text-lg font-semibold text-blue-500">Let's create new accoutn!</h1>
+<div class="{{ auth()->check() ? 'h-[calc(100vh-98px)]' : 'h-screen' }} flex items-center justify-center">
+    <div class="bg-white p-8 rounded-md shadow-md w-full md:w-[400px]">
+        <h1 class="mb-1 text-lg font-semibold text-blue-500">Let's create new account!</h1>
         <form class="flex flex-col gap-2" wire:submit.prevent="submitsignup">
             <p class="text-red-500 text-xs self-center font-bold">
                 @session('error')

@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -29,7 +30,7 @@ class Signup extends Component
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,
-            'password' => bcrypt($this->password),
+            'password' => Hash::make($this->password),
         ]);
 
         session()->flash('success', 'Account created successfully');
