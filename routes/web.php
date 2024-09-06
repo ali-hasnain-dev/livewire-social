@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Components\Profile;
 use App\Livewire\Pages\Auth\Forgetpassword;
 use App\Livewire\Pages\Auth\Signin;
 use App\Livewire\Pages\Auth\Signup;
@@ -17,4 +18,5 @@ Route::get('/forgot-password', Forgetpassword::class)->name('forgot-password');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', Home::class)->name('home');
+    Route::get('/profile', Profile::class)->name('profile');
 });
