@@ -27,7 +27,8 @@
                             Profile
                         </a>
                         <hr>
-                        <a href="/signout" wire:navigate class="block px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md">
+                        <a href="javascript:void(0)" wire:click="logout"
+                            class="block px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md">
                             Signout
                         </a>
                         <!-- Add more menu items here -->
