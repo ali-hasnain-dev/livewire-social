@@ -19,52 +19,15 @@
     </div>
 
     <!-- Tabs Content - Positioned 15px below tab navbar -->
-    <div class="py-4 h-[calc(100vh-98px)] items-center justify-center flex w-full">
+    <div class="py-4  items-center justify-center flex w-full">
         <div x-show="activeTab === 1" class="w-full md:w-[700px] bg-white p-4 rounded-lg shadow-md">
             <livewire:components.general-info />
         </div>
-        <div x-show="activeTab === 2" class="w-[400px] bg-white p-4 rounded-lg shadow-md">
-            <div class="flex flex-col gap-8">
-                <h1 class="text-xl font-bold">Password</h1>
-                <form action="">
-                    <div class="flex flex-col gap-2">
-                        <label for="" class="text-xs font-semibold">Current Password</label>
-                        <input type="password" class="w-full p-2 border border-gray-500 rounded-md"
-                            placeholder="Current password" wire:model="password" required>
-                        <p class="text-red-500 text-xs">
-                            @error('password')
-                                {{ $message }}
-                            @enderror
-                        </p>
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <label for="" class="text-xs font-semibold">New Password</label>
-                        <input type="password" class="w-full p-2 border border-gray-500 rounded-md"
-                            placeholder="New password" wire:model="password" required>
-                        <p class="text-red-500 text-xs">
-                            @error('password')
-                                {{ $message }}
-                            @enderror
-                        </p>
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <label for="" class="text-xs font-semibold">Confirm Password</label>
-                        <input type="password" class="w-full p-2 border border-gray-500 rounded-md"
-                            placeholder="Confirm password" wire:model="password" required>
-                        <p class="text-red-500 text-xs">
-                            @error('password')
-                                {{ $message }}
-                            @enderror
-                        </p>
-                    </div>
-                    <div class="self-end">
-                        <button class="p-2 bg-blue-500 text-white rounded-md self-end" type="submit">Save</button>
-                    </div>
-                </form>
-            </div>
+        <div x-show="activeTab === 2" class="w-full md:w-[550px] bg-white p-4 rounded-lg shadow-md">
+            <livewire:components.change-password />
         </div>
         <div x-show="activeTab === 3">
-            <p>This is the content of Tab 3.</p>
+            <p class="text-gray-500 font-semibold">Comming Soon Feature</p>
         </div>
     </div>
 </div>

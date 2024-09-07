@@ -21,8 +21,8 @@ class GeneralInfo extends Component
 
     public $dob;
 
-    #[Validate('nullable|sometimes|image|max:1024')]
-    public $photo;
+    // #[Validate('nullable|sometimes|image|max:1024')]
+    public $avatar;
 
     public $image;
 
@@ -34,19 +34,15 @@ class GeneralInfo extends Component
         $this->name = $user->name;
         $this->dob = $user->dob ? Carbon::parse($user->dob)->format('m/d/Y') : '';
         $this->image = $user->image ? asset($user->image) : asset('images/noAvatar.png');
+        // dd($this->dob);
     }
 
     public function updateProfile()
     {
-        $this->validate([
-            'name' => 'required',
-        ]);
-        // dd($this->name, $this->bio, $this->dob);
-        if ($this->photo) {
-            $photoPath = $this->photo->store('profile_images', 'public');
-        }
+        $this->validate();
+        $photoPath = $this->avatar ? $this->avatar->store('profile_images', 'public') : null;
         auth()->user()->update([
-            'avatar' => $photoPath ?? null,
+            'avatar' => $photoPath,
             'name' => $this->name,
             'bio' => $this->bio ?? '',
             'dob' => $this->dob ? Carbon::parse($this->dob) : "",
