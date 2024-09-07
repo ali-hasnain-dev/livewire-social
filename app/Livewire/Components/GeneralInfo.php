@@ -33,7 +33,7 @@ class GeneralInfo extends Component
         $this->bio = $user->bio;
         $this->name = $user->name;
         $this->dob = $user->dob ? Carbon::parse($user->dob)->format('m/d/Y') : '';
-        $this->image = $user->image ? asset($user->image) : asset('images/noAvatar.png');
+        $this->image = $user->image ? asset($user->image) : asset('images/avatar4.png');
         // dd($this->dob);
     }
 

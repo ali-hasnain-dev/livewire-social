@@ -1,10 +1,11 @@
-<div class=" flex items-center justify-between h-20">
+<div class=" flex items-center justify-between h-16">
 
     <div class="hidden md:block">
         <h1 class="text-xl font-bold text-blue-500">Hello world!</h1>
     </div>
-    <div class="flex gap-4 items-center text-sm">
-        <a href="/" wire:navigate>Home</a>
+    <div class="flex gap-4 text-sm font-semibold">
+        <a href="/" wire:navigate
+            class="{{ request()->routeIs('home') ? 'text-gray-500 font-bold underline underline-offset-8' : 'text-gray-400' }}">Home</a>
         <a href="">Schedule</a>
         <a href="">help</a>
     </div>
@@ -15,7 +16,7 @@
                 <div class="flex items-center gap-2">
                     <h1 class="text-xs font-bold">{{ auth()->user()->name }}</h1>
                     <img @click="open = !open"
-                        src="{{ auth()->user()->avatar ? auth()->user()->avatar : asset('images/noAvatar.png') }}"
+                        src="{{ auth()->user()->avatar ? auth()->user()->avatar : asset('images/avatar.png') }}"
                         alt="" class="rounded-full w-10 h-10 object-cover cursor-pointer">
                 </div>
 

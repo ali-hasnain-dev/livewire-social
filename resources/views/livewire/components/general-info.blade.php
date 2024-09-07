@@ -7,13 +7,12 @@
     <form wire:submit.prevent="updateProfile">
         <div class="md:flex justify-center items-center gap-24">
             <div class="flex justify-center md:justify-start md:self-start relative md:ml-10">
-                @if ($avatar)
-                    <img src="{{ $photo->temporaryUrl() }}" class="w-20 h-20 rounded-full relative">
-                @else
-                    <img src="{{ $image }}" alt="" class="w-24 h-24 rounded-full relative object-cover">
-                @endif
-                <div class="absolute -right-3 top-0 z-20 transform -translate-x-1/4 -translate-y-1/4">
-                    <img src="{{ asset('images/camera.png') }}" alt="" class="w-6 h-6 cursor-pointer"
+                <div class="w-24 h-24 rounded-full overflow-hidden ring-1 ring-gray-400">
+                    <img src="{{ $avatar ? $photo->temporaryUrl() : $image }}" alt=""
+                        class="w-full h-full object-cover">
+                </div>
+                <div class="absolute right-3 top-0 z-20 transform -translate-x-1/4 -translate-y-1/4">
+                    <img src="{{ asset('images/camera.png') }}" alt="" class="w-5 h-5 cursor-pointer"
                         onclick="document.getElementById('selectedFile').click();">
                     <input type="file" wire:model.defer="avatar" style="display: none" id="selectedFile">
                 </div>

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,10 +18,11 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::factory()->create();
         return [
             'image' => $this->faker->imageUrl(),
             'content' => $this->faker->sentence(),
-            'user_id' => 2,
+            'user_id' => $user->id,
         ];
     }
 }

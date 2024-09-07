@@ -66,7 +66,7 @@
             </button>
         </form>
         <div class="flex items-center justify-center mt-4">
-            <p>Already have an account? <a href="/signin" wire:navigate class="text-blue-500"><b>Signin</b></a>
+            <p>Already have an account? <a href="/signin" wire:navigate class="text-blue-500 text-sm"><b>Signin</b></a>
             </p>
         </div>
     </div>
