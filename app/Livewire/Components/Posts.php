@@ -3,6 +3,7 @@
 namespace App\Livewire\Components;
 
 use App\Models\Post;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Posts extends Component
@@ -16,6 +17,12 @@ class Posts extends Component
         $this->count++;
     }
 
+    #[On('post-created')]
+    public function updatePostList()
+    {
+        $this->count = 0;
+        $this->offsetOfPosts = 10;
+    }
 
     public function render()
     {

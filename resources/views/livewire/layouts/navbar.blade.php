@@ -22,8 +22,9 @@
                 <div x-show="open" @click.away="open = false"
                     class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20">
                     <div class="flex flex-col gap-2 p-2">
-                        <a href="/profile" wire:navigate class="block px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md">
-                            Profile
+                        <a href="/settings" wire:navigate
+                            class="block px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md">
+                            Settings
                         </a>
                         <hr>
                         <a href="javascript:void(0)" wire:click="logout"
