@@ -5,7 +5,7 @@
     <div class="flex gap-4 text-sm font-semibold">
         <a href="/" wire:navigate
             class="{{ request()->routeIs('home') ? 'text-gray-500 font-bold underline underline-offset-8' : 'text-gray-400' }}">Home</a>
-        <a href="">Friends</a>
+        <a href="" class="text-gray-400">Friends</a>
         {{-- <a href="">help</a> --}}
     </div>
     <div class="text-sm font-semibold self-right">
