@@ -34,6 +34,4 @@
             <p class="text-center text-md font-semibold">No posts</p>
         </div>
     @endif
-
-
 </div>

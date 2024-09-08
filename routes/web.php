@@ -1,12 +1,11 @@
 <?php
 
-use App\Livewire\Components\Profile;
 use App\Livewire\Pages\Auth\Forgetpassword;
 use App\Livewire\Pages\Auth\Signin;
 use App\Livewire\Pages\Auth\Signup;
 use App\Livewire\Pages\Home;
+use App\Livewire\Pages\Profile;
 use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
 
 // Route::get('/', function () {
 //     return view('welcome');

@@ -1,16 +1,14 @@
 <div class=" flex items-center justify-between h-16">
-
     <div class="hidden md:block">
-        <h1 class="text-xl font-bold text-blue-500">Hello world!</h1>
+        <a href="/" wire:navigate class="text-xl font-bold text-blue-500">Livewire Social</a>
     </div>
     <div class="flex gap-4 text-sm font-semibold">
         <a href="/" wire:navigate
             class="{{ request()->routeIs('home') ? 'text-gray-500 font-bold underline underline-offset-8' : 'text-gray-400' }}">Home</a>
-        <a href="">Schedule</a>
-        <a href="">help</a>
+        <a href="">Friends</a>
+        {{-- <a href="">help</a> --}}
     </div>
     <div class="text-sm font-semibold self-right">
-
         @auth
             <div x-data="{ open: false }" class="relative">
                 <div class="flex items-center gap-2">
@@ -41,6 +39,4 @@
     @else
         <a href="/signin" wire:navigate class="text-blue-500"><b>Signin</b></a>
     @endauth
-</div>
-
 </div>
