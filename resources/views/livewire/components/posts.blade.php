@@ -1,4 +1,11 @@
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4 relative" wire:poll.180s='checkNewPost'>
+    @if ($hasNewPosts)
+        <div class="sticky top-20 w-full flex justify-center z-40">
+            <p x-on:click="$nextTick(() => window.scrollTo({ top: 0, behavior: 'smooth' }))" wire:click='refreshPosts'
+                class="text-center text-white bg-blue-500 font-semibold rounded-3xl border border-blue-500 inline-block px-2 py-1 cursor-pointer">
+                New Posts</p>
+        </div>
+    @endif
     @if ($posts)
         @foreach ($posts as $post)
             <div class="flex rounded-md bg-white p-4 gap-2 flex-col" wire:key="post-{{ $post->id }}">
@@ -15,7 +22,7 @@
                         <img src="{{ asset('images/more.png') }}" alt="" class="w-5">
                     </span>
                 </div>
-                <p>{{ $post->content }}</p>
+                <p class="text-sm">{{ $post->content }}</p>
                 @if ($post->image)
                     <img src="{{ $post->image }}" alt="" class="w-full h-96">
                 @endif

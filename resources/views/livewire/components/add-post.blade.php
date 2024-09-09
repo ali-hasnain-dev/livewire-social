@@ -30,7 +30,8 @@
                     Poll
                 </div>
             </div>
-            <button class="p-2 bg-blue-500 text-white rounded-md" type="submit" wire:loading.remove>Post</button>
+            <button class="p-2 bg-blue-500 text-white rounded-md inline-block self-end mr-11" type="submit"
+                wire:loading.remove>Post</button>
             <button wire:loading class="w-full text-blue-500 font-semibold p-2 rounded-md border border-blue-500"
                 disabled>
                 <x-loader-button :message="'Posting...'" />
