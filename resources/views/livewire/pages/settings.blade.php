@@ -19,7 +19,7 @@
     </div>
 
     <!-- Tabs Content - Positioned 15px below tab navbar -->
-    <div class="py-4  items-center justify-center flex w-full">
+    <div class="py-4  items-center justify-center flex w-full" x-cloak>
         <div x-show="activeTab === 1" class="w-full md:w-[700px] bg-white p-4 rounded-lg shadow-md">
             <livewire:components.general-info />
         </div>

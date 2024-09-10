@@ -19,7 +19,7 @@
                 </div>
 
                 <!-- Dropdown Menu -->
-                <div x-show="open" @click.away="open = false"
+                <div x-show="open" @click.away="open = false" x-cloak
                     class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20">
                     <div class="flex flex-col gap-2 p-2">
                         <a href="/settings" wire:navigate
