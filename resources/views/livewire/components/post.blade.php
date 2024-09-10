@@ -19,7 +19,7 @@
 
     <div class="flex items-center justify-between text-xs my-1">
         <div class="flex gap-2">
-            <div class="flex items-center gap-4 bg-slate-50 p-2 rounded-xl">
+            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-4 cursor-pointer {{ $likedByme ? 'text-blue-500' : '' }}"
                     wire:click='like({{ $post->id }})'>
@@ -32,7 +32,7 @@
                     {{ $likes }} <span class="hidden md:inline">Likes</span>
                 </span>
             </div>
-            <div class="flex items-center gap-4 bg-slate-50 p-2 rounded-xl">
+            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-4">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div>
-            <div class="flex items-center gap-4 bg-slate-50 p-2 rounded-xl">
+            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-4">
                     <path stroke-linecap="round" stroke-linejoin="round"
