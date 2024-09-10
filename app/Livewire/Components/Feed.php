@@ -5,6 +5,7 @@ namespace App\Livewire\Components;
 use App\Models\Post;
 use Carbon\Carbon;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Renderless;
 use Livewire\Component;
 
 class Feed extends Component
@@ -50,11 +51,20 @@ class Feed extends Component
         $this->getMorePost();
     }
 
+    #[Renderless]
     public function getMorePost()
     {
-        $newPost = Post::with('user')
-            ->withCount('likes')
-            ->offset($this->offsetOfPosts * $this->count)->orderByDesc('created_at')->take($this->offsetOfPosts)->get();
+        $newPost = Post::select('id', 'content', 'image', 'user_id', 'created_at') // Only select required fields from Post
+            ->with([
+                'user:id,name,avatar', // Select only necessary fields from user
+                'likes:id,post_id,user_id' // Only necessary fields from likes
+            ])
+            ->withCount('likes') // Get count of likes
+            ->orderByDesc('created_at') // Order posts by creation date
+            ->offset($this->offsetOfPosts * $this->count) // Pagination logic
+            ->take($this->offsetOfPosts) // Limit number of posts fetched
+            ->get();
+
         if ($newPost->count() < $this->offsetOfPosts) {
             $this->hasMoreData = false; // No more data to load
         }
