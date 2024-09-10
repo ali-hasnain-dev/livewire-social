@@ -17,4 +17,14 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function isLikedByMe()
+    {
+        return Like::where([['user_id', auth()->id()], ['post_id', $this->id]])->exists();
+    }
 }
