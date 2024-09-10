@@ -7,7 +7,7 @@
     <div class=" lg:w-[50%] xl:w-[65%]">
         <div className="flex flex-col">
             <livewire:components.add-post />
-            <livewire:components.posts />
+            <livewire:components.feed />
         </div>
     </div>
     <div class="hidden lg:block w-[30%]">r</div>

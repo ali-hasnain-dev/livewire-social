@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class Posts extends Component
+class Feed extends Component
 {
     public $posts;
     public $count = 0;
@@ -36,7 +36,7 @@ class Posts extends Component
 
     public function checkNewPost()
     {
-        $newPostIds = Post::with('user')->orderByDesc('created_at')->take($this->offsetOfPosts)->whereTime('created_at', '>=', Carbon::now()->subMinutes(3))->get()->pluck('id')->pluck('id');
+        $newPostIds = Post::with('user')->orderByDesc('created_at')->whereDate('created_at', Carbon::today())->whereTime('created_at', '>=', Carbon::now()->subMinutes(3))->get()->pluck('id');
 
         $this->hasNewPosts = count($newPostIds) > 0 ? true : false;
     }
@@ -61,7 +61,6 @@ class Posts extends Component
 
     public function render()
     {
-
-        return view('livewire.components.posts');
+        return view('livewire.components.feed');
     }
 }
