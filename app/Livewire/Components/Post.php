@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Components;
 
+use App\Events\LikeNotfication;
 use App\Models\Like;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Post extends Component
@@ -26,6 +28,7 @@ class Post extends Component
         ]);
 
         $like->exists ? $like->delete() : $like->save();
+        event(new LikeNotfication('test'));
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Livewire\Components;
 
 use App\Models\Post;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -25,6 +26,13 @@ class AddPost extends Component
                 $this->dispatch('post-created');
             }
         }
+    }
+
+
+    #[On('echo:like-notification,LikeNotfication')]
+    public function handleNofication($data)
+    {
+        dd($data);
     }
 
     public function render()
