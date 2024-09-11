@@ -25,17 +25,7 @@ class Post extends Component
             'post_id' => $id,
         ]);
 
-        if ($like->exists) {
-            // If the like already exists, delete it
-            $like->delete();
-            $this->likes--;
-            $this->likedByme = false;
-        } else {
-            // If the like doesn't exist, save it
-            $like->save();
-            $this->likes++;
-            $this->likedByme = true;
-        }
+        $like->exists ? $like->delete() : $like->save();
     }
 
 
