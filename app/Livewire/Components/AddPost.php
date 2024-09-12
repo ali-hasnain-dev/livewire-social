@@ -30,11 +30,11 @@ class AddPost extends Component
         }
     }
 
-    #[On('echo:post-like-notification,LikeNotfication')]
-    public function postCreated($event)
-    {
-        dd($event);
-    }
+    // #[On('echo:post-like-notification,LikeNotfication')]
+    // public function postCreated($event)
+    // {
+    //     dd($event);
+    // }
 
 
     public function render()

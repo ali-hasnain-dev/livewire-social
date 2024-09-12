@@ -32,7 +32,7 @@ class LikeNotfication implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new Channel('post-like-notification'),
+            new PrivateChannel('post-like-notification.' . $this->like->post_id),
         ];
     }
 }
