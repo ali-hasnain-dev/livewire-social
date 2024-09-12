@@ -4,7 +4,6 @@ namespace App\Livewire\Components;
 
 use App\Events\LikeNotfication;
 use App\Models\Like;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Post extends Component
@@ -12,10 +11,12 @@ class Post extends Component
     public $post;
     public $likes;
     public $likedByme = false;
+    public $postId;
 
     public function mount($post)
     {
         $this->post = $post;
+        $this->postId = $post->id;
         $this->likes = $post->likes_count;
         $this->likedByme = $post->likes ? in_array(auth()->user()->id, $post->likes->pluck('user_id')->toArray()) : false;
     }
@@ -28,7 +29,6 @@ class Post extends Component
         ]);
 
         $like->exists ? $like->delete() : $like->save();
-        event(new LikeNotfication('test'));
     }
 
 

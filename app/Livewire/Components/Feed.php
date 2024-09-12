@@ -4,6 +4,7 @@ namespace App\Livewire\Components;
 
 use App\Models\Post;
 use Carbon\Carbon;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
@@ -15,6 +16,8 @@ class Feed extends Component
     public $offsetOfPosts = 10;
     public $hasMoreData = true;
     public $hasNewPosts = false;
+
+    public $userId;
 
     public function mount()
     {
@@ -54,19 +57,20 @@ class Feed extends Component
     #[Renderless]
     public function getMorePost()
     {
-        $newPost = Post::select('id', 'content', 'image', 'user_id', 'created_at') // Only select required fields from Post
+        $newPost = Post::select('id', 'content', 'image', 'user_id', 'created_at')
             ->with([
-                'user:id,name,avatar', // Select only necessary fields from user
-                'likes:id,post_id,user_id' // Only necessary fields from likes
+                'user:id,name,avatar,username',
+                'likes:id,post_id,user_id'
             ])
-            ->withCount('likes') // Get count of likes
-            ->orderByDesc('created_at') // Order posts by creation date
-            ->offset($this->offsetOfPosts * $this->count) // Pagination logic
-            ->take($this->offsetOfPosts) // Limit number of posts fetched
+            ->withCount('likes')
+            ->orderByDesc('created_at')
+            ->offset($this->offsetOfPosts * $this->count)
+            ->take($this->offsetOfPosts)
+            ->when($this->userId, fn($query) => $query->where('user_id', $this->userId))
             ->get();
 
         if ($newPost->count() < $this->offsetOfPosts) {
-            $this->hasMoreData = false; // No more data to load
+            $this->hasMoreData = false;
         }
 
         $this->posts = $this->count == 0 ? $newPost : [...$this->posts, ...$newPost];

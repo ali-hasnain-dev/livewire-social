@@ -19,5 +19,5 @@ Route::get('/forgot-password', Forgetpassword::class)->name('forgot-password');
 Route::middleware('auth')->group(function () {
     Route::get('/', Home::class)->name('home');
     Route::get('/settings', Settings::class)->name('Settings');
-    Route::get('/profile', Profile::class)->name('profile');
+    Route::get('/profile/{name?}', Profile::class)->name('profile');
 });

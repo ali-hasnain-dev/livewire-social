@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Components;
 
+use App\Events\LikeNotfication;
 use App\Models\Post;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -24,16 +25,17 @@ class AddPost extends Component
             if ($post) {
                 $this->content = '';
                 $this->dispatch('post-created');
+                event(new LikeNotfication('test'));
             }
         }
     }
 
-
-    #[On('echo:like-notification,LikeNotfication')]
-    public function handleNofication($data)
+    #[On('echo:post-like-notification,LikeNotfication')]
+    public function postCreated($event)
     {
-        dd($data);
+        dd($event);
     }
+
 
     public function render()
     {
