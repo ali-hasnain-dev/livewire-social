@@ -31,7 +31,7 @@ class Post extends Component
         ]);
 
         $like->exists ? $like->delete() : $like->save();
-        if ($like->exists && $like->user_id != auth()->id()) {
+        if ($this->post->user_id != auth()->id()) {
             event(new LikeNotfication($like));
         }
     }
@@ -42,6 +42,7 @@ class Post extends Component
         $id = $event['like']['post_id'];
         $post = ModelsPost::withCount('likes')->find($id);
         $this->likes = $post->likes_count;
+        // $this->dispatch('postLiked', $id, $this->likes);
     }
 
 

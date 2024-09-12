@@ -31,8 +31,10 @@
                 </svg>
 
                 <span class="text-gray-300">|</span>
-                <span class="text-gray-500" x-text='likedCount + " Likes"'>
-                </span>
+                <span class="text-gray-500" x-text='isLiked ? {{ $likes }} : likedCount + " Likes"'>
+                    {{-- <span class="text-gray-500">
+                    {{ $likes }}
+                </span> --}}
             </div>
             <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
