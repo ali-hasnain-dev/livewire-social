@@ -30,10 +30,15 @@ class Post extends Component
             'post_id' => $id,
         ]);
 
-        $like->exists ? $like->delete() : $like->save();
-        if ($this->post->user_id != auth()->id()) {
-            event(new LikeNotfication($like));
-        }
+        if ($like->exists) {
+            $like->delete();
+            $this->likedByme = false;
+        } else {
+            $like->save();
+            $this->likedByme = true;
+        };
+
+        event(new LikeNotfication($like));
     }
 
     #[On('echo-private:post-like-notification.{post_id},LikeNotfication')]
@@ -42,7 +47,6 @@ class Post extends Component
         $id = $event['like']['post_id'];
         $post = ModelsPost::withCount('likes')->find($id);
         $this->likes = $post->likes_count;
-        // $this->dispatch('postLiked', $id, $this->likes);
     }
 
 

@@ -11,6 +11,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel(
     'post-like-notification.{post}',
     function (User $user, Post $post) {
+        return true;
         return (int) $user->id === (int) $post->user_id;
     }
 );
