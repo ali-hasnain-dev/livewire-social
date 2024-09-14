@@ -4,6 +4,7 @@ namespace App\Livewire\Components;
 
 use App\Events\LikeNotfication;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -19,7 +20,7 @@ class AddPost extends Component
         if ($this->content) {
             $post = Post::create([
                 'content' => $this->content,
-                'user_id' => auth()->user()->id
+                'user_id' => Auth::user()->id
             ]);
 
             if ($post) {
@@ -29,13 +30,6 @@ class AddPost extends Component
             }
         }
     }
-
-    // #[On('echo:post-like-notification,LikeNotfication')]
-    // public function postCreated($event)
-    // {
-    //     dd($event);
-    // }
-
 
     public function render()
     {

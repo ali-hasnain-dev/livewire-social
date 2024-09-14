@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
@@ -25,6 +26,6 @@ class Post extends Model
 
     public function isLikedByMe()
     {
-        return Like::where([['user_id', auth()->id()], ['post_id', $this->id]])->exists();
+        return Like::where([['user_id', Auth::id()], ['post_id', $this->id]])->exists();
     }
 }

@@ -11,7 +11,7 @@
                     <img src="{{ $avatar ? $photo->temporaryUrl() : $image }}" alt=""
                         class="w-full h-full object-cover">
                 </div>
-                <div class="absolute right-3 top-0 z-20 transform -translate-x-1/4 -translate-y-1/4">
+                <div class="absolute right-0 bottom-0 z-20 transform -translate-x-1/4 -translate-y-1/4">
                     <img src="{{ asset('images/camera.png') }}" alt="" class="w-5 h-5 cursor-pointer"
                         onclick="document.getElementById('selectedFile').click();">
                     <input type="file" wire:model.defer="avatar" style="display: none" id="selectedFile">

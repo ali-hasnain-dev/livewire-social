@@ -5,6 +5,7 @@ namespace App\Livewire\Components;
 use App\Events\LikeNotfication;
 use App\Models\Like;
 use App\Models\Post as ModelsPost;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -20,13 +21,13 @@ class Post extends Component
         $this->post = $post;
         $this->post_id = $post->id;
         $this->likes = $post->likes_count;
-        $this->likedByme = $post->likes ? in_array(auth()->user()->id, $post->likes->pluck('user_id')->toArray()) : false;
+        $this->likedByme = $post->likes ? in_array(Auth::user()->id, $post->likes->pluck('user_id')->toArray()) : false;
     }
 
     public function like($id)
     {
         $like = Like::firstOrNew([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'post_id' => $id,
         ]);
 

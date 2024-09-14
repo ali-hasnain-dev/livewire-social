@@ -12,6 +12,12 @@ class ChangePassword extends Component
     public $old_password;
     public $new_password;
     public $confirm_password;
+    public $user;
+
+    public function mount()
+    {
+        $this->user = Auth::user();
+    }
 
     public function updatePassword()
     {
@@ -22,7 +28,7 @@ class ChangePassword extends Component
         ]);
 
         try {
-            Auth::user()->update([
+            $this->user->update([
                 'password' => Hash::make($this->new_password)
             ]);
 

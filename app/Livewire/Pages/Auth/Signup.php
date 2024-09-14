@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Pages\Auth;
 
+use App\Livewire\Pages\Home;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -21,7 +23,12 @@ class Signup extends Component
     #[Validate('required|min:6|max:40')]
     public $password;
 
-
+    public function mount()
+    {
+        if (Auth::check()) {
+            $this->redirect(Home::class, true);
+        }
+    }
 
     public function submitsignup()
     {
