@@ -3,7 +3,8 @@
 namespace App\Livewire\Layouts;
 
 use App\Livewire\Pages\Auth\Signin;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class Navbar extends Component
@@ -11,7 +12,8 @@ class Navbar extends Component
 
     public function logout()
     {
-        auth()->logout();
+        Auth::logout();
+        Session::flush();
         return $this->redirect(Signin::class, true);
     }
 

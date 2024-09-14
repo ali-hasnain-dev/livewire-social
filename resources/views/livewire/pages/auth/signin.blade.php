@@ -34,10 +34,10 @@
             </div>
             <a href="/forgot-password" wire:navigate class="text-blue-500 text-xs self-end"><b>Forgot
                     Password?</b></a>
-            <button class="p-2 bg-blue-500 text-white rounded-md" type="submit" wire:loading.remove>Login</button>
+            <button class="p-2 bg-blue-500 text-white rounded-md" type="submit" wire:loading.remove>Signin</button>
             <button wire:loading class="w-full text-blue-500 font-semibold p-2 rounded-md border border-blue-500"
                 disabled>
-                <x-loader-button :message="'Signing in...'" />
+                <x-loader-button :message="'Signing...'" />
             </button>
         </form>
         <div class="flex items-center justify-center mt-4">
