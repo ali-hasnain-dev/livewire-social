@@ -26,7 +26,6 @@ class AddPost extends Component
             if ($post) {
                 $this->content = '';
                 $this->dispatch('post-created');
-                event(new LikeNotfication('test'));
             }
         }
     }
