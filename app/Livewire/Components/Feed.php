@@ -17,11 +17,13 @@ class Feed extends Component
     public $hasMoreData = true;
     public $hasNewPosts = false;
 
+    #[Locked]
     public $userId;
 
-    public function mount()
+    public function mount($userId = null)
     {
         $this->getMorePost();
+        $this->userId = $userId;
     }
 
     public function loadMore()

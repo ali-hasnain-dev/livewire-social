@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 
@@ -16,11 +17,11 @@ class Profile extends Component
     public function mount($name)
     {
         $this->userName = $name;
-        if ($name != auth()->user()->username) {
+        if ($name != Auth::user()->username) {
             $userId = User::where('username', $name)->first()->id;
             $this->userId = $userId;
         } else {
-            $this->userId = auth()->user()->id;
+            $this->userId = Auth::user()->id;
         }
     }
 

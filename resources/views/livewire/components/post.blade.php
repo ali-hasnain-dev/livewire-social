@@ -2,7 +2,6 @@
     <div class="flex justify-between ">
         <a href="{{ route('profile', ['name' => $post->user->username]) }}" wire:navigate>
             <div class="flex items-center gap-2">
-
                 <img src="{{ $post->user->avatar ? $post->user->avatar : asset('images/avatar.png') }}" alt=""
                     class="w-10 h-10 rounded-full object-cover">
                 <div class="flex flex-col gap-1">
@@ -19,7 +18,6 @@
     @if ($post->image)
         <img src="{{ $post->image }}" alt="" class="w-full h-96">
     @endif
-
     <div class="flex items-center justify-between text-xs my-1">
         <div class="flex gap-2">
             <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl">
