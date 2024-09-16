@@ -62,4 +62,5 @@
             </div>
         </div>
     </div>
+    <livewire:components.add-comment postId="{{ $post->id }}" />
 </div>
