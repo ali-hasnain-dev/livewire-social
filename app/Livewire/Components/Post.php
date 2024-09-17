@@ -14,6 +14,7 @@ class Post extends Component
     public $post;
     public $post_id;
     public $likes;
+    public $comments;
     public $likedByme = false;
 
     public function mount($post)
@@ -22,6 +23,7 @@ class Post extends Component
         $this->post_id = $post->id;
         $this->likes = $post->likes_count;
         $this->likedByme = $post->likes ? in_array(Auth::user()->id, $post->likes->pluck('user_id')->toArray()) : false;
+        $this->comments = $post->comments_count;
     }
 
     public function like($id)
@@ -39,15 +41,23 @@ class Post extends Component
             $this->likedByme = true;
         };
 
-        event(new LikeNotfication($like));
+        defer(function () use ($id) {
+            $post = ModelsPost::withCount('likes')->find($id);
+            event(new LikeNotfication($post));
+        });
     }
 
     #[On('echo-private:post-like-notification.{post_id},LikeNotfication')]
     public function updateLikeCount($event)
     {
-        $id = $event['like']['post_id'];
-        $post = ModelsPost::withCount('likes')->find($id);
-        $this->likes = $post->likes_count;
+        $this->likes = $event['like']['likes_count'];
+    }
+
+    #[On('echo-private:post-comment-notification.{post_id},CommentNotification')]
+    public function updateCommentCount($event)
+    {
+        $this->comments = $event['comment']['comments_count'];
+        $this->dispatch('update-comments');
     }
 
 

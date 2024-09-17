@@ -28,4 +28,9 @@ class Post extends Model
     {
         return Like::where([['user_id', Auth::id()], ['post_id', $this->id]])->exists();
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

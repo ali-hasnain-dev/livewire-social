@@ -37,27 +37,6 @@
                     </div>
                 </div>
             @endforeach
-
         </div>
-        {{-- <div className="flex gap-4 justify-between mt-6">
-            <img src="https://images.pexels.com/photos/11213182/pexels-photo-11213182.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-                className="w-10 h-10 rounded-full" />
-            <div className="flex flex-col gap-2 flex-1">
-                <span className="font-semibold">Ali</span>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Consequuntur a adipisci
-                </p>
-                <div className="flex items-center gap-8 text-xs text-gray-500 mt-2">
-                    <div className="flex items-center gap-4">
-                        <img src="/like.png" alt="" className="cursor-pointer w-4 h-4" />
-                        <span className="text-gray-300">|</span>
-                        <span className="text-gray-500">1235</span>
-                    </div>
-                    <div>Reply</div>
-                </div>
-            </div>
-            <img src="/more.png" alt="" className="cursor-pointer w-4 h-4" />
-        </div> --}}
     </div>
 </div>

@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Components;
 
+use App\Events\CommentNotification;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Locked;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class AddComment extends Component
@@ -31,6 +34,18 @@ class AddComment extends Component
         ]);
 
         $this->comment = '';
+        // $this->getLatestComments();
+        // $this->dispatch('update-comments');
+
+        defer(function () {
+            $post = Post::withCount('comments')->find($this->postId);
+            event(new CommentNotification($post));
+        });
+    }
+
+    #[On('update-comments')]
+    public function updateComments()
+    {
         $this->getLatestComments();
     }
 

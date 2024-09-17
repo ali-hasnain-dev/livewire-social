@@ -11,17 +11,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class LikeNotfication implements ShouldBroadcastNow
+class CommentNotification implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $like;
+    public $comment;
+
     /**
      * Create a new event instance.
      */
-    public function __construct($like)
+    public function __construct($comment)
     {
-        $this->like = $like;
+        $this->comment = $comment;
     }
 
     /**
@@ -32,7 +33,7 @@ class LikeNotfication implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('post-like-notification.' . $this->like->id),
+            new PrivateChannel('post-comment-notification.' . $this->comment->id),
         ];
     }
 }

@@ -20,7 +20,7 @@
     @endif
     <div class="flex items-center justify-between text-xs my-1">
         <div class="flex gap-2">
-            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl" x-data="{ open: false, likesCount: @entangle('likes'), isLiked: @entangle('likedByme') }">
+            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl" x-data="{ likesCount: @entangle('likes'), isLiked: @entangle('likedByme') }">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-4 cursor-pointer" :class='isLiked ? "text-blue-500" : ""'
                     x-on:click="isLiked=!isLiked, isLiked? likesCount++ : likesCount-- ,$wire.like({{ $post->id }})">
@@ -34,7 +34,7 @@
                         {{-- {{ $likes }} --}}
                     </span>
             </div>
-            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl">
+            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl" x-data="{ commentCount: @entangle('comments') }">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-4">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -42,8 +42,7 @@
                 </svg>
 
                 <span class="text-gray-300">|</span>
-                <span class="text-gray-500">
-                    125
+                <span class="text-gray-500" x-text="commentCount">
                 </span>
             </div>
         </div>

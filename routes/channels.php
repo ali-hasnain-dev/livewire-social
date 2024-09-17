@@ -12,6 +12,12 @@ Broadcast::channel(
     'post-like-notification.{post}',
     function (User $user, Post $post) {
         return true;
-        return (int) $user->id === (int) $post->user_id;
+    }
+);
+
+Broadcast::channel(
+    'post-comment-notification.{post}',
+    function (User $user, Post $post) {
+        return true;
     }
 );
