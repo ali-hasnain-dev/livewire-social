@@ -16,7 +16,11 @@
             <span class="text-red-500 font-normal text-xs">{{ $errors->first('email') }}</span>
         </div>
         <div class="flex justify-between items-center space-x-3">
-            <button type="submit" class="px-3 py-2 bg-blue-500 text-white rounded-md hover:opacity-90">Submit</button>
+            <button type="submit" class="px-3 py-2 bg-blue-500 text-white rounded-md hover:opacity-90"
+                wire:loading.remove>Get reset link</button>
+            <button wire:loading class="px-3 py-2 bg-blue-500 text-white rounded-md hover:opacity-90" disabled>
+                <x-loader-button :message="'Getting reset link...'" />
+            </button>
             <a href="{{ route('login') }}" wire:navigate
                 class="px-3 py-2 ml-2 hover:bg-gray-100 hover:rounded-lg">Cancel</a>
         </div>

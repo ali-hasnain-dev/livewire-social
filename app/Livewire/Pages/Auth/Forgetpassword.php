@@ -25,20 +25,24 @@ class Forgetpassword extends Component
     {
         $this->validate();
 
-        $status = Password::sendResetLink(
-            $this->only('email')
-        );
+        defer(function () {
+            $status = Password::sendResetLink(
+                $this->only('email')
+            );
 
-        if ($status != Password::RESET_LINK_SENT) {
-            $this->addError('email', __($status));
 
-            return;
-        }
+            if ($status != Password::RESET_LINK_SENT) {
+                $this->addError('email', __($status));
 
-        $this->reset('email');
+                return;
+            }
 
-        session()->flash('status', 'Password reset link sent!');
+            $this->reset('email');
+
+            session()->flash('status', 'Password reset link sent!');
+        });
     }
+
     public function render()
     {
         return view('livewire.pages.auth.forgetpassword');

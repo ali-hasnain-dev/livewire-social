@@ -34,9 +34,6 @@ class AddComment extends Component
         ]);
 
         $this->comment = '';
-        // $this->getLatestComments();
-        // $this->dispatch('update-comments');
-
         defer(function () {
             $post = Post::withCount('comments')->find($this->postId);
             event(new CommentNotification($post));

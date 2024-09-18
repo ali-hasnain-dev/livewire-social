@@ -12,9 +12,16 @@
                     {{ session()->pull('success') }}
                 @endsession
             </p>
+
+            @if (session()->has('status'))
+                <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                    role="alert">
+                    <span class="font-medium">Success!</span>{{ session()->get('status') }}
+                </div>
+            @endif
             <div class="flex flex-col gap-2">
                 <label for="" class="text-xs font-semibold">Email</label>
-                <input type="text" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Email"
+                <input type="email" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Email"
                     wire:model="email" required>
                 <p class="text-red-500 text-xs">
                     @error('email')
