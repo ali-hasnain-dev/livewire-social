@@ -18,7 +18,7 @@ Route::get('/signup', Signup::class)->name('signup');
 Route::get('/forgot-password', Forgetpassword::class)->name('forgot-password');
 Route::get('reset-password/{token}', ResetPassword::class)->name('password.reset');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', Home::class)->name('home');
     Route::get('/settings', Settings::class)->name('Settings');
     Route::get('/profile/{name?}', Profile::class)->name('profile');

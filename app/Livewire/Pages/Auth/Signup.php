@@ -4,6 +4,7 @@ namespace App\Livewire\Pages\Auth;
 
 use App\Livewire\Pages\Home;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Validate;
@@ -33,13 +34,14 @@ class Signup extends Component
     public function submitsignup()
     {
         $this->validate();
-        User::Create([
+        $user = User::Create([
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);
 
+        event(new Registered($user = $user));
         session()->flash('success', 'Account created successfully');
         return $this->redirect(Signin::class, true);
     }
