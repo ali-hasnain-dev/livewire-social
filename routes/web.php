@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('verify-email', VerifyEmail::class)->name('verification.notice');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/', Home::class)->name('home');
     Route::get('/settings', Settings::class)->name('Settings');
     Route::get('/profile/{name?}', Profile::class)->name('profile');
