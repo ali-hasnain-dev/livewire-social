@@ -31,9 +31,16 @@
                 </div>
             </div>
 
-            <button x-show='$wire.content?.length >0' x-cloak
-                class="p-2 bg-blue-500 text-white rounded-md inline-block self-end mr-11" type="submit"
-                wire:loading.remove>Post</button>
+            <button :disabled="!$wire.content || $wire.content.length === 0"
+                :class="{
+                    'cursor-not-allowed bg-gray-400': !$wire.content || $wire.content.length === 0,
+                    'bg-blue-500': $wire.content?.length > 0
+                }"
+                x-cloak class="p-2 text-white rounded-md inline-block self-end mr-11" type="submit"
+                wire:loading.remove>
+                Post
+            </button>
+
             <button wire:loading
                 class="rounded-md inline-block self-end mr-11 text-blue-500 font-semibold p-2 border border-blue-500"
                 disabled>
