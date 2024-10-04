@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-6 ">
     <h1 class="text-xl font-bold">General Info</h1>
     @if (session()->has('profile_success'))
         <p class="flex items-center justify-center self-center text-green-500 text-sm font-semibold">
@@ -6,22 +6,11 @@
     @endif
     <form wire:submit.prevent="updateProfile">
         <div class="md:flex justify-center items-center gap-24">
-            <div class="flex justify-center md:justify-start md:self-start relative md:ml-10">
-                <div class="w-24 h-24 rounded-full overflow-hidden ring-1 ring-gray-400">
-                    <img src="{{ $avatar ? $photo->temporaryUrl() : $image }}" alt=""
-                        class="w-full h-full object-cover">
-                </div>
-                <div class="absolute right-0 bottom-0 z-20 transform -translate-x-1/4 -translate-y-1/4">
-                    <img src="{{ asset('images/camera.png') }}" alt="" class="w-5 h-5 cursor-pointer"
-                        onclick="document.getElementById('selectedFile').click();">
-                    <input type="file" wire:model.defer="avatar" style="display: none" id="selectedFile">
-                </div>
-            </div>
-
             <div class="flex flex-col gap-4 w-full">
                 <div class="flex flex-col gap-2">
                     <label for="" class="text-xs font-semibold">User Name</label>
-                    <input type="name" class="w-full p-2 border outline-none border-gray-500 rounded-md"
+                    <input type="name"
+                        class="w-full p-2 border outline-none border-gray-500 rounded-md dark:bg-slate-700"
                         placeholder="user name" wire:model="username" disabled readonly>
                     <p class="text-red-500 text-xs">
                         @error('username')
@@ -31,8 +20,8 @@
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="" class="text-xs font-semibold">Name</label>
-                    <input type="name" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Name"
-                        wire:model="name" required>
+                    <input type="name" class="w-full p-2 border border-gray-500 rounded-md dark:bg-slate-700"
+                        placeholder="Name" wire:model="name" required>
                     <p class="text-red-500 text-xs">
                         @error('name')
                             {{ $message }}
@@ -41,8 +30,8 @@
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="" class="text-xs font-semibold">Bio</label>
-                    <input type="bio" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Bio"
-                        wire:model="bio">
+                    <input type="bio" class="w-full p-2 border border-gray-500 rounded-md dark:bg-slate-700"
+                        placeholder="Bio" wire:model="bio">
                     <p class="text-red-500 text-xs">
                         @error('bio')
                             {{ $message }}
@@ -51,15 +40,18 @@
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="" class="text-xs font-semibold">DOB</label>
-                    <input type="date" class="w-full p-2 border border-gray-500 rounded-md" placeholder="DOB"
-                        class="text-red-500 text-xs" wire:model="dob">
-                    @error('dob')
-                        {{ $message }}
-                    @enderror
+                    <input type="date" class="w-full p-2 border border-gray-500 rounded-md dark:bg-slate-700"
+                        placeholder="DOB" wire:model="dob">
+                    <p class="text-red-500 text-xs">
+                        @error('dob')
+                            {{ $message }}
+                        @enderror
+                    </p>
                 </div>
 
                 <button class="p-2 bg-blue-500 text-white rounded-md self-end" type="submit"
                     wire:loading.remove>Save</button>
+
                 <button wire:loading wire:target="updateProfile" class="p-2 bg-blue-500 text-white rounded-md self-end"
                     disabled>
                     <div role="status">

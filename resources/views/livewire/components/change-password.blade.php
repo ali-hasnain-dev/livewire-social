@@ -1,4 +1,4 @@
- <div class="flex flex-col p-4 gap-4">
+ <div class="flex flex-col gap-4">
      <h1 class="text-xl font-bold">Password</h1>
      @if (session()->has('password_success'))
          <p class="flex items-center justify-center self-center text-green-500 text-sm font-semibold">
@@ -8,7 +8,7 @@
          <div class="flex flex-col gap-4 ">
              <div class="flex flex-col gap-2">
                  <label for="" class="text-xs font-semibold">Current Password</label>
-                 <input type="password" class="w-full p-2 border border-gray-500 rounded-md"
+                 <input type="password" class="w-full p-2 border border-gray-500 rounded-md dark:bg-slate-700"
                      placeholder="Current password" wire:model="old_password" required>
                  <p class="text-red-500 text-xs">
                      @error('old_password')
@@ -18,8 +18,8 @@
              </div>
              <div class="flex flex-col gap-2">
                  <label for="" class="text-xs font-semibold">New Password</label>
-                 <input type="password" class="w-full p-2 border border-gray-500 rounded-md" placeholder="New password"
-                     wire:model="new_password" required>
+                 <input type="password" class="w-full p-2 border border-gray-500 rounded-md dark:bg-slate-700"
+                     placeholder="New password" wire:model="new_password" required>
                  <p class="text-red-500 text-xs">
                      @error('new_password')
                          {{ $message }}
@@ -28,7 +28,7 @@
              </div>
              <div class="flex flex-col gap-2">
                  <label for="" class="text-xs font-semibold">Confirm Password</label>
-                 <input type="password" class="w-full p-2 border border-gray-500 rounded-md"
+                 <input type="password" class="w-full p-2 border border-gray-500 rounded-md dark:bg-slate-700"
                      placeholder="Confirm password" wire:model="confirm_password" required>
                  <p class="text-red-500 text-xs">
                      @error('confirm_password')

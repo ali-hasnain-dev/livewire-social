@@ -3,10 +3,10 @@
         <img src="https://images.pexels.com/photos/11213182/pexels-photo-11213182.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
             alt="" class="w-8 h-8 rounded-full" />
         <div
-            class="flex flex-1 items-center justify-center bg-sky-100 rounded-xl text-sm px-6 py-2 w-full dark:bg-slate-800 dark:border dark:border-slate-600">
+            class="flex flex-1 items-center justify-center bg-sky-100 rounded-xl text-sm px-3 py-2 w-full dark:bg-slate-800 dark:border dark:border-slate-600">
             <input type="text" placeholder="Add a comment..." class="bg-transparent outline-none flex-1"
                 wire:model='comment' />
-            <img src="{{ asset('images/send.png') }}" class="cursor-pointer" />
+
             <svg x-cloak x-show='$wire.comment?.length > 0' wire:click='addComment' xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                 class="size-4 cursor-pointer text-blue-500">
