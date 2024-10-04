@@ -1,6 +1,6 @@
-<div class="p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-6">
-    <div class="flex relative">
-        <img src="{{ asset('images/avatar4.png') }}" class="rounded-md " />
+<div class="p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-6 dark:bg-slate-800">
+    <div class="flex relative dark:bg-slate-800">
+        <img src="{{ asset('images/avatar4.png') }}" class="rounded-md" />
         <img src="{{ asset('images/avatar.png') }}"
             class="rounded-full object-cover w-12 h-12 absolute left-0 right-0 m-auto -bottom-6 ring-1 ring-white z-10" />
     </div>

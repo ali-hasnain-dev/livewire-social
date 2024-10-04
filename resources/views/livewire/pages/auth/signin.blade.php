@@ -21,8 +21,8 @@
             @endif
             <div class="flex flex-col gap-2">
                 <label for="" class="text-xs font-semibold">Email</label>
-                <input type="email" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Email"
-                    wire:model="email" required>
+                <input type="email" class="w-full p-2 border border-gray-500 rounded-md outline-none"
+                    placeholder="Email" wire:model="email" required>
                 <p class="text-red-500 text-xs">
                     @error('email')
                         {{ $message }}
@@ -31,8 +31,8 @@
             </div>
             <div class="flex flex-col gap-2">
                 <label for="" class="text-xs font-semibold">Password</label>
-                <input type="password" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Password"
-                    wire:model="password" required>
+                <input type="password" class="w-full p-2 border border-gray-500 rounded-md outline-none"
+                    placeholder="Password" wire:model="password" required>
                 <p class="text-red-500 text-xs">
                     @error('password')
                         {{ $message }}
