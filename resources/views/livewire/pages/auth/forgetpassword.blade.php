@@ -11,7 +11,7 @@
     <form action="" class="w-full md:w-[400px] flex flex-col items-center gap-4" wire:submit='forgotPassword'>
         <div class="mb-4 w-full md:w-[400px]">
             <input type="email" id="email" name="email"
-                class="mt-1 p-2 w-full md:w-[400px] border rounded-md {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }}"
+                class="mt-1 p-2 w-full md:w-[400px] border rounded-md dark:bg-slate-700 {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }}"
                 placeholder="email" wire:model='email' required>
             <span class="text-red-500 font-normal text-xs">{{ $errors->first('email') }}</span>
         </div>

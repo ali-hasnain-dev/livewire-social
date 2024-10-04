@@ -1,5 +1,5 @@
 <div class="{{ auth()->check() ? 'h-[calc(100vh-98px)]' : 'h-screen' }} flex items-center justify-center">
-    <div class="bg-white p-8 rounded-md shadow-md w-full md:w-[400px]">
+    <div class="bg-white p-8 rounded-md shadow-md w-full md:w-[400px] dark:bg-slate-800">
         <h1 class="mb-1 text-lg font-semibold text-blue-500">Let's create new account!</h1>
         <form class="flex flex-col gap-2" wire:submit.prevent="submitsignup">
             <p class="text-red-500 text-xs self-center font-bold">
@@ -9,8 +9,8 @@
             </p>
             <div class="flex flex-col gap-2">
                 <label for="" class="text-xs font-semibold">Name</label>
-                <input type="text" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Name"
-                    wire:model="name" required>
+                <input type="text" class="w-full p-2 border border-gray-500 rounded-md dark:bg-slate-700"
+                    placeholder="Name" wire:model="name" required>
                 <p class="text-red-500 text-xs">
                     @error('name')
                         {{ $message }}
@@ -19,8 +19,8 @@
             </div>
             <div class="flex flex-col gap-2">
                 <label for="" class="text-xs font-semibold">Username</label>
-                <input type="text" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Username"
-                    wire:model="username" required>
+                <input type="text" class="w-full p-2 border border-gray-500 rounded-md dark:bg-slate-700"
+                    placeholder="Username" wire:model="username" required>
                 <p class="text-red-500 text-xs">
                     @error('username')
                         {{ $message }}
@@ -29,8 +29,8 @@
             </div>
             <div class="flex flex-col gap-2">
                 <label for="" class="text-xs font-semibold">Email</label>
-                <input type="email" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Email"
-                    wire:model="email" required>
+                <input type="email" class="w-full p-2 border border-gray-500 rounded-md dark:bg-slate-700"
+                    placeholder="Email" wire:model="email" required>
                 <p class="text-red-500 text-xs">
                     @error('email')
                         {{ $message }}
@@ -39,8 +39,8 @@
             </div>
             <div class="flex flex-col gap-2">
                 <label for="" class="text-xs font-semibold">Password</label>
-                <input type="password" class="w-full p-2 border border-gray-500 rounded-md" placeholder="Password"
-                    wire:model="password" required>
+                <input type="password" class="w-full p-2 border border-gray-500 rounded-md dark:bg-slate-700"
+                    placeholder="Password" wire:model="password" required>
                 <p class="text-red-500 text-xs">
                     @error('password')
                         {{ $message }}

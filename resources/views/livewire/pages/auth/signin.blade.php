@@ -1,5 +1,5 @@
 <div class="{{ auth()->check() ? 'h-[calc(100vh-98px)]' : 'h-screen' }}  flex items-center justify-center">
-    <div class="bg-white p-8 rounded-md shadow-md w-[400px]">
+    <div class="bg-white p-8 rounded-md shadow-md w-[400px] dark:bg-slate-800">
         <h1 class="mb-1 text-lg font-semibold text-blue-500">Welcome to Livewire Social</h1>
         <form class="flex flex-col gap-2" wire:submit.prevent="submitLogin">
             <p class="text-red-500 text-xs self-center font-bold">
@@ -21,7 +21,8 @@
             @endif
             <div class="flex flex-col gap-2">
                 <label for="" class="text-xs font-semibold">Email</label>
-                <input type="email" class="w-full p-2 border border-gray-500 rounded-md outline-none"
+                <input type="email"
+                    class="w-full p-2 border border-gray-500 rounded-md outline-none dark:bg-slate-700"
                     placeholder="Email" wire:model="email" required>
                 <p class="text-red-500 text-xs">
                     @error('email')
@@ -31,7 +32,8 @@
             </div>
             <div class="flex flex-col gap-2">
                 <label for="" class="text-xs font-semibold">Password</label>
-                <input type="password" class="w-full p-2 border border-gray-500 rounded-md outline-none"
+                <input type="password"
+                    class="w-full p-2 border border-gray-500 rounded-md outline-none dark:bg-slate-700"
                     placeholder="Password" wire:model="password" required>
                 <p class="text-red-500 text-xs">
                     @error('password')
