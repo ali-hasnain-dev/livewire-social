@@ -1,11 +1,24 @@
 <div class="p-4 bg-white shadow-md rounded-lg flex gap-4 justify-between text-sm mb-4 dark:bg-slate-900">
     <img src="{{ asset('images/avatar.png') }}" alt="" width={48} class="w-12 h-12 object-cover rounded-full" />
-    <div class="flex-1">
+    <div class="flex-1" x-init="$('documnet').ready(function() {
+        $('#emojionearea1').emojioneArea({
+            pickerPosition: 'right',
+            tonesStyle: 'bullet',
+            events: {
+                keyup: function(editor, event) {
+                    $wire.content = this.getText();
+                },
+                emojibtn_click: function(button, event) {
+                    $wire.content = this.getText();
+                }
+            }
+        });
+    })">
         <form wire:submit.prevent="addPost" class="flex flex-col gap-3">
             <div class="flex gap-4">
                 <textarea placeholder="What's on your mind?"
                     class="flex-1 bg-slate-100 rounded-lg p-2 outline-none dark:bg-slate-800 dark:border dark:border-slate-600"
-                    wire:model='content' rows="5" id="auto-resizing-textarea" style="overflow-y: hidden; resize: none;"></textarea>
+                    wire:model='content' id="emojionearea1" rows="5" style="overflow-y: hidden; resize: none;"></textarea>
                 <img src="{{ asset('images/emoji.png') }}" alt="" class="w-5 h-5 cursor-pointer self-end" />
             </div>
 
