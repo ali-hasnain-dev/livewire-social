@@ -1,7 +1,7 @@
 <div class="p-4 bg-white shadow-md rounded-lg flex gap-4 justify-between text-sm mb-4 dark:bg-slate-900">
     <img src="{{ asset('images/avatar.png') }}" alt="" width={48} class="w-12 h-12 object-cover rounded-full" />
     <div class="flex-1" x-init="$('documnet').ready(function() {
-        $('#emojionearea1').emojioneArea({
+        var emojiArea = $('#emojionearea1').emojioneArea({
             pickerPosition: 'right',
             tonesStyle: 'bullet',
             events: {
@@ -13,11 +13,15 @@
                 }
             }
         });
+    
+        Livewire.on('new-post-created', function() {
+            emojiArea[0].emojioneArea.setText('');
+        });
     })">
         <form wire:submit.prevent="addPost" class="flex flex-col gap-3">
-            <div class="flex gap-4">
+            <div class="flex gap-4" wire:ignore>
                 <textarea placeholder="What's on your mind?"
-                    class="flex-1 bg-slate-100 rounded-lg p-2 outline-none dark:bg-slate-800 dark:border dark:border-slate-600"
+                    class="flex-1 bg-slate-100 rounded-lg p-2 outline-none dark:text-white dark:bg-slate-800 dark:border dark:border-slate-600"
                     wire:model='content' id="emojionearea1" rows="5" style="overflow-y: hidden; resize: none;"></textarea>
                 <img src="{{ asset('images/emoji.png') }}" alt="" class="w-5 h-5 cursor-pointer self-end" />
             </div>
@@ -45,20 +49,13 @@
                 </div>
             </div>
 
-            <button :disabled="!$wire.content || $wire.content.length === 0"
+            <button wire:loading.attr='disabled' :disabled="!$wire.content || $wire.content.length === 0"
                 :class="{
                     'cursor-not-allowed bg-gray-400': !$wire.content || $wire.content.length === 0,
                     'bg-blue-500': $wire.content?.length > 0
                 }"
-                x-cloak class="p-2 text-white rounded-md inline-block self-end mr-11" type="submit"
-                wire:loading.remove>
-                Post
-            </button>
-
-            <button wire:loading
-                class="rounded-md inline-block self-end mr-11 text-blue-500 font-semibold p-2 border border-blue-500"
-                disabled>
-                <x-loader-button :message="'Posting...'" />
+                x-cloak class="p-2 text-white rounded-md inline-block self-end mr-11" type="submit">
+                <x-loader-button :message="'Post'" />
             </button>
         </form>
     </div>

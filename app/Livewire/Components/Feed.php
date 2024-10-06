@@ -32,7 +32,7 @@ class Feed extends Component
         $this->getMorePost();
     }
 
-    #[On('post-created')]
+    #[On('new-post-created')]
     public function updatePostList()
     {
         $this->count = 0;

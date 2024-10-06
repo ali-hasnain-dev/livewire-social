@@ -15,7 +15,7 @@ class AddPost extends Component
     public $content;
     public $photo;
 
-    public function addPost()
+    public function addPost(): void
     {
         if ($this->content) {
             $post = Post::create([
@@ -25,7 +25,7 @@ class AddPost extends Component
 
             if ($post) {
                 $this->content = '';
-                $this->dispatch('post-created');
+                $this->dispatch('new-post-created');
             }
         }
     }
