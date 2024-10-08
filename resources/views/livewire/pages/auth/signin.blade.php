@@ -44,7 +44,6 @@
             <a href="/forgot-password" wire:navigate class="text-blue-500 text-xs self-end"><b>Forgot
                     Password?</b></a>
             <button class="p-2 bg-blue-500 text-white rounded-md" type="submit" wire:loading.attr="disabled">
-                <span wire:loading.remove>Signin</span>
                 <x-loader-button :message="'Signin'" />
             </button>
         </form>

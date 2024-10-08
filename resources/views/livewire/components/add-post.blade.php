@@ -32,7 +32,6 @@
                     <img src="{{ asset('images/addImage.png') }}" alt="" class="w-3 h-3"
                         type="images/png, images/jpeg, images/jpg, images/gif, images/webp" />
                     Photo
-
                     <input type="file" wire:model="photo" id='selectedFile' style="display: none">
                 </div>
                 <div class="flex items-center gap-2 cursor-pointer">

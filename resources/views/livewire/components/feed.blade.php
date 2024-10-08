@@ -13,7 +13,7 @@
 
         @if ($hasMoreData)
             <div x-intersect.full="$wire.loadMore" class="flex justify-center mt-5 mb-5">
-                <img src="{{ asset('images/loading.gif') }}" alt="" class="bg-gray-100">
+                <img src="{{ asset('images/loading.gif') }}" alt="" class="bg-gray-100 dark:bg-slate-900">
             </div>
         @else
             <div class="flex justify-center mt-5 mb-5">
