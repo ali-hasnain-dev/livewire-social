@@ -33,4 +33,9 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function images()
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
 }

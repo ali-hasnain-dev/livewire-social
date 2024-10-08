@@ -15,12 +15,17 @@
         </span>
     </div>
     <p class="text-sm">{{ $post->content }}</p>
-    @if ($post->image)
-        <img src="{{ $post->image }}" alt="" class="w-full h-96">
+    @if ($post->images)
+        <div class="flex gap-2 flex-wrap">
+            @foreach ($post->images as $image)
+                <img src="{{asset($image->url) }}" alt="" class="w-[25%] h-24">
+            @endforeach
+        </div>
     @endif
     <div class="flex items-center justify-between text-xs my-1">
         <div class="flex gap-2">
-            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700" x-data="{ likesCount: @entangle('likes'), isLiked: @entangle('likedByme') }">
+            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700"
+                x-data="{ likesCount: @entangle('likes'), isLiked: @entangle('likedByme') }">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-4 cursor-pointer" :class='isLiked ? "text-blue-500" : ""'
                     x-on:click="isLiked=!isLiked, isLiked? likesCount++ : likesCount-- ,$wire.like({{ $post->id }})">
@@ -33,7 +38,8 @@
                     <span class="text-gray-500" x-text="likesCount">
                     </span>
             </div>
-            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700" x-data="{ commentCount: @entangle('comments') }">
+            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700"
+                x-data="{ commentCount: @entangle('comments') }">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-4">
                     <path stroke-linecap="round" stroke-linejoin="round"

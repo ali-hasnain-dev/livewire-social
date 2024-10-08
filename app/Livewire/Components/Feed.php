@@ -62,10 +62,12 @@ class Feed extends Component
                 'user:id,name,avatar,username',
                 'likes:id,post_id,user_id',
                 'comments' => fn($q) => $q->with('user:id,name,avatar,username')->latest()->limit(3),
+                'images'
             ])
             ->withCount([
                 'likes',
-                'comments'
+                'comments',
+                'images',
             ])
             ->orderByDesc('created_at')
             ->offset($this->offsetOfPosts * $this->count)

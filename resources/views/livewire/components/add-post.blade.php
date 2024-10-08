@@ -30,9 +30,9 @@
                 <div class="flex items-center gap-2 cursor-pointer"
                     onclick="document.getElementById('selectedFile').click();">
                     <img src="{{ asset('images/addImage.png') }}" alt="" class="w-3 h-3"
-                        type="images/png, images/jpeg, images/jpg, images/gif, images/webp" />
+                        type="images/png, images/jpeg, images/jpg, images/webp" />
                     Photo
-                    <input type="file" wire:model="image" id='selectedFile' style="display: none">
+                    <input type="file" wire:model="images" id='selectedFile' style="display: none" multiple>
                 </div>
                 <div class="flex items-center gap-2 cursor-pointer">
                     <img src="{{ asset('images/addVideo.png') }}" alt="" class="w-3 h-3" />
@@ -48,15 +48,23 @@
                 </div>
             </div>
 
-            @if ($image)
-                <img src="{{ $image->temporaryUrl() }}" alt="" class="h-16 w-16">
+            @if ($images)
+                <div class="flex gap-2">
+                    @forEach($images as $image)
+                        <img src="{{ $image->temporaryUrl() }}" alt="" class="h-20 w-20 rounded-md">
+                    @endForEach
+                </div>
             @endif
 
-            <button wire:loading.attr='disabled' wire:target="addPost"
-                :disabled="!$wire.content || $wire.content.length === 0"
+            @error('image.*')
+            <span class="text-red-500 font-bold text-xs">{{$message}}</span>
+            @endError
+
+           <button wire:loading.attr='disabled' wire:target="addPost"
+                :disabled="(!$wire.content || $wire.content.length === 0) && !$wire.images"
                 :class="{
-                    'cursor-not-allowed bg-gray-400': !$wire.content || $wire.content.length === 0,
-                    'bg-blue-500': $wire.content?.length > 0
+                    'cursor-not-allowed bg-gray-400': (!$wire.content || $wire.content.length === 0) && !$wire.images,
+                    'bg-blue-500': ($wire.content?.length > 0 || $wire.images)
                 }"
                 x-cloak class="p-2 text-white rounded-md inline-block self-end mr-11" type="submit">
                 <x-loader-button :message="'Post'" />

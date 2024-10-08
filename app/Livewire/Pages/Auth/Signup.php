@@ -41,7 +41,7 @@ class Signup extends Component
             'password' => Hash::make($this->password),
         ]);
 
-        event(new Registered($user = $user));
+        // event(new Registered($user = $user));
         session()->flash('success', 'Account created successfully');
         return $this->redirect(Signin::class, true);
     }
