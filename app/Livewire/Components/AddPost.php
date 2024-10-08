@@ -2,10 +2,9 @@
 
 namespace App\Livewire\Components;
 
-use App\Events\LikeNotfication;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -13,7 +12,9 @@ class AddPost extends Component
 {
     use WithFileUploads;
     public $content;
-    public $photo;
+
+    #[Validate('nullable|sometimes|image|max:1024')]
+    public $image;
 
     public function addPost(): void
     {

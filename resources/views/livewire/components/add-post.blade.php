@@ -32,7 +32,7 @@
                     <img src="{{ asset('images/addImage.png') }}" alt="" class="w-3 h-3"
                         type="images/png, images/jpeg, images/jpg, images/gif, images/webp" />
                     Photo
-                    <input type="file" wire:model="photo" id='selectedFile' style="display: none">
+                    <input type="file" wire:model="image" id='selectedFile' style="display: none">
                 </div>
                 <div class="flex items-center gap-2 cursor-pointer">
                     <img src="{{ asset('images/addVideo.png') }}" alt="" class="w-3 h-3" />
@@ -48,7 +48,12 @@
                 </div>
             </div>
 
-            <button wire:loading.attr='disabled' :disabled="!$wire.content || $wire.content.length === 0"
+            @if ($image)
+                <img src="{{ $image->temporaryUrl() }}" alt="" class="h-16 w-16">
+            @endif
+
+            <button wire:loading.attr='disabled' wire:target="addPost"
+                :disabled="!$wire.content || $wire.content.length === 0"
                 :class="{
                     'cursor-not-allowed bg-gray-400': !$wire.content || $wire.content.length === 0,
                     'bg-blue-500': $wire.content?.length > 0
