@@ -17,27 +17,29 @@
     </div>
     <div>
         <div class="flex flex-col gap-2 mt-6">
-            @foreach ($latestComments as $comment)
-                <div class="flex gap-2">
-                    <img src="{{ asset('images/avatar.png') }}" alt="" class="w-10 h-10 rounded-full">
-                    <div class="flex flex-col">
-                        <span class="font-semibold">{{ $comment->user->name }}</span>
-                        <span class="text-xs text-gray-500">{{ $comment->created_at->diffForHumans() }}</span>
-                        <p class="text-sm mt-3">
-                            {{ $comment->content }}
-                        </p>
-                        <div class="flex items-center gap-8 text-xs text-gray-500 mt-2">
-                            <div class="flex items-center gap-4">
-                                <img src="{{ asset('images/like.png') }}" alt=""
-                                    class="cursor-pointer w-4 h-4" />
-                                <span class="text-gray-300">|</span>
-                                <span class="text-gray-500">1235</span>
+            @if (!empty($latestComments))
+                @foreach ($latestComments as $comment)
+                    <div class="flex gap-2">
+                        <img src="{{ asset('images/avatar.png') }}" alt="" class="w-10 h-10 rounded-full">
+                        <div class="flex flex-col">
+                            <span class="font-semibold">{{ $comment->user->name }}</span>
+                            <span class="text-xs text-gray-500">{{ $comment->created_at->diffForHumans() }}</span>
+                            <p class="text-sm mt-3">
+                                {{ $comment->content }}
+                            </p>
+                            <div class="flex items-center gap-8 text-xs text-gray-500 mt-2">
+                                <div class="flex items-center gap-4">
+                                    <img src="{{ asset('images/like.png') }}" alt=""
+                                        class="cursor-pointer w-4 h-4" />
+                                    <span class="text-gray-300">|</span>
+                                    <span class="text-gray-500">1235</span>
+                                </div>
+                                <div>Reply</div>
                             </div>
-                            <div>Reply</div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            @endif
         </div>
     </div>
 </div>

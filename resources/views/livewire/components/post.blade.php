@@ -60,5 +60,5 @@
             </div>
         </div>
     </div>
-    <livewire:components.add-comment postId="{{ $post->id }}" />
+    <livewire:components.add-comment :post="$post" :key="'post-comment-' . $post->id" />
 </div>

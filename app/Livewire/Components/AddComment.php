@@ -14,15 +14,15 @@ class AddComment extends Component
 {
 
     public $comment;
-    public $latestComments;
+    public $latestComments = [];
 
     #[Locked]
     public $postId;
 
-    public function mount($postId)
+    public function mount($post)
     {
-        $this->postId = $postId;
-        $this->getLatestComments();
+        $this->postId = $post->id;
+        $this->latestComments = $post->comments;
     }
 
     public function addComment()

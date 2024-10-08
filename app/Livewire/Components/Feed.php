@@ -42,10 +42,8 @@ class Feed extends Component
 
     public function checkNewPost()
     {
-        $newPostIds = Post::with('user:id,name,avatar,username')
-            ->orderByDesc('created_at')->whereDate('created_at', Carbon::today())->whereTime('created_at', '>=', Carbon::now()->subMinutes(3))->get()->pluck('id');
-
-        $this->hasNewPosts = count($newPostIds) > 0 ? true : false;
+        $this->hasNewPosts = Post::with('user:id,name,avatar,username')
+            ->orderByDesc('created_at')->whereDate('created_at', Carbon::today())->whereTime('created_at', '>=', Carbon::now()->subMinutes(3))->count() > 0 ? true : false;
     }
 
     public function refreshPosts()
@@ -63,6 +61,7 @@ class Feed extends Component
             ->with([
                 'user:id,name,avatar,username',
                 'likes:id,post_id,user_id',
+                'comments' => fn($q) => $q->with('user:id,name,avatar,username')->latest()->limit(3),
             ])
             ->withCount([
                 'likes',
@@ -73,6 +72,7 @@ class Feed extends Component
             ->take($this->offsetOfPosts)
             ->when($this->userId, fn($query) => $query->where('user_id', $this->userId))
             ->get();
+
 
         if ($newPost->count() < $this->offsetOfPosts) {
             $this->hasMoreData = false;
