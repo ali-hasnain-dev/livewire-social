@@ -13,14 +13,12 @@ class AddPost extends Component
     use WithFileUploads;
     public $content;
 
-    #[Validate([
-        'images' => 'nullable|array|max:4', // Ensure images is an array and limit to max 4
-        'images.*' => 'nullable|image|mimes:png,jpeg,jpg,webp|max:1024', // Validate each image
-    ])]
+    #[Validate(['images.*' => 'nullable|image|mimes:png,jpeg,jpg,webp|max:1024'])]
     public $images;
 
     public function addPost(): void
     {
+        dd($this->images);
         $post = Post::create([
             'content' => $this->content,
             'user_id' => Auth::user()->id
@@ -42,6 +40,11 @@ class AddPost extends Component
             $this->images = null;
             $this->dispatch('new-post-created');
         }
+    }
+
+    public function removeImage($index)
+    {
+        array_splice($this->images, $index, 1);
     }
 
     public function render()

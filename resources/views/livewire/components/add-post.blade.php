@@ -23,7 +23,6 @@
                 <textarea placeholder="What's on your mind?"
                     class="flex-1 bg-slate-100 rounded-lg p-2 outline-none dark:text-white dark:bg-slate-800 dark:border dark:border-slate-600"
                     wire:model='content' id="emojionearea1" rows="5" style="overflow-y: hidden; resize: none;"></textarea>
-                <img src="{{ asset('images/emoji.png') }}" alt="" class="w-5 h-5 cursor-pointer self-end" />
             </div>
 
             <div class="flex items-center gap-4 mt-4 justify-center text-gray-400 flex-wrap">
@@ -50,25 +49,34 @@
 
             @if ($images)
                 <div class="flex gap-2">
-                    @forEach($images as $image)
-                        <img src="{{ $image->temporaryUrl() }}" alt="" class="h-20 w-20 rounded-md">
-                    @endForEach
+                    @foreach ($images as $index => $image)
+                        <div class="relative">
+                            <img src="{{ $image->temporaryUrl() }}" alt="" class="h-20 w-20 rounded-md">
+                            <!-- Cross Icon -->
+                            <button wire:click="removeImage({{ $index }})"
+                                class="absolute top-0 right-0 p-1 text-red-500 hover:text-red-700" type="button">
+                                &#10005; <!-- HTML code for the cross icon -->
+                            </button>
+                        </div>
+                    @endforeach
                 </div>
             @endif
 
             @error('image.*')
-            <span class="text-red-500 font-bold text-xs">{{$message}}</span>
+                <span class="text-red-500 font-bold text-xs">{{ $message }}</span>
             @endError
 
-           <button wire:loading.attr='disabled' wire:target="addPost"
-                :disabled="(!$wire.content || $wire.content.length === 0) && !$wire.images"
+            <button wire:loading.attr='disabled'
+                :disabled="(!$wire.content || $wire.content.length === 0) && (!$wire.images || $wire.images.length === 0)"
                 :class="{
-                    'cursor-not-allowed bg-gray-400': (!$wire.content || $wire.content.length === 0) && !$wire.images,
-                    'bg-blue-500': ($wire.content?.length > 0 || $wire.images)
+                    'cursor-not-allowed bg-gray-400': (!$wire.content || $wire.content.length === 0) && (!$wire
+                        .images || $wire.images.length === 0),
+                    'bg-blue-500': ($wire.content?.length > 0 || ($wire.images && $wire.images.length > 0))
                 }"
-                x-cloak class="p-2 text-white rounded-md inline-block self-end mr-11" type="submit">
+                x-cloak class="p-2 text-white rounded-md inline-block self-end " type="submit">
                 <x-loader-button :message="'Post'" />
             </button>
+
         </form>
     </div>
 </div>
