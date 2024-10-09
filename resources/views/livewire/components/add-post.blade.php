@@ -31,7 +31,15 @@
                     <img src="{{ asset('images/addImage.png') }}" alt="" class="w-3 h-3"
                         type="images/png, images/jpeg, images/jpg, images/webp" />
                     Photo
-                    <input type="file" wire:model="images" id='selectedFile' style="display: none" multiple>
+                    <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
+                        x-on:livewire-upload-finish="uploading = false" x-on:livewire-upload-cancel="uploading = false"
+                        x-on:livewire-upload-error="uploading = false"
+                        x-on:livewire-upload-progress="progress = $event.detail.progress">
+                        <input type="file" wire:model="images" id='selectedFile' style="display: none" multiple>
+                        <div x-show="uploading">
+                            <progress max="100" x-bind:value="progress"></progress>
+                        </div>
+                    </div>
                 </div>
                 <div class="flex items-center gap-2 cursor-pointer">
                     <img src="{{ asset('images/addVideo.png') }}" alt="" class="w-3 h-3" />
@@ -48,7 +56,7 @@
             </div>
 
             @if ($images)
-                <div class="flex gap-2">
+                <div class="flex gap-2 flex-wrap">
                     @foreach ($images as $index => $image)
                         <div class="relative">
                             <img src="{{ $image->temporaryUrl() }}" alt="" class="h-20 w-20 rounded-md">
