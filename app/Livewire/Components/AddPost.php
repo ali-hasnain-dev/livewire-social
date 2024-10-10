@@ -13,14 +13,16 @@ class AddPost extends Component
     use WithFileUploads;
     public $content;
 
-    #[Validate(['images.*' => 'nullable|image|mimes:png,jpeg,jpg,webp|max:1024'])]
     public $images;
 
     public function addPost(): void
     {
-        dd($this->images);
+        $this->validate([
+            'images.*' => 'nullable|image|mimes:png,jpeg,jpg,webp|max:1024', // Validate each image
+        ]);
+
         $post = Post::create([
-            'content' => $this->content,
+            'content' => $this->content ?? '',
             'user_id' => Auth::user()->id
         ]);
 

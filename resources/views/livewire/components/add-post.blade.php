@@ -31,15 +31,7 @@
                     <img src="{{ asset('images/addImage.png') }}" alt="" class="w-3 h-3"
                         type="images/png, images/jpeg, images/jpg, images/webp" />
                     Photo
-                    <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
-                        x-on:livewire-upload-finish="uploading = false" x-on:livewire-upload-cancel="uploading = false"
-                        x-on:livewire-upload-error="uploading = false"
-                        x-on:livewire-upload-progress="progress = $event.detail.progress">
-                        <input type="file" wire:model="images" id='selectedFile' style="display: none" multiple>
-                        <div x-show="uploading">
-                            <progress max="100" x-bind:value="progress"></progress>
-                        </div>
-                    </div>
+                    <input type="file" wire:model="images" id='selectedFile' style="display: none" multiple>
                 </div>
                 <div class="flex items-center gap-2 cursor-pointer">
                     <img src="{{ asset('images/addVideo.png') }}" alt="" class="w-3 h-3" />
@@ -70,7 +62,7 @@
                 </div>
             @endif
 
-            @error('image.*')
+            @error('images.*')
                 <span class="text-red-500 font-bold text-xs">{{ $message }}</span>
             @endError
 
