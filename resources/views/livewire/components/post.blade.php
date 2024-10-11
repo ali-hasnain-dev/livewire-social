@@ -27,11 +27,11 @@
                     @endforeach
                 </div>
             @elseif(count($post->images) === 3)
-                <div class="flex gap-2 w-full">
-                    <img src="{{ asset($post->images[0]->url) }}" alt="" class="w-1/2 h-auto rounded-md">
-                    <div class="flex flex-col gap-2 w-1/2">
-                        <img src="{{ asset($post->images[1]->url) }}" alt="" class="w-full h-auto rounded-md">
-                        <img src="{{ asset($post->images[2]->url) }}" alt="" class="w-full h-auto rounded-md">
+                <div class="flex flex-col gap-2 w-full">
+                    <img src="{{ asset($post->images[0]->url) }}" alt="" class="w-full h-auto rounded-md">
+                    <div class="flex gap-2 w-full">
+                        <img src="{{ asset($post->images[1]->url) }}" alt="" class="w-1/2 h-auto rounded-md">
+                        <img src="{{ asset($post->images[2]->url) }}" alt="" class="w-1/2 h-auto rounded-md">
                     </div>
                 </div>
             @elseif(count($post->images) >= 4)
