@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7700efb0a80768173890c67b8d028bcb",
+    "content-hash": "c3c4a06928e05a8b9a749f0f89b337e9",
     "packages": [
         {
             "name": "brick/math",
@@ -2086,16 +2086,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v3.5.9",
+            "version": "v3.5.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "d04a229058afa76116d0e39209943a8ea3a7f888"
+                "reference": "774092003edb2670615ef09f3a9fbdd335d6d0d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/d04a229058afa76116d0e39209943a8ea3a7f888",
-                "reference": "d04a229058afa76116d0e39209943a8ea3a7f888",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/774092003edb2670615ef09f3a9fbdd335d6d0d7",
+                "reference": "774092003edb2670615ef09f3a9fbdd335d6d0d7",
                 "shasum": ""
             },
             "require": {
@@ -2150,7 +2150,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v3.5.9"
+                "source": "https://github.com/livewire/livewire/tree/v3.5.10"
             },
             "funding": [
                 {
@@ -2158,7 +2158,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-01T12:40:06+00:00"
+            "time": "2024-10-10T20:03:38+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -9728,59 +9728,6 @@
                 }
             ],
             "time": "2024-03-03T12:36:25+00:00"
-        },
-        {
-            "name": "wire-elements/wire-spy",
-            "version": "v0.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wire-elements/wire-spy.git",
-                "reference": "7cfadbc016be61e4543e7b47e945b98b83e39d07"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wire-elements/wire-spy/zipball/7cfadbc016be61e4543e7b47e945b98b83e39d07",
-                "reference": "7cfadbc016be61e4543e7b47e945b98b83e39d07",
-                "shasum": ""
-            },
-            "require": {
-                "livewire/livewire": "^v3.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "WireElements\\WireSpy\\WireSpyServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "WireElements\\WireSpy\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Philo Hermans",
-                    "email": "me@philo.dev"
-                }
-            ],
-            "description": "Devtools for Livewire",
-            "support": {
-                "issues": "https://github.com/wire-elements/wire-spy/issues",
-                "source": "https://github.com/wire-elements/wire-spy/tree/v0.0.4"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/PhiloNL",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-10-10T08:13:03+00:00"
         }
     ],
     "aliases": [],
@@ -9792,5 +9739,5 @@
         "php": "^8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
