@@ -47,18 +47,18 @@ class Post extends Component
         });
     }
 
-    #[On('echo-private:post-like-notification.{post_id},LikeNotfication')]
-    public function updateLikeCount($event)
-    {
-        $this->likes = $event['like']['likes_count'];
-    }
+    // #[On('echo-private:post-like-notification.{post_id},LikeNotfication')]
+    // public function updateLikeCount($event)
+    // {
+    //     $this->likes = $event['like']['likes_count'];
+    // }
 
-    #[On('echo-private:post-comment-notification.{post_id},CommentNotification')]
-    public function updateCommentCount($event)
-    {
-        $this->comments = $event['comment']['comments_count'];
-        $this->dispatch('update-comments');
-    }
+    // #[On('echo-private:post-comment-notification.{post_id},CommentNotification')]
+    // public function updateCommentCount($event)
+    // {
+    //     $this->comments = $event['comment']['comments_count'];
+    //     $this->dispatch('update-comments');
+    // }
 
 
     public function render()
