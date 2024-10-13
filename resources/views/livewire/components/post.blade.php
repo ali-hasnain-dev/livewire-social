@@ -16,8 +16,59 @@
     </div>
     <p class="text-sm">{{ $post->content }}</p>
 
-    @if ($post->images)
-        <div class="flex gap-2 flex-wrap">
+    @if ($post->images && count($post->images) > 1)
+        <div class="w-[500px]">
+            <div class="swiper h-[500px] border bg-white w-full rounded-md" x-init="new Swiper($el, {
+                modules: [Navigation, Pagination],
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            })">
+                <!-- Additional required wrapper -->
+                <div x-cloak class="swiper-wrapper">
+                    @foreach ($post->images as $image)
+                        <div class="swiper-slide"><img src="{{ asset($image->url) }}" alt=""
+                                class="w-full block object-scale-down h-[500px] rounded-md"></div>
+                    @endforeach
+                    <!-- Slides -->
+
+                    {{-- <div class="swiper-slide">Slide 2</div>
+                    <div class="swiper-slide">Slide 3</div>
+                    ... --}}
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev absolute top-1/2 z-10 p-2 cursor-pointer">
+                    <div class="bg-white/95 border p-1 rounded-full text-gray-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.8"
+                            stroke="currentColor" class="size-4 hover:size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                        </svg>
+                    </div>
+
+                </div>
+                <div class="swiper-button-next absolute right-0 top-1/2 z-10 p-2 cursor-pointer">
+                    <div class="bg-white/95 border p-1 rounded-full text-gray-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.8"
+                            stroke="currentColor" class="size-4 hover:size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                        </svg>
+
+                    </div>
+                </div>
+
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>
+            </div>
+        </div>
+        {{-- <div class="flex gap-2 flex-wrap">
             @if (count($post->images) === 1)
                 <img src="{{ asset($post->images[0]->url) }}" alt="" class="w-full h-auto rounded-md">
             @elseif(count($post->images) === 2)
@@ -41,7 +92,7 @@
                     @endforeach
                 </div>
             @endif
-        </div>
+        </div> --}}
     @endif
 
     <div class="flex items-center justify-between text-xs my-1">
