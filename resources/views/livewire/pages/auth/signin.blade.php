@@ -1,6 +1,7 @@
 <div class="{{ auth()->check() ? 'h-[calc(100vh-98px)]' : 'h-screen' }}  flex items-center justify-center">
     <div class="bg-white p-8 rounded-md shadow-md w-[400px] dark:bg-slate-800">
-        <h1 class="mb-1 text-lg font-semibold text-blue-500">Welcome to Livewire Social</h1>
+        <h1 class="mb-1 text-lg font-semibold text-blue-500">Livewire Social</h1>
+        <p class="text-sm font-semibold mb-2">Welcome Back!</p>
         <form class="flex flex-col gap-2" wire:submit.prevent="submitLogin">
             <p class="text-red-500 text-xs self-center font-bold">
                 @session('error')
@@ -43,7 +44,7 @@
             </div>
             <a href="/forgot-password" wire:navigate class="text-blue-500 text-xs self-end"><b>Forgot
                     Password?</b></a>
-            <button class="p-2 bg-blue-500 text-white rounded-md" type="submit" wire:loading.attr="disabled">
+            <button class="p-2 bg-blue-500 text-white rounded-md mt-5" type="submit" wire:loading.attr="disabled">
                 <x-loader-button :message="'Signin'" />
             </button>
         </form>
