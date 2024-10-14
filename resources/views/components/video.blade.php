@@ -1,5 +1,5 @@
 @props([
-    'source' => 'https://cdn.devdojo.com/pines/videos/coast.mp4',
+    'source' => '',
 ])
 
 {{-- <div x-data={playing:false,muted:false} @click.outside="$refs.player.pause()" x-intersect:leave="$refs.player.pause()">
@@ -149,7 +149,7 @@ if (!document?.fullscreenEnabled) {
 document.addEventListener('fullscreenchange', (e) => {
     fullscreen = !!document.fullscreenElement;
 });" x-ref="videoContainer" @mouseleave="mouseleave=true"
-    @mousemove="mousemoveVideo" class="relative h-[360px] min-w-[640px] overflow-hidden rounded-md aspect-video" x-cloak
+    @mousemove="mousemoveVideo" class="relative h-[360px] w-full overflow-hidden rounded-md aspect-video" x-cloak
     @click.outside="$refs.player.pause()" x-intersect:leave="$refs.player.pause()">
     <video x-ref="player" @loadedmetadata="metaDataLoaded" @timeupdate="timeUpdatedInterval" @ended="videoEnded"
         preload="metadata" :poster="poster" class="relative z-10 object-cover w-full h-full bg-black"

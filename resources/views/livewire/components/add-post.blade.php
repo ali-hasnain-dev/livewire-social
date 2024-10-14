@@ -24,9 +24,9 @@
                     class="flex-1 bg-slate-100 rounded-lg p-2 outline-none dark:text-white dark:bg-slate-800 dark:border dark:border-slate-600"
                     wire:model='content' id="emojionearea1" rows="5" style="overflow-y: hidden; resize: none;"></textarea>
             </div>
-            @if ($images)
+            @if ($files)
                 <div class="flex gap-2 flex-wrap">
-                    @foreach ($images as $index => $image)
+                    @foreach ($files as $index => $image)
                         <div class="relative">
                             <img src="{{ $image->temporaryUrl() }}" alt="" class="h-20 w-20 rounded-md">
                             <!-- Cross Icon -->
@@ -39,7 +39,7 @@
                 </div>
             @endif
 
-            @error('images.*')
+            @error('files.*')
                 <span class="text-red-500 font-bold text-xs">{{ $message }}</span>
             @endError
 
@@ -106,16 +106,17 @@
                         </svg>
                     </div>
 
-                    <input type="file" wire:model="images" id='selectedFile' style="display: none"
-                        type="images/png, images/jpeg, images/jpg, images/webp" multiple>
+                    <input type="file" wire:model="files" id="selectedFile" style="display: none"
+                        accept="image/png, image/jpeg, image/jpg, image/webp, video/mp4" multiple
+                        onchange="if(this.files.length > 10) { alert('You can only upload a maximum of 10 files'); this.value = ''; }">
                 </div>
 
                 <button wire:loading.attr='disabled'
-                    :disabled="(!$wire.content || $wire.content.length === 0) && (!$wire.images || $wire.images.length === 0)"
+                    :disabled="(!$wire.content || $wire.content.length === 0) && (!$wire.files || $wire.files.length === 0)"
                     :class="{
                         'cursor-not-allowed bg-gray-400': (!$wire.content || $wire.content.length === 0) && (!$wire
-                            .images || $wire.images.length === 0),
-                        'bg-blue-500': ($wire.content?.length > 0 || ($wire.images && $wire.images.length > 0))
+                            .files || $wire.files.length === 0),
+                        'bg-blue-500': ($wire.content?.length > 0 || ($wire.files && $wire.files.length > 0))
                     }"
                     x-cloak class="p-2 text-white rounded-md inline-block self-end " type="submit">
                     <x-button-loader message="Post" />

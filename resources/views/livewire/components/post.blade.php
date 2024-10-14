@@ -1,4 +1,4 @@
-<div class="flex rounded-md bg-white p-4 gap-8 flex-col dark:bg-slate-800">
+<div class="flex rounded-md bg-white p-4 gap-4 flex-col dark:bg-slate-800">
     <div class="flex justify-between ">
         <a href="{{ route('profile', ['name' => $post->user->username]) }}" wire:navigate>
             <div class="flex items-center gap-2">
@@ -19,7 +19,7 @@
     @if (count($post->images) > 0)
         @if (count($post->images) > 1)
             <div class="w-[500px]">
-                <div class="swiper h-auto border bg-white dark:bg-slate-800 w-full rounded-md" x-init="new Swiper($el, {
+                <div class="swiper h-[400px] bg-white dark:bg-slate-800 w-full rounded-md" x-init="new Swiper($el, {
                     modules: [Navigation, Pagination],
                     loop: true,
                     pagination: {
@@ -33,8 +33,14 @@
                     <!-- Additional required wrapper -->
                     <div x-cloak class="swiper-wrapper">
                         @foreach ($post->images as $image)
-                            <div class="swiper-slide"><img src="{{ asset($image->url) }}" alt=""
-                                    class="w-full block object-scale-down h-auto rounded-md"></div>
+                            <div class="swiper-slide">
+                                @if (Str::startsWith($image->type, 'image'))
+                                    <img src="{{ asset($image->url) }}" alt=""
+                                        class="w-full block object-scale-down h-[400px] rounded-md">
+                                @elseif (Str::startsWith($image->type, 'video'))
+                                    <x-video :source="asset($image->url)" />
+                                @endif
+                            </div>
                         @endforeach
                     </div>
                     <!-- If we need pagination -->
