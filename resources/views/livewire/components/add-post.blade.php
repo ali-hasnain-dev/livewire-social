@@ -13,7 +13,7 @@
                 }
             }
         });
-    
+
         Livewire.on('new-post-created', function() {
             emojiArea[0].emojioneArea.setText('');
         });
@@ -74,7 +74,7 @@
                     'bg-blue-500': ($wire.content?.length > 0 || ($wire.images && $wire.images.length > 0))
                 }"
                 x-cloak class="p-2 text-white rounded-md inline-block self-end " type="submit">
-                <x-loader-button :message="'Post'" />
+                <x-button-loader message="Post" />
             </button>
 
         </form>

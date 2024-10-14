@@ -20,32 +20,15 @@
                     <span class="font-medium">Success!</span>{{ session()->get('status') }}
                 </div>
             @endif
-            <div class="flex flex-col gap-2">
-                <label for="" class="text-xs font-semibold">Email</label>
-                <input type="email"
-                    class="w-full p-2 border border-gray-500 rounded-md outline-none dark:bg-slate-700"
-                    placeholder="Email" wire:model="email" required>
-                <p class="text-red-500 text-xs">
-                    @error('email')
-                        {{ $message }}
-                    @enderror
-                </p>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="" class="text-xs font-semibold">Password</label>
-                <input type="password"
-                    class="w-full p-2 border border-gray-500 rounded-md outline-none dark:bg-slate-700"
-                    placeholder="Password" wire:model="password" required>
-                <p class="text-red-500 text-xs">
-                    @error('password')
-                        {{ $message }}
-                    @enderror
-                </p>
-            </div>
+
+            <x-input type="text" label="Email" name="email" placeholder="Email" required='true'
+                :error="$errors->first('email')" />
+            <x-input type="password" label="Password" name="password" placeholder="Password" required='true'
+                :error="$errors->first('password')" />
             <a href="/forgot-password" wire:navigate class="text-blue-500 text-xs self-end"><b>Forgot
                     Password?</b></a>
             <button class="p-2 bg-blue-500 text-white rounded-md mt-5" type="submit" wire:loading.attr="disabled">
-                <x-loader-button :message="'Signin'" />
+                <x-button-loader message="Signin" />
             </button>
         </form>
         <div class="flex items-center justify-center mt-4">

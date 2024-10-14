@@ -53,7 +53,7 @@
             <button class="p-2 bg-blue-500 text-white rounded-md" type="submit" wire:loading.remove>Signup</button>
             <button wire:loading class="w-full text-blue-500 font-semibold p-2 rounded-md border border-blue-500"
                 disabled>
-                <x-loader-button :message="'Signup'" />
+                <<x-button-loader message="Signup" />
             </button>
         </form>
         <div class="flex items-center justify-center mt-4">
