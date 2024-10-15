@@ -14,7 +14,10 @@
             <img src="{{ asset('images/more.png') }}" alt="" class="w-5">
         </span>
     </div>
-    <p class="text-sm">{{ $post->content }}</p>
+
+    @if ($post->content)
+        <p class="text-sm">{{ $post->content }}</p>
+    @endif
 
     @if (count($post->images) > 0)
         @if (count($post->images) > 1)
@@ -38,7 +41,7 @@
                                     <img src="{{ asset($image->url) }}" alt=""
                                         class="w-full block object-scale-down h-[400px] rounded-md">
                                 @elseif (Str::startsWith($image->type, 'video'))
-                                    <x-video :source="asset($image->url)" />
+                                    <x-video :source="asset($image->url)" :type="$post->images[0]->type" />
                                 @endif
                             </div>
                         @endforeach
@@ -69,7 +72,12 @@
                 </div>
             </div>
         @else
-            <img src="{{ asset($post->images[0]->url) }}" alt="" class="w-full h-auto rounded-md">
+            @if (Str::startsWith($post->images[0]->type, 'image'))
+                <img src="{{ asset($post->images[0]->url) }}" alt="" class="w-full h-auto rounded-md">
+            @elseif (Str::startsWith($post->images[0]->type, 'video'))
+                <x-video :source="asset($post->images[0]->url)" :type="$post->images[0]->type" />
+            @endif
+
         @endif
     @endif
 

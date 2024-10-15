@@ -13,16 +13,20 @@
                 }
             }
         });
-
-        Livewire.on('new-post-created', function() {
+    
+        {{-- Livewire.on('new-post-created', function() {
             emojiArea[0].emojioneArea.setText('');
-        });
+        }); --}}
     })">
         <form wire:submit.prevent="addPost" class="flex flex-col gap-3">
-            <div class="flex gap-4" wire:ignore>
+            <div class="flex flex-col gap-2" wire:ignore x-data="{ content: @entangle('content') }">
                 <textarea placeholder="What's on your mind?"
                     class="flex-1 bg-slate-100 rounded-lg p-2 outline-none dark:text-white dark:bg-slate-800 dark:border dark:border-slate-600"
-                    wire:model='content' id="emojionearea1" rows="5" style="overflow-y: hidden; resize: none;"></textarea>
+                    wire:model='content' id="" rows="6" style="overflow-y: hidden; resize: none;"></textarea>
+                <div class="flex self-end mr-4">
+                    <p x-text="content ? content.length + '/1000' : '0/1000' "
+                        class="text-xs font-bold dark:text-white"></p>
+                </div>
             </div>
             @if ($files)
                 <div class="flex gap-2 flex-wrap">
@@ -107,7 +111,7 @@
                     </div>
 
                     <input type="file" wire:model="files" id="selectedFile" style="display: none"
-                        accept="image/png, image/jpeg, image/jpg, image/webp, video/mp4" multiple
+                        accept="image/png, image/jpeg, image/jpg, image/webp, video/mp4, video/webm, video/ogg" multiple
                         onchange="if(this.files.length > 10) { alert('You can only upload a maximum of 10 files'); this.value = ''; }">
                 </div>
 

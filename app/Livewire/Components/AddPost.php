@@ -4,7 +4,6 @@ namespace App\Livewire\Components;
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
