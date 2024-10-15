@@ -19,22 +19,11 @@
         }); --}}
     })">
         <form wire:submit.prevent="addPost" class="flex flex-col gap-3">
-            <div class="flex flex-col gap-2 relative" wire:ignore x-data="{ content: @entangle('content') }">
+            <div class="flex flex-col gap-2 " wire:ignore x-data="{ content: @entangle('content') }">
                 <textarea placeholder="What's on your mind?"
                     class="flex-1 bg-slate-100 rounded-lg p-2 outline-none dark:text-white dark:bg-slate-800 dark:border dark:border-slate-600"
-                    wire:model='content' id="" rows="8" maxlength="1000" style="overflow-y: hidden; resize: none;"></textarea>
+                    wire:model='content' id="" rows="6" maxlength="1000" style="overflow-y: hidden; resize: none;"></textarea>
 
-                <!-- SVG icon positioned at the bottom-left corner of the textarea -->
-                <svg x-cloak xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor"
-                    class="w-6 h-6 absolute left-2 bottom-6 text-indigo-600 dark:text-white cursor-pointer"
-                    onclick="document.getElementById('selectedFile').click();">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M2.25 18.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                </svg>
-                <input type="file" wire:model="files" id="selectedFile" style="display: none"
-                    accept="image/png, image/jpeg, image/jpg, image/webp, video/mp4, video/webm, video/ogg" multiple
-                    onchange="if(this.files.length > 10) { alert('You can only upload a maximum of 10 files'); this.value = ''; }">
                 <div class="flex self-end mr-4">
                     <p x-text="content ? content.length + '/1000' : '0/1000'" class="text-xs font-bold dark:text-white">
                     </p>
@@ -61,6 +50,15 @@
             @endError
 
             <div class="flex gap-2 items-end justify-end mt-4">
+                <svg x-cloak xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6 text-indigo-600 dark:text-white cursor-pointer"
+                    onclick="document.getElementById('selectedFile').click();">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M2.25 18.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <input type="file" wire:model="files" id="selectedFile" style="display: none"
+                    accept="image/png, image/jpeg, image/jpg, image/webp, video/mp4, video/webm, video/ogg" multiple
+                    onchange="if(this.files.length > 10) { alert('You can only upload a maximum of 10 files'); this.value = ''; }">
                 <button wire:loading.attr='disabled'
                     :disabled="(!$wire.content || $wire.content.length === 0) && (!$wire.files || $wire.files.length === 0)"
                     :class="{

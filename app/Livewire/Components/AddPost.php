@@ -17,6 +17,7 @@ class AddPost extends Component
     public function addPost(): void
     {
         $this->validate([
+            'content' => 'nullable|required_without:files|max:1000',
             'files.*' => [
                 'nullable',
                 'file', // Ensures it’s a file
