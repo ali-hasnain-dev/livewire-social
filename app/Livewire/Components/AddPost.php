@@ -11,11 +11,15 @@ class AddPost extends Component
 {
     use WithFileUploads;
     public $content;
-
-    public $files;
+    public $files = [];
+    public $offLikes = false;
+    public $offComments = false;
+    public $offShares = false;
 
     public function addPost(): void
     {
+        dd($this->content, $this->offLikes, $this->offComments, $this->offShares, $this->files);
+
         $this->validate([
             'content' => 'nullable|required_without:files|max:1000',
             'files.*' => [
@@ -80,6 +84,7 @@ class AddPost extends Component
 
     public function render()
     {
+
         return view('livewire.components.add-post');
     }
 }
