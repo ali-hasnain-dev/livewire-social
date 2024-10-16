@@ -1,5 +1,5 @@
-<div class="p-1 bg-slate-100 rounded-lg flex gap-2 justify-between text-sm mb-4 dark:bg-slate-900" x-data="{ newPost: false }"
-    wire:ignore>
+<div class="p-1 bg-slate-100 rounded-lg flex gap-2 justify-between text-sm mb-4 dark:bg-slate-900"
+    x-data="{ newPost: false }">
     <img src="{{ asset('images/avatar.png') }}" alt="" width={48} class="w-10 h-10 object-cover rounded-full" />
     <button class="border border-gray-300 dark:border-gray-700 hover:bg-gray-50 w-full rounded-lg text-start p-2 h-10"
         @click="newPost=true">Write new
@@ -7,7 +7,8 @@
     </button>
 
     @teleport('body')
-        <div x-show="newPost" class="fixed top-20 left-0 z-[99] flex items-start justify-center w-screen h-screen" x-cloak>
+        <div x-show="newPost" class="fixed top-20 left-0 z-[99] flex items-start justify-center w-screen h-screen"
+            wire:ignore.self>
             <div x-show="newPost" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-300"
                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
@@ -30,23 +31,25 @@
                 </div>
                 <div class="relative flex w-auto h-[400px] pb-8">
                     <div class="w-1/2 p-2">
-                        @if (count($files) > 0)
-                            <div class="flex gap-2 flex-wrap">
-                                @foreach ($files as $index => $image)
-                                    <div class="relative">
-                                        <img src="{{ $image->temporaryUrl() }}" alt="" class="h-20 w-20 rounded-md">
-                                        <!-- Cross Icon -->
-                                        <button wire:click="removeImage({{ $index }})"
-                                            class="absolute top-0 right-0 p-1 text-red-500 hover:text-red-700"
-                                            type="button">
-                                            &#10005; <!-- HTML code for the cross icon -->
-                                        </button>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @else
-                            <div
-                                class="flex border border-dashed border-gray-300 h-full rounded-md items-center justify-center">
+
+                        <div
+                            class="flex border border-dashed border-gray-300 h-full rounded-md items-center justify-center">
+                            @if (count($files) > 0)
+                                <div class="flex justify-center gap-2 flex-wrap">
+                                    @foreach ($files as $index => $image)
+                                        <div class="relative">
+                                            <img src="{{ $image->temporaryUrl() }}" alt=""
+                                                class="h-24 w-24 rounded-md">
+                                            <!-- Cross Icon -->
+                                            <button wire:click="removeImage({{ $index }})"
+                                                class="absolute top-0 right-0 p-1 text-red-500 hover:text-red-700"
+                                                type="button">
+                                                &#10005; <!-- HTML code for the cross icon -->
+                                            </button>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
                                 <div class="flex flex-col items-center justify-center gap-1 cursor-pointer"
                                     onclick="document.getElementById('selectedFile').click();">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -61,8 +64,9 @@
                                         multiple
                                         onchange="if(this.files.length > 10) { alert('You can only upload a maximum of 10 files'); this.value = ''; }">
                                 </div>
-                            </div>
-                        @endif
+                            @endif
+
+                        </div>
                     </div>
 
                     <!-- Dark vertical line with full height -->
@@ -110,25 +114,10 @@
                     </div>
                 </div>
 
-                @if (count($files) > 0)
-                    <div class="flex gap-2 flex-wrap">
-                        @foreach ($files as $index => $image)
-                            <div class="relative">
-                                <img src="{{ $image->temporaryUrl() }}" alt="" class="h-20 w-20 rounded-md">
-                                <!-- Cross Icon -->
-                                <button wire:click="removeImage({{ $index }})"
-                                    class="absolute top-0 right-0 p-1 text-red-500 hover:text-red-700" type="button">
-                                    &#10005; <!-- HTML code for the cross icon -->
-                                </button>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
-
                 <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
                     <button @click="newPost=false" type="button"
                         class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors border rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-100 focus:ring-offset-2">Cancel</button>
-                    <button wire:click="addPost" type="button"
+                    <button wire:loading.attr="disabled" wire:click="addPost" type="button"
                         class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900">Post</button>
                 </div>
             </div>
