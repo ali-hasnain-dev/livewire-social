@@ -5,6 +5,7 @@ use App\Livewire\Pages\Auth\ResetPassword;
 use App\Livewire\Pages\Auth\Signin;
 use App\Livewire\Pages\Auth\Signup;
 use App\Livewire\Pages\Auth\VerifyEmail;
+use App\Livewire\Pages\Friend;
 use App\Livewire\Pages\Home;
 use App\Livewire\Pages\Profile;
 use App\Livewire\Pages\Settings;
@@ -29,4 +30,6 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('@{name?}')->group(function () {
         Route::get('/', Profile::class)->name('profile');
     });
+
+    Route::get('/friends', Friend::class)->name('friends');
 });
