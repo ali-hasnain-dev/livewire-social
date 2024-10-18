@@ -1,14 +1,13 @@
 <div class="p-1 bg-slate-100 rounded-lg flex gap-2 justify-between text-sm mb-4 dark:bg-slate-900"
-    x-data="{ newPost: false }">
+    x-data="{ newPost: @entangle('newPost') }">
     <img src="{{ asset('images/avatar.png') }}" alt="" width={48} class="w-10 h-10 object-cover rounded-full" />
-    <button class="border border-gray-300 dark:border-gray-700 hover:bg-gray-50 w-full rounded-lg text-start p-2 h-10"
+    <button class="border border-gray-300 dark:border-gray-700 hover:bg-gray-600 w-full rounded-lg text-start p-2 h-10"
         @click="newPost=true">Write new
         post
     </button>
 
     @teleport('body')
-        <div x-show="newPost" class="fixed top-20 left-0 z-[99] flex items-start justify-center w-screen h-screen"
-            wire:ignore.self>
+        <div x-show="newPost" class="fixed inset-0 z-[99] flex items-start justify-center w-screen h-screen" wire:ignore.self>
             <div x-show="newPost" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-300"
                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
@@ -18,9 +17,9 @@
                 x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200"
                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                 x-transition:leave-end="opacity-0 -translate-y-2 sm:scale-95"
-                class="relative w-full py-6 bg-white border shadow-lg px-7 border-neutral-200 sm:max-w-3xl sm:rounded-lg">
+                class="relative w-full py-6 bg-white border shadow-lg px-7 border-neutral-200 sm:max-w-3xl sm:rounded-lg dark:bg-slate-800">
                 <div class="flex items-center justify-between pb-3 p-2">
-                    <h3 class="text-lg font-semibold">New Post</h3>
+                    <h3 class="text-md font-semibold">Create New Post</h3>
                     <button @click="newPost=false"
                         class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 mt-5 mr-5 text-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-50">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -31,7 +30,6 @@
                 </div>
                 <div class="relative flex w-auto h-[400px] pb-8">
                     <div class="w-1/2 p-2">
-
                         <div
                             class="flex border border-dashed border-gray-300 h-full rounded-md items-center justify-center">
                             @if (count($files) > 0)
@@ -71,7 +69,6 @@
                                         onchange="if(this.files.length > 10) { alert('You can only upload a maximum of 10 files'); this.value = ''; }">
                                 </div>
                             @endif
-
                         </div>
                     </div>
 
@@ -80,16 +77,18 @@
                         <div class="flex flex-col gap-6">
                             <div class="flex flex-col gap-2 " x-data="{ content: @entangle('content') }">
                                 <textarea placeholder="What's on your mind?"
-                                    class="flex-1 bg-slate-100 rounded-lg p-2 outline-none dark:text-white dark:bg-slate-800 dark:border dark:border-slate-600"
+                                    class="flex-1  rounded-lg p-2 outline-none dark:text-white dark:bg-slate-800  dark:border-slate-600"
                                     wire:model='content' id="" rows="6" maxlength="1000" style="resize: none;"></textarea>
                                 <div class="flex self-end mr-4">
                                     <p x-text="content ? content.length + '/1000' : '0/1000'"
                                         class="text-xs font-bold dark:text-white">
                                     </p>
                                 </div>
+                                <hr>
+
                             </div>
                             <div class="flex justify-between items-center">
-                                <p class="text-xs text-gray-600 font-semibold">Turn off likes?</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-300 font-semibold">Turn off likes?</p>
                                 <label class="inline-flex items-center cursor-pointer">
                                     <input type="checkbox" wire:model='offLikes' class="sr-only peer">
                                     <div
@@ -99,7 +98,7 @@
                             </div>
 
                             <div class="flex justify-between items-center">
-                                <p class="text-xs text-gray-600 font-semibold">Turn off comments?</p>
+                                <p class="text-xs text-gray-600 font-semibold dark:text-gray-300">Turn off comments?</p>
                                 <label class="inline-flex items-center cursor-pointer">
                                     <input type="checkbox" wire:model='offComments' class="sr-only peer">
                                     <div
@@ -107,8 +106,9 @@
                                     </div>
                                 </label>
                             </div>
+
                             <div class="flex justify-between items-center">
-                                <p class="text-xs text-gray-600 font-semibold">Turn off share?</p>
+                                <p class="text-xs text-gray-600 font-semibold dark:text-gray-300">Turn off share?</p>
                                 <label class="inline-flex items-center cursor-pointer">
                                     <input type="checkbox" wire:model='offShares' class="sr-only peer">
                                     <div

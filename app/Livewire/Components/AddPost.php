@@ -16,10 +16,10 @@ class AddPost extends Component
     public $offComments = false;
     public $offShares = false;
 
+    public $newPost = false;
+
     public function addPost(): void
     {
-        dd($this->content, $this->offLikes, $this->offComments, $this->offShares, $this->files);
-
         $this->validate([
             'content' => 'nullable|required_without:files|max:1000',
             'files.*' => [
@@ -72,7 +72,8 @@ class AddPost extends Component
 
         if ($post) {
             $this->content = '';
-            $this->files = null;
+            $this->files = [];
+            $this->newPost = false;
             $this->dispatch('new-post-created');
         }
     }

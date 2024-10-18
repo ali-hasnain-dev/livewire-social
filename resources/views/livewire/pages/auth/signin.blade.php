@@ -32,7 +32,8 @@
             </button>
         </form>
         <div class="flex items-center justify-center mt-4">
-            <p>Don't have an account? <a href="/signup" wire:navigate class="text-blue-500 text-sm"><b>Signup</b></a>
+            <p class="text-sm">Don't have an account? <a href="/signup" wire:navigate
+                    class="text-blue-500 text-xs"><b>Signup</b></a>
             </p>
         </div>
     </div>

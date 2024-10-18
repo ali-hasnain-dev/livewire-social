@@ -1,6 +1,6 @@
 <div class="{{ auth()->check() ? 'h-[calc(100vh-98px)]' : 'h-screen' }} flex items-center justify-center">
     <div class="bg-white p-8 rounded-md shadow-md w-full md:w-[400px] dark:bg-slate-800">
-        <h1 class="mb-1 text-lg font-semibold text-blue-500">Let's create new account!</h1>
+        <h1 class="mb-1 text-md font-semibold text-blue-500">Let's create new account!</h1>
         <form class="flex flex-col gap-2" wire:submit.prevent="submitsignup">
             <p class="text-red-500 text-xs self-center font-bold">
                 @session('error')
@@ -57,7 +57,8 @@
             </button>
         </form>
         <div class="flex items-center justify-center mt-4">
-            <p>Already have an account? <a href="/signin" wire:navigate class="text-blue-500 text-sm"><b>Signin</b></a>
+            <p class="text-sm">Already have an account? <a href="/signin" wire:navigate
+                    class="text-blue-500 text-xs"><b>Signin</b></a>
             </p>
         </div>
     </div>
