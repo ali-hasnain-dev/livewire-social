@@ -42,9 +42,13 @@
                                                 class="h-24 w-24 rounded-md">
                                             <!-- Cross Icon -->
                                             <button wire:click="removeImage({{ $index }})"
-                                                class="absolute top-0 right-0 p-1 text-red-500 hover:text-red-700"
+                                                class="absolute top-0 right-0 p-1 w-8 h-8 text-red-500 hover:text-red-700"
                                                 type="button">
-                                                &#10005; <!-- HTML code for the cross icon -->
+                                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
                                             </button>
                                         </div>
                                     @endforeach
@@ -57,7 +61,9 @@
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
                                     </svg>
-                                    <p class="text-sm  font-semibold">Upload Media</p>
+                                    <p class="text-sm  font-semibold" wire:loading.remove wire:target='files'>Upload Media
+                                    </p>
+                                    <p class="text-sm  font-semibold" wire:loading wire:target='files'>Uploading...</p>
 
                                     <input type="file" wire:model="files" id="selectedFile" style="display: none"
                                         accept="image/png, image/jpeg, image/jpg, image/webp, video/mp4, video/webm, video/ogg"
