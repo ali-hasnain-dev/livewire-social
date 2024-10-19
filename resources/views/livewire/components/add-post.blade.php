@@ -1,7 +1,8 @@
 <div class="p-1 bg-slate-100 rounded-lg flex gap-2 justify-between text-sm mb-4 dark:bg-slate-900"
     x-data="{ newPost: @entangle('newPost') }">
     <img src="{{ asset('images/avatar.png') }}" alt="" width={48} class="w-10 h-10 object-cover rounded-full" />
-    <button class="border border-gray-300 dark:border-gray-700 hover:bg-gray-600 w-full rounded-lg text-start p-2 h-10"
+    <button
+        class="border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 w-full rounded-lg text-start p-2 h-10"
         @click="newPost=true">Write new
         post
     </button>

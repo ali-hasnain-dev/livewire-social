@@ -25,15 +25,15 @@
                 :error="$errors->first('email')" />
             <x-input type="password" label="Password" name="password" placeholder="Password" required='true'
                 :error="$errors->first('password')" />
-            <a href="/forgot-password" wire:navigate class="text-blue-500 text-xs self-end"><b>Forgot
+            <a href="/forgot-password" wire:navigate class="text-xs self-end hover:underline"><b>Forgot
                     Password?</b></a>
-            <button class="p-2 bg-blue-500 text-white rounded-md mt-5" type="submit" wire:loading.attr="disabled">
+            <button class="p-2 bg-black text-white rounded-md mt-5" type="submit" wire:loading.attr="disabled">
                 <x-button-loader message="Signin" />
             </button>
         </form>
         <div class="flex items-center justify-center mt-4">
             <p class="text-sm">Don't have an account? <a href="/signup" wire:navigate
-                    class="text-blue-500 text-xs"><b>Signup</b></a>
+                    class="text-black dark:white text-xs hover:underline"><b>Signup</b></a>
             </p>
         </div>
     </div>

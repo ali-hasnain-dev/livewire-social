@@ -53,8 +53,8 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function friends(): HasMany
+    public function myFriends(): HasMany
     {
-        return $this->hasMany(Friend::class)->where('user_id', Auth::id())->orWhere('friend_id', Auth::id());
+        return $this->hasMany(Friend::class, 'user_id')->where([['user_id', Auth::user()->id], ['status', 'added']]);
     }
 }
