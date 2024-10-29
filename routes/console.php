@@ -2,11 +2,11 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-Artisan::command('clear-livewire-temp', function () {
-    (new \App\Console\Commands\ClearLivewireTemp())->handle();
-})->purpose('Clear Livewire temp directory')->dailyAt('00:00');
+
+Schedule::command('clear-livewire-temp')->dailyAt('00:00');
