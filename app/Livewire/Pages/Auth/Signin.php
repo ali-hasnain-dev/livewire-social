@@ -27,7 +27,6 @@ class Signin extends Component
         $this->validate();
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            $this->reset(['email', 'password']);
             return $this->redirect(Home::class, true);
         }
 

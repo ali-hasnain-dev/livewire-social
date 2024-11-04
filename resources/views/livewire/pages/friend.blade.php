@@ -23,7 +23,7 @@
                     @if (count($users) > 0)
                         @foreach ($users as $user)
                             <div
-                                class="flex justify-between items-center dark:bg-gray-700  border dark:border-none rounded-lg p-2 shadow-md">
+                                class="flex justify-between items-center dark:bg-gray-700  border dark:border-none rounded-lg p-4 shadow-md">
                                 <div class="flex gap-1 items-center ">
                                     <img src="{{ $user->avatar ? $user->avatar : asset('images/avatar.png') }}"
                                         alt="">
@@ -33,8 +33,7 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
-                                    <button
-                                        class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900">Add</button>
+                                    <i class="fa-solid fa-user-plus"></i>
                                 </div>
                             </div>
                         @endforeach
