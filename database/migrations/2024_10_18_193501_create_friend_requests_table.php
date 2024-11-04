@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('friend_requests', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('sender')->constrained('users');
+            $table->foreignId('receiver')->constrained('users');
             $table->timestamps();
         });
     }

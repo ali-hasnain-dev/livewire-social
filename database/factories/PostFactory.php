@@ -18,7 +18,7 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        $user = User::factory()->create();
+        $user = User::first() ? User::inRandomOrder()->first() : User::factory()->create();
         return [
             'image' => $this->faker->imageUrl(),
             'content' => $this->faker->sentence(),
