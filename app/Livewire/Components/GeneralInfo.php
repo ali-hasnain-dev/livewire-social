@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Components;
 
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;

@@ -12,6 +12,7 @@ class Profile extends Component
 {
     #[Locked]
     public $userName;
+
     #[Locked]
     public $userId;
 

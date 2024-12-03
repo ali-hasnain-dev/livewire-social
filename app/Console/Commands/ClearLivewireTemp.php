@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 
 class ClearLivewireTemp extends Command
 {

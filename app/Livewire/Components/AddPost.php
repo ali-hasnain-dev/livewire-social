@@ -10,10 +10,15 @@ use Livewire\WithFileUploads;
 class AddPost extends Component
 {
     use WithFileUploads;
+
     public $content;
+
     public $files = [];
+
     public $offLikes = false;
+
     public $offComments = false;
+
     public $offShares = false;
 
     public $newPost = false;
@@ -30,7 +35,7 @@ class AddPost extends Component
 
                     if (str_starts_with($mimeType, 'image')) {
                         // Validate image file types and size
-                        if (!in_array($value->getClientOriginalExtension(), ['png', 'jpeg', 'jpg', 'webp'])) {
+                        if (! in_array($value->getClientOriginalExtension(), ['png', 'jpeg', 'jpg', 'webp'])) {
                             return $fail("The $attribute must be a file of type: png, jpeg, jpg, webp.");
                         }
 
@@ -49,14 +54,13 @@ class AddPost extends Component
                     } else {
                         return $fail("The $attribute must be an image or video file.");
                     }
-                }
+                },
             ],
         ]);
 
-
         $post = Post::create([
             'content' => $this->content ?? '',
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
         ]);
 
         if ($this->files) {
@@ -64,7 +68,7 @@ class AddPost extends Component
                 $mimeType = $image->getMimeType();
                 $path = $image->store('uploads/', 'public');
                 $post->images()->create([
-                    'url' => 'storage/' . $path,
+                    'url' => 'storage/'.$path,
                     'type' => $mimeType,
                 ]);
             }

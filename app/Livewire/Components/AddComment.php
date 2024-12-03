@@ -12,8 +12,8 @@ use Livewire\Component;
 
 class AddComment extends Component
 {
-
     public $comment;
+
     public $latestComments = [];
 
     #[Locked]
@@ -30,7 +30,7 @@ class AddComment extends Component
         Comment::create([
             'user_id' => Auth::user()->id,
             'post_id' => $this->postId,
-            'content' => $this->comment
+            'content' => $this->comment,
         ]);
 
         $this->comment = '';

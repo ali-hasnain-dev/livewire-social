@@ -10,8 +10,11 @@ use Livewire\Component;
 class ChangePassword extends Component
 {
     public $old_password;
+
     public $new_password;
+
     public $confirm_password;
+
     public $user;
 
     public function mount()
@@ -24,19 +27,19 @@ class ChangePassword extends Component
         $this->validate([
             'old_password' => 'required|current_password',
             'new_password' => 'required|min:6|different:old_password',
-            'confirm_password' => 'required|same:new_password'
+            'confirm_password' => 'required|same:new_password',
         ]);
 
         try {
             $this->user->update([
-                'password' => Hash::make($this->new_password)
+                'password' => Hash::make($this->new_password),
             ]);
 
             $this->reset(['old_password', 'new_password', 'confirm_password']);
 
             session()->flash('password_success', 'Password updated successfully');
         } catch (\Throwable $th) {
-            Log::error('Error updating password: ' . $th->getMessage());
+            Log::error('Error updating password: '.$th->getMessage());
         }
     }
 

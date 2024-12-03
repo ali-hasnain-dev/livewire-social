@@ -12,9 +12,13 @@ use Livewire\Component;
 class Post extends Component
 {
     public $post;
+
     public $post_id;
+
     public $likes;
+
     public $comments;
+
     public $likedByme = false;
 
     public function mount($post)
@@ -39,7 +43,7 @@ class Post extends Component
         } else {
             $like->save();
             $this->likedByme = true;
-        };
+        }
 
         defer(function () use ($id) {
             $post = ModelsPost::withCount('likes')->find($id);
@@ -59,7 +63,6 @@ class Post extends Component
     //     $this->comments = $event['comment']['comments_count'];
     //     $this->dispatch('update-comments');
     // }
-
 
     public function render()
     {

@@ -4,13 +4,12 @@ namespace App\Livewire\Pages\Auth;
 
 use App\Livewire\Pages\Home;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 use Illuminate\Support\Facades\Password;
 use Livewire\Attributes\Validate;
+use Livewire\Component;
 
 class Forgetpassword extends Component
 {
-
     #[Validate('required|email|exists:users,email')]
     public $email;
 
@@ -29,7 +28,6 @@ class Forgetpassword extends Component
             $status = Password::sendResetLink(
                 $this->only('email')
             );
-
 
             if ($status != Password::RESET_LINK_SENT) {
                 $this->addError('email', __($status));

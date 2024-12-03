@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Friend extends Model
 {
-    protected $table = "friends";
+    protected $table = 'friends';
 
     protected $fillables = [
         'status',
         'user_id',
-        'friend_id'
+        'friend_id',
     ];
 }

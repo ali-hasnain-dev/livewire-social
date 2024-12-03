@@ -2,20 +2,22 @@
 
 namespace App\Livewire\Pages\Auth;
 
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Illuminate\Auth\Events\PasswordReset;
 
 class ResetPassword extends Component
 {
-
     #[Locked]
     public string $token = '';
+
     public string $email = '';
+
     public string $password = '';
+
     public string $password_confirmation = '';
 
     public function mount(string $token)
@@ -62,7 +64,6 @@ class ResetPassword extends Component
 
         $this->redirectRoute('login', navigate: true);
     }
-
 
     public function render()
     {

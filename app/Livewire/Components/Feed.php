@@ -12,9 +12,13 @@ use Livewire\Component;
 class Feed extends Component
 {
     public $posts;
+
     public $count = 0;
+
     public $offsetOfPosts = 10;
+
     public $hasMoreData = true;
+
     public $hasNewPosts = false;
 
     #[Locked]
@@ -61,8 +65,8 @@ class Feed extends Component
             ->with([
                 'user:id,name,avatar,username',
                 'likes:id,post_id,user_id',
-                'comments' => fn($q) => $q->with('user:id,name,avatar,username')->latest()->limit(3),
-                'images'
+                'comments' => fn ($q) => $q->with('user:id,name,avatar,username')->latest()->limit(3),
+                'images',
             ])
             ->withCount([
                 'likes',
@@ -72,7 +76,7 @@ class Feed extends Component
             ->orderByDesc('created_at')
             ->offset($this->offsetOfPosts * $this->count)
             ->take($this->offsetOfPosts)
-            ->when($this->userId, fn($query) => $query->where('user_id', $this->userId))
+            ->when($this->userId, fn ($query) => $query->where('user_id', $this->userId))
             ->get();
 
         if ($newPost->count() < $this->offsetOfPosts) {

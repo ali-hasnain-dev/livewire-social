@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Concurrency;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 

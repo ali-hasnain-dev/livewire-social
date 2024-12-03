@@ -43,6 +43,7 @@ class Signup extends Component
 
         // event(new Registered($user = $user));
         session()->flash('success', 'Account created successfully');
+
         return $this->redirect(Signin::class, true);
     }
 

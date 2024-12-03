@@ -9,11 +9,11 @@ use Livewire\Component;
 
 class Navbar extends Component
 {
-
     public function logout()
     {
         Auth::logout();
         Session::flush();
+
         return $this->redirect(Signin::class, true);
     }
 
