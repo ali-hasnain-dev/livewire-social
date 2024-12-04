@@ -11,7 +11,8 @@ class MyFriend extends Component
 
     public function mount()
     {
-        $this->myFriends = Auth::user()->myFriends()->get();
+        $user = Auth::user();
+        $this->myFriends = $user->myFriends()->get();
     }
 
     public function render()

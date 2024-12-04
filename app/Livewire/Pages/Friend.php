@@ -21,7 +21,7 @@ class Friend extends Component
     public function updatedSearch()
     {
         if ($this->search) {
-            $users = User::where('id', '!=', Auth::user()->id)->where('name', 'like', '%' . $this->search . '%')->orWhere('username', 'like', '%' . $this->search . '%')->select('id', 'name', 'username', 'avatar')->get();
+            $users = User::where('id', '!=', Auth::user()->id)->where('name', 'like', '%' . $this->search . '%')->Where('username', 'like', '%' . $this->search . '%')->select('id', 'name', 'username', 'avatar')->get();
 
             $this->users = $users;
             $this->searchtext = $this->search;
