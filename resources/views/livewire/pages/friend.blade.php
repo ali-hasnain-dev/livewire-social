@@ -16,36 +16,34 @@
             <div class="w-full">
                 <input type="text"
                     class="w-full dark:text-white p-2 border dark:border-gray-600 outline-none dark:bg-gray-700 rounded-md shadow-md"
-                    placeholder="Search friends" wire:model.live.debounce.500ms="search">
+                    placeholder="Add new friends" wire:model.live.debounce.500ms="search">
             </div>
-            <div class="flex flex-col gap-2 mt-2">
-                @if ($search)
-                    @if (count($users) > 0)
-                        @foreach ($users as $user)
-                            <div
-                                class="flex justify-between items-center dark:bg-gray-700  border dark:border-none rounded-lg p-4 shadow-md">
-                                <div class="flex gap-1 items-center ">
-                                    <img src="{{ $user->avatar ? $user->avatar : asset('images/avatar.png') }}"
-                                        alt="">
-                                    <div class="flex flex-col gap-1">
-                                        <p class="text-sm font-semibold dark:text-white">{{ $user->name }}</p>
-                                        <span class="text-xs dark:text-white">{{ $user->username }}</span>
-                                    </div>
+            <div class="flex flex-col gap-2 my-4">
+                <p class="text-sm text-gray-400 dark:text-white mb-2">{{ $searchtext }}</p>
+                @if (count($users) > 0)
+                    @foreach ($users as $user)
+                        <div
+                            class="flex justify-between items-center dark:bg-gray-700  border dark:border-none rounded-lg p-4 shadow-md">
+                            <a href="{{ route('profile', ['name' => $user->username]) }}"
+                                class="flex gap-1 items-center ">
+                                <img src="{{ $user->avatar ? $user->avatar : asset('images/avatar.png') }}"
+                                    alt="">
+                                <div class="flex flex-col gap-1">
+                                    <p class="text-sm font-semibold dark:text-white">{{ $user->name }}</p>
+                                    <span class="text-xs dark:text-white">{{ $user->username }}</span>
                                 </div>
-                                <div class="flex gap-2">
-                                    <i class="fa-solid fa-user-plus"></i>
-                                </div>
+                            </a>
+                            <div class="flex gap-2">
+                                <i class="fa-solid fa-user-plus cursor-pointer {{ $user->sentFriendRequest ? 'text-blue-500' : '' }}"
+                                    wire:click="addFriend({{ $user->id }})"></i>
                             </div>
-                        @endforeach
-                    @else
-                        <p class="text-md text-gray-400 font-bold flex items-center justify-center h-screen">No friends
-                            found</p>
-                    @endif
+                        </div>
+                    @endforeach
                 @else
-                    <p class="text-md text-gray-400 font-bold flex items-center justify-center">
-                        Search friends
-                    </p>
+                    <p class="text-md text-gray-400 font-bold flex items-center justify-center h-screen">No friends
+                        found</p>
                 @endif
+
             </div>
         </div>
         <div x-show="activeTab === 2" class="">
