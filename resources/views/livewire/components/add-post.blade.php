@@ -86,14 +86,14 @@
                                     </p>
                                 </div>
                                 <hr>
-
                             </div>
+
                             <div class="flex justify-between items-center">
                                 <p class="text-xs text-gray-600 dark:text-gray-300 font-semibold">Turn off likes?</p>
                                 <label class="inline-flex items-center cursor-pointer">
                                     <input type="checkbox" wire:model='offLikes' class="sr-only peer">
                                     <div
-                                        class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                        class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                     </div>
                                 </label>
                             </div>
@@ -103,17 +103,7 @@
                                 <label class="inline-flex items-center cursor-pointer">
                                     <input type="checkbox" wire:model='offComments' class="sr-only peer">
                                     <div
-                                        class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                                    </div>
-                                </label>
-                            </div>
-
-                            <div class="flex justify-between items-center">
-                                <p class="text-xs text-gray-600 font-semibold dark:text-gray-300">Turn off share?</p>
-                                <label class="inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" wire:model='offShares' class="sr-only peer">
-                                    <div
-                                        class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                        class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none  rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                     </div>
                                 </label>
                             </div>
@@ -122,10 +112,13 @@
                 </div>
 
                 <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
-                    <button @click="newPost=false" type="button"
-                        class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors border rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-100 focus:ring-offset-2">Cancel</button>
-                    <button wire:loading.attr="disabled" wire:click="addPost" type="button"
+                    <button wire:loading.remove wire:click="addPost" type="button"
                         class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900">Post</button>
+                    <button wire:loading
+                        class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900"
+                        disabled>
+                        <x-button-loader message="Post" />
+                    </button>
                 </div>
             </div>
         </div>
