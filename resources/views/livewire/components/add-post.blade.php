@@ -1,10 +1,9 @@
 <div class="p-1 bg-slate-100 rounded-lg flex gap-2 justify-between text-sm mb-4 dark:bg-slate-900"
-    x-data="{ newPost: @entangle('newPost') }">
+    x-data="{ newPost: @entangle('newPost'), content: @entangle('content'), files: @entangle('files'), loading: false, loaderMessage: 'Post' }">
     <img src="{{ asset('images/avatar.png') }}" alt="" width={48} class="w-10 h-10 object-cover rounded-full" />
     <button
         class="border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 w-full rounded-lg text-start p-2 h-10"
-        @click="newPost=true">Write new
-        post
+        @click="newPost=true">Write new post
     </button>
 
     @teleport('body')
@@ -42,7 +41,8 @@
                                             <!-- Cross Icon -->
                                             <button wire:click="removeImage({{ $index }})"
                                                 class="absolute top-0 right-0 p-1 w-8 h-8 text-red-500 hover:text-red-700"
-                                                type="button">
+                                                type="button"
+                                                @click="loading = true; loaderMessage = 'Removing Image...';">
                                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -60,9 +60,9 @@
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
                                     </svg>
-                                    <p class="text-sm  font-semibold" wire:loading.remove wire:target='files'>Upload Media
+                                    <p class="text-sm font-semibold" wire:loading.remove wire:target='files'>Upload Media
                                     </p>
-                                    <p class="text-sm  font-semibold" wire:loading wire:target='files'>Uploading...</p>
+                                    <p class="text-sm font-semibold" wire:loading wire:target='files'>Uploading...</p>
 
                                     <input type="file" wire:model="files" id="selectedFile" style="display: none"
                                         accept="image/png, image/jpeg, image/jpg, image/webp, video/mp4, video/webm, video/ogg"
@@ -73,12 +73,11 @@
                         </div>
                     </div>
 
-                    <!-- Dark vertical line with full height -->
                     <div class="w-1/2 p-2 0 h-full">
                         <div class="flex flex-col gap-6">
-                            <div class="flex flex-col gap-2 " x-data="{ content: @entangle('content') }">
+                            <div class="flex flex-col gap-2" x-data="{ content: @entangle('content') }">
                                 <textarea placeholder="What's on your mind?"
-                                    class="flex-1  rounded-lg p-2 outline-none dark:text-white dark:bg-slate-800  dark:border-slate-600"
+                                    class="flex-1 rounded-lg p-2 outline-none dark:text-white dark:bg-slate-800  dark:border-slate-600"
                                     wire:model='content' id="" rows="6" maxlength="1000" style="resize: none;"></textarea>
                                 <div class="flex self-end mr-4">
                                     <p x-text="content ? content.length + '/1000' : '0/1000'"
@@ -112,12 +111,28 @@
                 </div>
 
                 <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
-                    <button wire:loading.remove wire:click="addPost" type="button"
-                        class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900">Post</button>
-                    <button wire:loading
+                    <button wire:loading.remove wire:target="addPost, files, removeImage" type="button"
+                        wire:click='addPost'
                         class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900"
-                        disabled>
+                        :disabled="!content.trim() && files.length === 0">
+                        Post
+                    </button>
+
+                    <button wire:loading wire:target='addPost'
+                        class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900">
                         <x-button-loader message="Post" />
+                    </button>
+
+                    <button wire:loading wire:target='files'
+                        class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900"
+                        :disabled="true">
+                        <span>Uploading files</span>
+                    </button>
+
+                    <button wire:loading wire:target='removeImage'
+                        class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900"
+                        :disabled="true">
+                        <span>Removing file</span>
                     </button>
                 </div>
             </div>
