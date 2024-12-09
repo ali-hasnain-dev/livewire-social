@@ -1,6 +1,6 @@
 <div class=" flex items-center justify-between h-16">
     <div class="hidden md:block">
-        <a href="/" wire:navigate.hover class="text-xl font-bold text-blue-500">Livewire Social</a>
+        <a href="/" wire:navigate.hover class="text-xl font-bold text-blue-500">Wire Social</a>
     </div>
     <div class="flex gap-4 text-sm font-semibold">
         <a href="/" wire:navigate.hover

@@ -22,7 +22,7 @@
                 <x-button-loader message="Getting reset link..." />
             </button>
             <a href="{{ route('login') }}" wire:navigate
-                class="px-3 py-2 ml-2 hover:bg-gray-100 hover:rounded-lg">Cancel</a>
+                class="px-3 py-2 ml-2 hover:bg-gray-100 hover:text-black hover:rounded-lg">Cancel</a>
         </div>
     </form>
 </div>
