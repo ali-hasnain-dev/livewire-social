@@ -111,6 +111,9 @@
                 </div>
 
                 <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
+                    @error('files.*')
+                        <span class="text-xs text-red-500 items-start text-center">{{ $message }}</span>
+                    @enderror
                     <button wire:loading.remove wire:target="addPost, files, removeImage" type="button"
                         wire:click='addPost'
                         class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900"
@@ -126,13 +129,13 @@
                     <button wire:loading wire:target='files'
                         class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900"
                         :disabled="true">
-                        <span>Uploading files</span>
+                        <x-button-loader message="Uploading files" />
                     </button>
 
                     <button wire:loading wire:target='removeImage'
                         class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900"
                         :disabled="true">
-                        <span>Removing file</span>
+                        <x-button-loader message="Removing file" />
                     </button>
                 </div>
             </div>
