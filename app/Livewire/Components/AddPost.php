@@ -21,6 +21,20 @@ class AddPost extends Component
 
     public $newPost = false;
 
+    public function updatedFiles()
+    {
+        $this->files = collect($this->files)->map(function ($file) {
+            return [
+                'url' => $file->temporaryUrl(),
+            ];
+        })->toArray();
+    }
+
+    public function removeImage($index)
+    {
+        array_splice($this->files, $index, 1);
+    }
+
     public function addPost(): void
     {
         $this->validate([
@@ -82,11 +96,6 @@ class AddPost extends Component
             $this->turnOffComments = true;
             $this->dispatch('new-post-created');
         }
-    }
-
-    public function removeImage($index)
-    {
-        array_splice($this->files, $index, 1);
     }
 
     public function render()

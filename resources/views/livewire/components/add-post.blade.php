@@ -21,7 +21,7 @@
                 <div class="flex items-center justify-between pb-3 p-2">
                     <h3 class="text-md font-semibold">Create post</h3>
                     <button @click="newPost=false, content='', files=[], turnOffLikes=true, turnOffComments=true"
-                        class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 mt-5 mr-5 text-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-50">
+                        class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 mt-5 mr-5 text-gray-600 rounded-full hover:text-gray-800 dark:hover:bg-gray-700 hover:bg-gray-50">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -32,43 +32,40 @@
                     <div class="w-1/2 p-2">
                         <div
                             class="flex border border-dashed border-gray-300 h-full rounded-md items-center justify-center">
-                            @if (count($files) > 0)
-                                <div class="flex justify-center gap-2 flex-wrap" x-for="files in file">
-                                    @foreach ($files as $index => $image)
-                                        <div class="relative">
-                                            <img src="{{ $image->temporaryUrl() }}" alt=""
-                                                class="h-24 w-24 rounded-md">
-                                            <!-- Cross Icon -->
-                                            <button wire:click="removeImage({{ $index }})"
-                                                class="absolute top-0 right-0 p-1 w-8 h-8 text-red-500 hover:text-red-700"
-                                                type="button">
-                                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @else
-                                <div class="flex flex-col items-center justify-center gap-1 cursor-pointer"
-                                    onclick="document.getElementById('selectedFile').click();">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-10 ">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
-                                    </svg>
-                                    <p class="text-sm font-semibold" wire:loading.remove wire:target='files'>Upload Media
-                                    </p>
-                                    <p class="text-sm font-semibold" wire:loading wire:target='files'>Uploading...</p>
+                            <div class="flex justify-center gap-2 flex-wrap" x-show="files.length > 0">
+                                <template x-for="(file, index) in files" :key="index">
+                                    <div class="relative">
+                                        <img :src="file.url" alt="Image" class="h-24 w-24 rounded-md">
+                                        <button @click="$wire.removeImage(index)" wire:key="index"
+                                            class="absolute top-0 right-0 p-1 w-8 h-8 text-red-500 hover:text-red-700"
+                                            type="button">
+                                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </template>
+                            </div>
 
-                                    <input type="file" wire:model="files" id="selectedFile" style="display: none"
-                                        accept="image/png, image/jpeg, image/jpg, image/webp, video/mp4, video/webm, video/ogg"
-                                        multiple
-                                        onchange="if(this.files.length > 10) { alert('You can only upload a maximum of 10 files'); this.value = ''; }">
-                                </div>
-                            @endif
+                            <div x-show="files.length==0"
+                                class="flex flex-col items-center justify-center gap-1 cursor-pointer"
+                                onclick="document.getElementById('selectedFile').click();">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-10 ">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+                                </svg>
+                                <p class="text-sm font-semibold" wire:loading.remove wire:target='files'>Upload Media
+                                </p>
+                                <p class="text-sm font-semibold" wire:loading wire:target='files'>Uploading...</p>
+
+                                <input type="file" wire:model="files" id="selectedFile" style="display: none"
+                                    accept="image/png, image/jpeg, image/jpg, image/webp, video/mp4, video/webm, video/ogg"
+                                    multiple
+                                    onchange="if(this.files.length > 10) { alert('You can only upload a maximum of 10 files'); this.value = ''; }">
+                            </div>
                         </div>
                     </div>
 
