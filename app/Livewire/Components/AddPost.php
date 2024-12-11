@@ -15,11 +15,9 @@ class AddPost extends Component
 
     public $files = [];
 
-    public $offLikes = false;
+    public $turnOffLikes = true;
+    public  $turnOffComments = true;
 
-    public $offComments = false;
-
-    public $offShares = false;
 
     public $newPost = false;
 
@@ -60,6 +58,8 @@ class AddPost extends Component
 
         $post = Post::create([
             'content' => $this->content ?? '',
+            'allow_comments' => $this->turnOffComments,
+            'allow_likes' => $this->turnOffLikes,
             'user_id' => Auth::user()->id,
         ]);
 
@@ -68,7 +68,7 @@ class AddPost extends Component
                 $mimeType = $image->getMimeType();
                 $path = $image->store('uploads/', 'public');
                 $post->images()->create([
-                    'url' => 'storage/'.$path,
+                    'url' => 'storage/' . $path,
                     'type' => $mimeType,
                 ]);
             }
@@ -78,6 +78,8 @@ class AddPost extends Component
             $this->content = '';
             $this->files = [];
             $this->newPost = false;
+            $this->turnOffLikes = true;
+            $this->turnOffComments = true;
             $this->dispatch('new-post-created');
         }
     }

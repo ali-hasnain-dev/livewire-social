@@ -1,7 +1,7 @@
 <div class="{{ auth()->check() ? 'h-[calc(100vh-98px)]' : 'h-screen' }}  flex items-center justify-center">
     <div class="bg-white p-8 rounded-md shadow-md w-[400px] dark:bg-slate-800">
         <h1 class="mb-1 text-lg font-semibold text-blue-500">Wire Social</h1>
-        <p class="text-sm font-semibold mb-2">Welcome Back!</p>
+        <p class="text-xs font-semibold mb-2">Welcome Back!</p>
         <form class="flex flex-col gap-2" wire:submit.prevent="submitLogin">
             <p class="text-red-500 text-xs self-center font-bold">
                 @session('error')

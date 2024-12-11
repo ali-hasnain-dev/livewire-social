@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('image')->nullable();
             $table->text('content')->nullable();
+            $table->boolean('allow_comments')->default(true);
+            $table->boolean('allow_likes')->default(true);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

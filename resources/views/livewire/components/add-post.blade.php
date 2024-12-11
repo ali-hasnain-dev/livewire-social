@@ -1,9 +1,9 @@
 <div class="p-1 bg-slate-100 rounded-lg flex gap-2 justify-between text-sm mb-4 dark:bg-slate-900"
-    x-data="{ newPost: @entangle('newPost'), content: @entangle('content'), files: @entangle('files'), loading: false, loaderMessage: 'Post' }">
+    x-data="{ newPost: @entangle('newPost'), content: @entangle('content'), files: @entangle('files'), turnOffLikes: @entangle('turnOffLikes'), turnOffComments: @entangle('turnOffComments') }">
     <img src="{{ asset('images/avatar.png') }}" alt="" width={48} class="w-10 h-10 object-cover rounded-full" />
     <button
         class="border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 w-full rounded-lg text-start p-2 h-10"
-        @click="newPost=true">Write new post
+        @click="newPost=true">What's on your mind?
     </button>
 
     @teleport('body')
@@ -19,8 +19,8 @@
                 x-transition:leave-end="opacity-0 -translate-y-2 sm:scale-95"
                 class="relative w-full py-6 bg-white border shadow-lg px-7 border-neutral-200 sm:max-w-3xl sm:rounded-lg dark:bg-slate-800">
                 <div class="flex items-center justify-between pb-3 p-2">
-                    <h3 class="text-md font-semibold">Create New Post</h3>
-                    <button @click="newPost=false"
+                    <h3 class="text-md font-semibold">Create post</h3>
+                    <button @click="newPost=false, content='', files=[], turnOffLikes=true, turnOffComments=true"
                         class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 mt-5 mr-5 text-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-50">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor">
@@ -33,7 +33,7 @@
                         <div
                             class="flex border border-dashed border-gray-300 h-full rounded-md items-center justify-center">
                             @if (count($files) > 0)
-                                <div class="flex justify-center gap-2 flex-wrap">
+                                <div class="flex justify-center gap-2 flex-wrap" x-for="files in file">
                                     @foreach ($files as $index => $image)
                                         <div class="relative">
                                             <img src="{{ $image->temporaryUrl() }}" alt=""
@@ -41,8 +41,7 @@
                                             <!-- Cross Icon -->
                                             <button wire:click="removeImage({{ $index }})"
                                                 class="absolute top-0 right-0 p-1 w-8 h-8 text-red-500 hover:text-red-700"
-                                                type="button"
-                                                @click="loading = true; loaderMessage = 'Removing Image...';">
+                                                type="button">
                                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -90,7 +89,7 @@
                             <div class="flex justify-between items-center">
                                 <p class="text-xs text-gray-600 dark:text-gray-300 font-semibold">Turn off likes?</p>
                                 <label class="inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" wire:model='offLikes' class="sr-only peer">
+                                    <input type="checkbox" wire:model='turnOffLikes' class="sr-only peer">
                                     <div
                                         class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                     </div>
@@ -100,7 +99,7 @@
                             <div class="flex justify-between items-center">
                                 <p class="text-xs text-gray-600 font-semibold dark:text-gray-300">Turn off comments?</p>
                                 <label class="inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" wire:model='offComments' class="sr-only peer">
+                                    <input type="checkbox" wire:model='turnOffComments' class="sr-only peer">
                                     <div
                                         class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none  rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                     </div>
@@ -117,7 +116,7 @@
                     <button wire:loading.remove wire:target="addPost, files, removeImage" type="button"
                         wire:click='addPost'
                         class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900"
-                        :disabled="!content.trim() && files.length === 0">
+                        :disabled="!content && files.length === 0">
                         Post
                     </button>
 
