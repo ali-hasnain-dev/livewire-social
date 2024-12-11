@@ -15,6 +15,10 @@ class AddPost extends Component
 
     public $files = [];
 
+    public $uploadedFiles = [];
+
+    public $newFile;
+
     public $turnOffLikes = true;
     public  $turnOffComments = true;
 
@@ -23,11 +27,60 @@ class AddPost extends Component
 
     public function updatedFiles()
     {
-        $this->files = collect($this->files)->map(function ($file) {
-            return [
-                'url' => $file->temporaryUrl(),
+        $this->validate([
+            'files.*' => [
+                'nullable',
+                'file',
+                function ($attribute, $value, $fail) {
+                    $mimeType = $value->getMimeType();
+
+                    if (str_starts_with($mimeType, 'image')) {
+                        if (!in_array($value->getClientOriginalExtension(), ['png', 'jpeg', 'jpg', 'webp'])) {
+                            return $fail("The $attribute must be a file of type: png, jpeg, jpg, webp.");
+                        }
+
+                        if ($value->getSize() > 5120 * 1024) { // 5 MB
+                            return $fail("The $attribute must not be greater than 5MB.");
+                        }
+                    } elseif (str_starts_with($mimeType, 'video')) {
+                        if ($value->getClientOriginalExtension() !== 'mp4') {
+                            return $fail("The $attribute must be a file of type: mp4.");
+                        }
+
+                        if ($value->getSize() > 10240 * 1024) { // 10 MB
+                            return $fail("The $attribute must not be greater than 10MB.");
+                        }
+                    } else {
+                        return $fail("The $attribute must be an image or video file.");
+                    }
+                },
+            ],
+        ]);
+
+        foreach ($this->files as $file) {
+            $this->uploadedFiles[] = $file; // Store the original file
+            $this->files[] = [
+                'url' => $file->temporaryUrl(), // Generate preview URL
             ];
-        })->toArray();
+        }
+        $this->files = array_slice($this->files, count($this->uploadedFiles)); // Avoid duplicates
+    }
+
+    public function updatedNewFile()
+    {
+        // Validate the new file
+        $this->validate([
+            'newFile' => 'image|max:1024', // Validate image and max size 1MB
+        ]);
+
+        // Add to uploaded files and preview URLs
+        $this->uploadedFiles[] = $this->newFile;
+        $this->files[] = [
+            'url' => $this->newFile->temporaryUrl(),
+        ];
+
+        // Clear the newFile property
+        $this->reset('newFile');
     }
 
     public function removeImage($index)
@@ -38,16 +91,15 @@ class AddPost extends Component
     public function addPost(): void
     {
         $this->validate([
-            'content' => 'nullable|required_without:files|max:1000',
-            'files.*' => [
+            'content' => 'nullable|required_without:uploadedFiles|max:1000',
+            'uploadedFiles.*' => [
                 'nullable',
-                'file', // Ensures it’s a file
+                'file',
                 function ($attribute, $value, $fail) {
                     $mimeType = $value->getMimeType();
 
                     if (str_starts_with($mimeType, 'image')) {
-                        // Validate image file types and size
-                        if (! in_array($value->getClientOriginalExtension(), ['png', 'jpeg', 'jpg', 'webp'])) {
+                        if (!in_array($value->getClientOriginalExtension(), ['png', 'jpeg', 'jpg', 'webp'])) {
                             return $fail("The $attribute must be a file of type: png, jpeg, jpg, webp.");
                         }
 
@@ -55,7 +107,6 @@ class AddPost extends Component
                             return $fail("The $attribute must not be greater than 5MB.");
                         }
                     } elseif (str_starts_with($mimeType, 'video')) {
-                        // Validate video file type and size
                         if ($value->getClientOriginalExtension() !== 'mp4') {
                             return $fail("The $attribute must be a file of type: mp4.");
                         }
@@ -77,10 +128,10 @@ class AddPost extends Component
             'user_id' => Auth::user()->id,
         ]);
 
-        if ($this->files) {
-            foreach ($this->files as $image) {
-                $mimeType = $image->getMimeType();
-                $path = $image->store('uploads/', 'public');
+        if ($this->uploadedFiles) {
+            foreach ($this->uploadedFiles as $file) {
+                $mimeType = $file->getMimeType();
+                $path = $file->store('uploads/', 'public');
                 $post->images()->create([
                     'url' => 'storage/' . $path,
                     'type' => $mimeType,
@@ -91,6 +142,7 @@ class AddPost extends Component
         if ($post) {
             $this->content = '';
             $this->files = [];
+            $this->uploadedFiles = [];
             $this->newPost = false;
             $this->turnOffLikes = true;
             $this->turnOffComments = true;

@@ -1,5 +1,5 @@
 <div class="p-1 bg-slate-100 rounded-lg flex gap-2 justify-between text-sm mb-4 dark:bg-slate-900"
-    x-data="{ newPost: @entangle('newPost'), content: @entangle('content'), files: @entangle('files'), turnOffLikes: @entangle('turnOffLikes'), turnOffComments: @entangle('turnOffComments') }">
+    x-data="{ newPost: @entangle('newPost'), content: @entangle('content'), files: @entangle('files'), uploadedFiles: @entangle('uploadedFiles'), newFile: @entangle('newFile'), turnOffLikes: @entangle('turnOffLikes'), turnOffComments: @entangle('turnOffComments') }">
     <img src="{{ asset('images/avatar.png') }}" alt="" width={48} class="w-10 h-10 object-cover rounded-full" />
     <button
         class="border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 w-full rounded-lg text-start p-2 h-10"
@@ -21,7 +21,8 @@
                 class="relative w-full py-6 bg-white border shadow-lg px-7 border-neutral-200 sm:max-w-3xl sm:rounded-lg dark:bg-slate-800">
                 <div class="flex items-center justify-between pb-3 p-2">
                     <h3 class="text-md font-semibold">Create post</h3>
-                    <button @click="newPost=false, content='', files=[], turnOffLikes=true, turnOffComments=true"
+                    <button
+                        @click="newPost=false, content='', files=[], uploadedFiles=[], turnOffLikes=true, turnOffComments=true"
                         class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 mt-5 mr-5 text-gray-600 rounded-full hover:text-gray-800 dark:hover:bg-gray-700 hover:bg-gray-50">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor">
@@ -31,8 +32,8 @@
                 </div>
                 <div class="relative flex w-auto h-[400px] pb-8">
                     <div class="w-1/2 p-2">
-                        <div
-                            class="flex border border-dashed border-gray-300 h-full rounded-md items-center justify-center">
+                        <div :class="files.length > 0 ? 'border border-gray-300' : 'border border-dashed border-gray-300'"
+                            class="flex  h-full rounded-md items-center justify-center">
                             <div class="flex justify-center gap-2 flex-wrap" x-show="files.length > 0">
                                 <template x-for="(file, index) in files" :key="index">
                                     <div class="relative">
@@ -48,6 +49,17 @@
                                         </button>
                                     </div>
                                 </template>
+                                <div x-show="files.length < 9"
+                                    class="flex flex-col items-center justify-center gap-1 rounded-md cursor-pointer border border-dashed border-gray-300"
+                                    onclick="document.getElementById('newSelectedFile').click();">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="h-20 w-24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    <input type="file" wire:model="newFile" id="newSelectedFile" style="display: none"
+                                        accept="image/png, image/jpeg, image/jpg, image/webp, video/mp4, video/webm, video/ogg">
+                                </div>
                             </div>
 
                             <div x-show="files.length==0"
