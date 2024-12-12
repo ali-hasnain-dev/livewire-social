@@ -1,4 +1,4 @@
-<div class="flex rounded-md bg-white p-4 gap-4 flex-col dark:bg-slate-800">
+<div class="flex rounded-md bg-white p-4 gap-4 flex-col dark:bg-slate-800 w-full md:w-[500px]" x-data="{ post: @entangle('post') }">
     <div class="flex justify-between ">
         <a href="{{ route('profile', ['name' => $post->user->username]) }}" wire:navigate>
             <div class="flex items-center gap-2">
@@ -21,7 +21,7 @@
 
     @if (count($post->images) > 0)
         @if (count($post->images) > 1)
-            <div class="w-[500px] self-center">
+            <div class="w-full self-center">
                 <div class="swiper h-[400px] bg-white dark:bg-slate-800 w-full rounded-md" x-init="new Swiper($el, {
                     modules: [Navigation, Pagination],
                     loop: true,
@@ -39,7 +39,7 @@
                             <div class="swiper-slide">
                                 @if (Str::startsWith($image->type, 'image'))
                                     <img src="{{ asset($image->url) }}" alt=""
-                                        class="w-full block object-scale-down h-[400px] rounded-md">
+                                        class="w-full block object-scale-down h-auto rounded-md">
                                 @elseif (Str::startsWith($image->type, 'video'))
                                     <x-video :source="asset($image->url)" :type="$post->images[0]->type" />
                                 @endif
@@ -73,7 +73,7 @@
             </div>
         @else
             @if (Str::startsWith($post->images[0]->type, 'image'))
-                <img src="{{ asset($post->images[0]->url) }}" alt="" class="w-full h-auto rounded-md">
+                <img src="{{ asset($post->images[0]->url) }}" alt="" class="w-auto h-auto  rounded-md">
             @elseif (Str::startsWith($post->images[0]->type, 'video'))
                 <x-video :source="asset($post->images[0]->url)" :type="$post->images[0]->type" />
             @endif

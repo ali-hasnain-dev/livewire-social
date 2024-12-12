@@ -13,6 +13,8 @@ class Post extends Component
 {
     public $post;
 
+    public $user;
+
     public $post_id;
 
     public $likes;
@@ -21,9 +23,10 @@ class Post extends Component
 
     public $likedByme = false;
 
-    public function mount($post)
+    public function mount(ModelsPost $post)
     {
         $this->post = $post;
+        $this->user = $post->user;
         $this->post_id = $post->id;
         $this->likes = $post->likes_count;
         $this->likedByme = $post->likes ? in_array(Auth::user()->id, $post->likes->pluck('user_id')->toArray()) : false;
@@ -44,6 +47,7 @@ class Post extends Component
             $like->save();
             $this->likedByme = true;
         }
+
 
         defer(function () use ($id) {
             $post = ModelsPost::withCount('likes')->find($id);
