@@ -1,4 +1,4 @@
-<div class="flex rounded-md bg-white p-4 gap-4 flex-col dark:bg-slate-800 w-full md:w-[500px]" x-data="{ post: @entangle('post') }">
+<div class="flex rounded-md bg-white p-4 gap-4 flex-col dark:bg-slate-800 w-full" x-data="{ post: @entangle('post') }">
     <div class="flex justify-between ">
         <a href="{{ route('profile', ['name' => $post->user->username]) }}" wire:navigate>
             <div class="flex items-center gap-2">

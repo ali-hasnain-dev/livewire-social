@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-4 relative items-end" {{ when(!$userId, 'wire:poll.180s.keep-alive=checkNewPost') }}>
+<div class="flex flex-col gap-4 relative" {{ when(!$userId, 'wire:poll.180s.keep-alive=checkNewPost') }}>
     @if ($hasNewPosts)
         <div class="sticky top-20 w-full flex justify-center z-40 md:w-[500px]">
             <p x-on:click="$nextTick(() => window.scrollTo({ top: 0, behavior: 'smooth' }))" wire:click='refreshPosts'
