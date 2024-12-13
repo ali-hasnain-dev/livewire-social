@@ -13,7 +13,6 @@ class Post extends Component
 {
     public $post;
 
-    public $user;
 
     public $post_id;
 
@@ -26,7 +25,6 @@ class Post extends Component
     public function mount(ModelsPost $post)
     {
         $this->post = $post;
-        $this->user = $post->user;
         $this->post_id = $post->id;
         $this->likes = $post->likes_count;
         $this->likedByme = $post->likes ? in_array(Auth::user()->id, $post->likes->pluck('user_id')->toArray()) : false;
