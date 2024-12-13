@@ -1,5 +1,4 @@
 @props([
-    'type' => 'text',
     'name' => '',
     'label' => '',
     'placeholder' => '',
@@ -9,6 +8,7 @@
     'disabled' => false,
     'readonly' => false,
     'error' => '',
+    'rows' => 5,
 ])
 
 <div class="flex flex-col gap-2">
@@ -16,11 +16,11 @@
             <span class="text-red-500">*</span>
         @endif
     </label>
-    <input type="{{ $type }}" name="{{ $name }}" id="{{ $name }}"
+    <textarea name="{{ $name }}" id="{{ $name }}"
         class="w-full p-2 outline-none border {{ $error ? 'border-red-500' : 'border-gray-500' }} rounded-md dark:bg-slate-700"
         placeholder="{{ $placeholder }}" value="{{ $value }}" {{ $required ? 'required' : '' }}
         {{ $autofocus ? 'autofocus' : '' }} {{ $disabled ? 'disabled' : '' }} {{ $readonly ? 'readonly' : '' }}
-        wire:model="{{ $name }}">
+        wire:model="{{ $name }}" rows="{{ $rows }}"></textarea>
     <p class="text-red-500 text-xs">
         @if ($error)
             {{ $error }}
