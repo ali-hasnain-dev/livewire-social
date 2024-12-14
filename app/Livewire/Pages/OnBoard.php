@@ -20,6 +20,7 @@ class OnBoard extends Component
 
     public function incrementStep()
     {
+        $this->formValidation();
         if ($this->currentStep != $this->totalSteps) {
             $this->currentStep++;
         }
@@ -27,6 +28,7 @@ class OnBoard extends Component
 
     public function decrementStep()
     {
+        $this->formValidation();
         if ($this->currentStep != 1) {
             $this->currentStep--;
         }
