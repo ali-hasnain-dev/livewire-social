@@ -28,7 +28,7 @@ class OnBoard extends Component
 
     public function decrementStep()
     {
-        $this->formValidation();
+
         if ($this->currentStep != 1) {
             $this->currentStep--;
         }
@@ -36,6 +36,7 @@ class OnBoard extends Component
 
     public function submit()
     {
+        $this->formValidation();
         dd($this->currentStep);
     }
 
@@ -48,8 +49,9 @@ class OnBoard extends Component
             ]);
         } elseif ($this->currentStep == 2) {
             $this->validate([
-                'bio' => 'nullable|string',
+                'gender' => 'required',
                 'dob' => 'required',
+                'bio' => 'nullable|string',
             ]);
         }
     }

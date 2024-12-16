@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-6 items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4"
+<div class="flex flex-col gap-6 items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4 h-[calc(100vh-98px)]"
     x-data="{
         currentStep: @entangle('currentStep'),
         totalSteps: @entangle('totalSteps'),
@@ -24,11 +24,34 @@
 
             <!-- Step 1 -->
             <div class="w-full shrink-0 p-6">
-                <h2 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">Setup General Info</h2>
-                <div class="flex items-center justify-center mb-4">
-                    <img src="{{ asset('images/avatar.png') }}" alt="Avatar" class="w-24 h-24 rounded-full border">
+                <h2 class="text-md font-bold text-gray-800 dark:text-gray-200 mb-4">Setup General Info</h2>
+                <div class="relative dark:bg-slate-800">
+                    <!-- Cover Photo -->
+                    <div class="relative w-full h-40">
+                        <img src="{{ asset('images/avatar4.png') }}" class="rounded-md w-full h-full object-cover" />
+                        <button
+                            class="absolute top-2 right-2 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15.232 5.232l3.536 3.536m-2.036-7.036A2.5 2.5 0 1118 5.5v.001a2.5 2.5 0 01-1.768 2.415m-10.857 9.392l-1.768 5.303a1 1 0 001.22 1.22l5.303-1.768m-4.755-.952L20.768 7.232a2.5 2.5 0 00-3.536-3.536L6.88 14.879z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Profile Photo -->
+                    <div class="absolute left-1/2 transform -translate-x-1/2 -bottom-6">
+                        <img src="{{ asset('images/avatar.png') }}" class="rounded-full object-cover w-20 h-20 z-10" />
+                        <button
+                            class="absolute bottom-1 right-1 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15.232 5.232l3.536 3.536m-2.036-7.036A2.5 2.5 0 1118 5.5v.001a2.5 2.5 0 01-1.768 2.415m-10.857 9.392l-1.768 5.303a1 1 0 001.22 1.22l5.303-1.768m-4.755-.952L20.768 7.232a2.5 2.5 0 00-3.536-3.536L6.88 14.879z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4 mt-12">
                     <x-input type="text" label="First Name" name="first_name" placeholder="First name"
                         required="true" :error="$errors->first('first_name')" />
                     <x-input type="text" label="Last Name" name="last_name" placeholder="Last name"
@@ -48,30 +71,38 @@
                             <x-radio-button name="gender" label="Male" value="male" :error="$errors->first('gender')" />
                             <x-radio-button name="gender" label="Female" value="female" :error="$errors->first('gender')" />
                         </div>
+                        <div>
+                            <p class="text-red-500 text-xs">
+                                @if ($errors->first('gender'))
+                                    {{ $errors->first('gender') }}
+                                @endif
+                            </p>
+                        </div>
                     </div>
                     <x-input-date name="dob" label="DOB" placeholder="DOB" required="true" :error="$errors->first('dob')" />
                     <x-textarea label="Bio" name="bio" placeholder="Bio" :error="$errors->first('bio')" />
                 </div>
             </div>
         </div>
-    </div>
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between w-full max-w-md p-6" x-cloak>
+            <button type="button" x-show="currentStep > 1" @click="updateTransition('left'); $wire.decrementStep()"
+                class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300">
+                Previous
+            </button>
 
-    <!-- Navigation Buttons -->
-    <div class="flex justify-between w-full max-w-md mt-4" x-cloak>
-        <button type="button" x-show="currentStep > 1" @click="updateTransition('left'); $wire.decrementStep()"
-            class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300">
-            Previous
-        </button>
+            <div class="ml-auto">
+                <button type="button" x-show="currentStep < totalSteps"
+                    @click="updateTransition('right'); $wire.incrementStep()"
+                    class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300">
+                    Next
+                </button>
 
-        <button type="button" x-show="currentStep < totalSteps"
-            @click="updateTransition('right'); $wire.incrementStep()"
-            class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300">
-            Next
-        </button>
-
-        <button type="button" x-show="currentStep == totalSteps" @click="$wire.submit()"
-            class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-500 transition duration-300">
-            Submit
-        </button>
+                <button type="button" x-show="currentStep == totalSteps" @click="$wire.submit()"
+                    class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-500 transition duration-300">
+                    Submit
+                </button>
+            </div>
+        </div>
     </div>
 </div>
