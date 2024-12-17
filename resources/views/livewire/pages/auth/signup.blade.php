@@ -8,50 +8,16 @@
                     {{ session()->pull('error') }}
                 @endsession
             </p>
-            <div class="flex flex-col gap-2">
-                <label for="" class="text-xs font-semibold">Name</label>
-                <input type="text"
-                    class="w-full p-2 outline-none border border-gray-500 rounded-md dark:bg-slate-700"
-                    placeholder="Name" wire:model="name" required>
-                <p class="text-red-500 text-xs">
-                    @error('name')
-                        {{ $message }}
-                    @enderror
-                </p>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="" class="text-xs font-semibold">Username</label>
-                <input type="text"
-                    class="w-full p-2 outline-none border border-gray-500 rounded-md dark:bg-slate-700"
-                    placeholder="Username" wire:model="username" required>
-                <p class="text-red-500 text-xs">
-                    @error('username')
-                        {{ $message }}
-                    @enderror
-                </p>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="" class="text-xs font-semibold">Email</label>
-                <input type="email"
-                    class="w-full p-2 outline-none border border-gray-500 rounded-md dark:bg-slate-700"
-                    placeholder="Email" wire:model="email" required>
-                <p class="text-red-500 text-xs">
-                    @error('email')
-                        {{ $message }}
-                    @enderror
-                </p>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="" class="text-xs font-semibold">Password</label>
-                <input type="password"
-                    class="w-full p-2 outline-none border border-gray-500 rounded-md dark:bg-slate-700"
-                    placeholder="Password" wire:model="password" required>
-                <p class="text-red-500 text-xs">
-                    @error('password')
-                        {{ $message }}
-                    @enderror
-                </p>
-            </div>
+
+            <x-input type="text" label="Username" name="username" placeholder="Username" required='true'
+                :error="$errors->first('username')" />
+
+            <x-input type="email" label="Email" name="email" placeholder="Name" required='true'
+                :error="$errors->first('name')" />
+
+            <x-input type="password" label="Password" name="password" placeholder="Password" required='true'
+                :error="$errors->first('password')" />
+
             <button class="p-2 bg-black text-white rounded-md" type="submit" wire:loading.remove>Signup</button>
             <button wire:loading class="w-full text-blue-500 font-semibold p-2 rounded-md border border-blue-500"
                 disabled>
