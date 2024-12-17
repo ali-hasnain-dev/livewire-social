@@ -3,12 +3,16 @@
 namespace App\Livewire\Pages;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class OnBoard extends Component
 {
+    use WithFileUploads;
     public $currentStep = 1;
-
     public $totalSteps = 2;
+
+    public $cover;
+    public $profile;
 
     public $first_name;
     public $last_name;
@@ -37,7 +41,7 @@ class OnBoard extends Component
     public function submit()
     {
         $this->formValidation();
-        dd($this->currentStep);
+        dd('submitted');
     }
 
     public function formValidation()

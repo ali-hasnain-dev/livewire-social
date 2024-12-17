@@ -28,8 +28,9 @@
                 <div class="relative dark:bg-slate-800">
                     <!-- Cover Photo -->
                     <div class="relative w-full h-40">
-                        <img src="{{ asset('images/avatar4.png') }}" class="rounded-md w-full h-full object-cover" />
-                        <button
+                        <img src="{{ $cover ? $cover->temporaryUrl() : asset('images/avatar4.png') }}"
+                            class="rounded-md w-full h-full object-cover" />
+                        <button onclick="document.getElementById('coverFile').click();"
                             class="absolute top-2 right-2 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" class="w-4 h-4">
@@ -37,17 +38,20 @@
                                     d="M15.232 5.232l3.536 3.536m-2.036-7.036A2.5 2.5 0 1118 5.5v.001a2.5 2.5 0 01-1.768 2.415m-10.857 9.392l-1.768 5.303a1 1 0 001.22 1.22l5.303-1.768m-4.755-.952L20.768 7.232a2.5 2.5 0 00-3.536-3.536L6.88 14.879z" />
                             </svg>
                         </button>
+                        <input type="file" name="" id="coverFile" wire:model='cover' hidden>
                     </div>
                     <!-- Profile Photo -->
                     <div class="absolute left-1/2 transform -translate-x-1/2 -bottom-6">
-                        <img src="{{ asset('images/avatar.png') }}" class="rounded-full object-cover w-20 h-20 z-10" />
-                        <button
-                            class="absolute bottom-1 right-1 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">
+                        <img src="{{ $profile ? $profile->temporaryUrl() : asset('images/avatar.png') }}"
+                            class="rounded-full object-cover w-24 h-24 z-10" />
+                        <button onclick="document.getElementById('profileFile').click();"
+                            class="absolute bottom-2 right-2 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15.232 5.232l3.536 3.536m-2.036-7.036A2.5 2.5 0 1118 5.5v.001a2.5 2.5 0 01-1.768 2.415m-10.857 9.392l-1.768 5.303a1 1 0 001.22 1.22l5.303-1.768m-4.755-.952L20.768 7.232a2.5 2.5 0 00-3.536-3.536L6.88 14.879z" />
                             </svg>
+                            <input type="file" name="" id="profileFile" wire:model='profile' hidden>
                         </button>
                     </div>
                 </div>
@@ -86,22 +90,47 @@
         </div>
         <!-- Navigation Buttons -->
         <div class="flex justify-between w-full max-w-md p-6" x-cloak>
-            <button type="button" x-show="currentStep > 1" @click="updateTransition('left'); $wire.decrementStep()"
+            <button wire:loading.attr="disabled" type="button" x-show="currentStep > 1"
+                @click="updateTransition('left'); $wire.decrementStep()"
                 class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300">
                 Previous
             </button>
 
             <div class="ml-auto">
-                <button type="button" x-show="currentStep < totalSteps"
-                    @click="updateTransition('right'); $wire.incrementStep()"
+                <button wire:loading.remove wire:target='incrementStep, cover, profile' type="button"
+                    x-show="currentStep < totalSteps" @click="updateTransition('right'); $wire.incrementStep()"
                     class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300">
                     Next
                 </button>
 
-                <button type="button" x-show="currentStep == totalSteps" @click="$wire.submit()"
+                <button wire:loading wire:target='incrementStep'
+                    class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300">
+                    <x-button-loader message="" />
+                </button>
+
+                <button wire:loading wire:target='cover'
+                    class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300"
+                    :disabled="true">
+                    <x-button-loader message="Cover image" />
+                </button>
+
+                <button wire:loading wire:target='profile'
+                    class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300"
+                    :disabled="true">
+                    <x-button-loader message="Profile image" />
+                </button>
+
+                <button wire:loading.remove type="button" x-show="currentStep == totalSteps" @click="$wire.submit()"
                     class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-500 transition duration-300">
                     Submit
                 </button>
+
+                <button wire:loading wire:target='submit'
+                    class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-500 transition duration-300"
+                    :disabled="true">
+                    <x-button-loader message="Submit" />
+                </button>
+
             </div>
         </div>
     </div>

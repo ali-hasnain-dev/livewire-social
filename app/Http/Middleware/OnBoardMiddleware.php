@@ -17,7 +17,6 @@ class OnBoardMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::user() && !Auth::user()->dob) {
-            // dd(Auth::user());
             return redirect()->route('onboard');
         }
 
