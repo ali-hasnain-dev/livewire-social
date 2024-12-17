@@ -9,13 +9,13 @@
                 @endsession
             </p>
 
-            <x-input type="text" label="Username" name="username" placeholder="Username" required='true'
+            <x-input-text type="text" label="Username" name="username" placeholder="Username" required='true'
                 :error="$errors->first('signupForm.username')" value="signupForm.username" />
 
-            <x-input type="email" label="Email" name="email" placeholder="Name" required='true' :error="$errors->first('signupForm.email')"
-                value="signupForm.email" />
+            <x-input-text type="email" label="Email" name="email" placeholder="Name" required='true'
+                :error="$errors->first('signupForm.email')" value="signupForm.email" />
 
-            <x-input type="password" label="Password" name="password" placeholder="Password" required='true'
+            <x-input-text type="password" label="Password" name="password" placeholder="Password" required='true'
                 :error="$errors->first('signupForm.password')" value="signupForm.password" />
 
             <button class="p-2 bg-black text-white rounded-md" type="submit" wire:loading.remove>Signup</button>

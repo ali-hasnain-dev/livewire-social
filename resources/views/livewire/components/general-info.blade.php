@@ -7,13 +7,13 @@
     <form wire:submit.prevent="updateProfile">
         <div class="md:flex justify-center items-center gap-24">
             <div class="flex flex-col gap-4 w-full">
-                <x-input type="text" label="User Name" name="username" placeholder="User Name" required='true'
+                <x-input-text type="text" label="User Name" name="username" placeholder="User Name" required='true'
                     :error="$errors->first('username')" />
 
-                <x-input type="text" label="name" name="name" placeholder="Name" required='true'
+                <x-input-text type="text" label="name" name="name" placeholder="Name" required='true'
                     :error="$errors->first('name')" />
 
-                <x-input type="text" label="Bio" name="bio" placeholder="Bio" :error="$errors->first('bio')" />
+                <x-input-text type="text" label="Bio" name="bio" placeholder="Bio" :error="$errors->first('bio')" />
 
                 <div class="flex flex-col gap-2">
                     <label for="" class="text-xs font-semibold">DOB</label>

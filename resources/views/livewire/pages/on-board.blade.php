@@ -56,11 +56,11 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-4 mt-12">
-                    <x-input type="text" label="First Name" name="first_name" placeholder="First name"
+                    <x-input-text type="text" label="First Name" name="first_name" placeholder="First name"
                         required="true" :error="$errors->first('first_name')" />
-                    <x-input type="text" label="Last Name" name="last_name" placeholder="Last name"
+                    <x-input-text type="text" label="Last Name" name="last_name" placeholder="Last name"
                         :error="$errors->first('last_name')" />
-                    <x-input type="text" label="Phone" name="phone" placeholder="Phone" :error="$errors->first('phone')" />
+                    <x-input-text type="text" label="Phone" name="phone" placeholder="Phone" :error="$errors->first('phone')" />
                 </div>
             </div>
 

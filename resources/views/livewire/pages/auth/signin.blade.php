@@ -21,9 +21,9 @@
                 </div>
             @endif
 
-            <x-input type="text" label="Email" name="email" placeholder="Email" required='true' :error="$errors->first('signinForm.email')"
-                value="signinForm.email" />
-            <x-input type="password" label="Password" name="password" placeholder="Password" required='true'
+            <x-input-text type="text" label="Email" name="email" placeholder="Email" required='true'
+                :error="$errors->first('signinForm.email')" value="signinForm.email" />
+            <x-input-text type="password" label="Password" name="password" placeholder="Password" required='true'
                 :error="$errors->first('signinForm.password')" value="signinForm.password" />
             <a href="/forgot-password" wire:navigate class="text-xs self-end hover:underline"><b>Forgot
                     Password?</b></a>
