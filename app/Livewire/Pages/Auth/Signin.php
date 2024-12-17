@@ -5,7 +5,6 @@ namespace App\Livewire\Pages\Auth;
 use App\Livewire\Forms\SigninForm;
 use App\Livewire\Pages\Home;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Signin extends Component

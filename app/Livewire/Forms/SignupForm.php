@@ -29,6 +29,8 @@ class SignupForm extends Form
             'password' => Hash::make($this->password),
         ]);
 
+        $this->reset();
+
         // event(new Registered($user = $user));
     }
 }
