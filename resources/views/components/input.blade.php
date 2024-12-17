@@ -18,9 +18,8 @@
     </label>
     <input type="{{ $type }}" name="{{ $name }}" id="{{ $name }}"
         class="w-full p-2 outline-none border {{ $error ? 'border-red-500' : 'border-gray-500' }} rounded-md dark:bg-slate-700"
-        placeholder="{{ $placeholder }}" value="{{ $value }}" {{ $required ? 'required' : '' }}
-        {{ $autofocus ? 'autofocus' : '' }} {{ $disabled ? 'disabled' : '' }} {{ $readonly ? 'readonly' : '' }}
-        wire:model="{{ $name }}">
+        placeholder="{{ $placeholder }}" {{ $required ? 'required' : '' }} {{ $autofocus ? 'autofocus' : '' }}
+        {{ $disabled ? 'disabled' : '' }} {{ $readonly ? 'readonly' : '' }} wire:model="{{ $value }}">
     <p class="text-red-500 text-xs">
         @if ($error)
             {{ $error }}

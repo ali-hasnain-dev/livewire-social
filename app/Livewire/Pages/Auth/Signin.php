@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Auth;
 
+use App\Livewire\Forms\SigninForm;
 use App\Livewire\Pages\Home;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
@@ -9,12 +10,7 @@ use Livewire\Component;
 
 class Signin extends Component
 {
-    #[Validate('required|email')]
-    public $email;
-
-    #[Validate('required')]
-    public $password;
-
+    public SigninForm $signinForm;
     public function mount()
     {
         if (Auth::check()) {
@@ -26,7 +22,7 @@ class Signin extends Component
     {
         $this->validate();
 
-        if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+        if (Auth::attempt(['email' => $this->signinForm->email, 'password' => $this->signinForm->password])) {
             return $this->redirect(Home::class, true);
         }
 
