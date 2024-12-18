@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-6 items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4 h-[calc(100vh-98px)]"
     x-data="{
-        currentStep: @entangle('currentStep'),
-        totalSteps: @entangle('totalSteps'),
+        currentStep: @entangle('onBoardForm.currentStep'),
+        totalSteps: @entangle('onBoardForm.totalSteps'),
         transitionDirection: 'right',
         updateTransition(direction) {
             this.transitionDirection = direction;
@@ -28,7 +28,7 @@
                 <div class="relative dark:bg-slate-800">
                     <!-- Cover Photo -->
                     <div class="relative w-full h-40">
-                        <img src="{{ $cover ? $cover->temporaryUrl() : asset('images/avatar4.png') }}"
+                        <img src="{{ $onBoardForm->cover ? $onBoardForm->cover->temporaryUrl() : asset('images/avatar4.png') }}"
                             class="rounded-md w-full h-full object-cover" />
                         <button onclick="document.getElementById('coverFile').click();"
                             class="absolute top-2 right-2 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">
@@ -38,11 +38,11 @@
                                     d="M15.232 5.232l3.536 3.536m-2.036-7.036A2.5 2.5 0 1118 5.5v.001a2.5 2.5 0 01-1.768 2.415m-10.857 9.392l-1.768 5.303a1 1 0 001.22 1.22l5.303-1.768m-4.755-.952L20.768 7.232a2.5 2.5 0 00-3.536-3.536L6.88 14.879z" />
                             </svg>
                         </button>
-                        <input type="file" name="" id="coverFile" wire:model='cover' hidden>
+                        <input type="file" name="" id="coverFile" wire:model='onBoardForm.cover' hidden>
                     </div>
                     <!-- Profile Photo -->
                     <div class="absolute left-1/2 transform -translate-x-1/2 -bottom-6">
-                        <img src="{{ $profile ? $profile->temporaryUrl() : asset('images/avatar.png') }}"
+                        <img src="{{ $onBoardForm->profile ? $onBoardForm->profile->temporaryUrl() : asset('images/avatar.png') }}"
                             class="rounded-full object-cover w-24 h-24 z-10" />
                         <button onclick="document.getElementById('profileFile').click();"
                             class="absolute bottom-2 right-2 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">
@@ -51,16 +51,18 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15.232 5.232l3.536 3.536m-2.036-7.036A2.5 2.5 0 1118 5.5v.001a2.5 2.5 0 01-1.768 2.415m-10.857 9.392l-1.768 5.303a1 1 0 001.22 1.22l5.303-1.768m-4.755-.952L20.768 7.232a2.5 2.5 0 00-3.536-3.536L6.88 14.879z" />
                             </svg>
-                            <input type="file" name="" id="profileFile" wire:model='profile' hidden>
+                            <input type="file" name="" id="profileFile" wire:model='onBoardForm.profile'
+                                hidden>
                         </button>
                     </div>
                 </div>
                 <div class="flex flex-col gap-4 mt-12">
                     <x-input-text type="text" label="First Name" name="first_name" placeholder="First name"
-                        required="true" :error="$errors->first('first_name')" />
+                        required="true" :error="$errors->first('onBoardForm.first_name')" model="onBoardForm.first_name" />
                     <x-input-text type="text" label="Last Name" name="last_name" placeholder="Last name"
-                        :error="$errors->first('last_name')" />
-                    <x-input-text type="text" label="Phone" name="phone" placeholder="Phone" :error="$errors->first('phone')" />
+                        :error="$errors->first('onBoardForm.last_name')" model="onBoardForm.last_name" />
+                    <x-input-text type="text" label="Phone" name="phone" placeholder="Phone" :error="$errors->first('onBoardForm.phone')"
+                        model="onBoardForm.phone" />
                 </div>
             </div>
 
@@ -72,19 +74,23 @@
                         <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Gender <span
                                 class="text-red-500">*</span></label>
                         <div class="flex gap-4 mt-2">
-                            <x-radio-button name="gender" label="Male" value="male" :error="$errors->first('gender')" />
-                            <x-radio-button name="gender" label="Female" value="female" :error="$errors->first('gender')" />
+                            <x-radio-button name="gender" label="Male" value="male" :error="$errors->first('onBoardForm.gender')"
+                                model="onBoardForm.gender" />
+                            <x-radio-button name="gender" label="Female" value="female" :error="$errors->first('onBoardForm.gender')"
+                                model="onBoardForm.gender" />
                         </div>
                         <div>
                             <p class="text-red-500 text-xs">
-                                @if ($errors->first('gender'))
-                                    {{ $errors->first('gender') }}
+                                @if ($errors->first('onBoardForm.gender'))
+                                    {{ $errors->first('onBoardForm.gender') }}
                                 @endif
                             </p>
                         </div>
                     </div>
-                    <x-input-date name="dob" label="DOB" placeholder="DOB" required="true" :error="$errors->first('dob')" />
-                    <x-textarea label="Bio" name="bio" placeholder="Bio" :error="$errors->first('bio')" />
+                    <x-input-date name="dob" label="DOB" placeholder="DOB" required="true" :error="$errors->first('onBoardForm.dob')"
+                        model="onBoardForm.dob" />
+                    <x-textarea label="Bio" name="bio" placeholder="Bio" :error="$errors->first('onBoardForm.bio')"
+                        model="onBoardForm.bio" />
                 </div>
             </div>
         </div>
@@ -97,8 +103,10 @@
             </button>
 
             <div class="ml-auto">
-                <button wire:loading.remove wire:target='incrementStep, cover, profile' type="button"
-                    x-show="currentStep < totalSteps" @click="updateTransition('right'); $wire.incrementStep()"
+                <button wire:loading.remove
+                    wire:target='onBoardForm.incrementStep, onBoardForm.cover, onBoardForm.profile, incrementStep'
+                    type="button" x-show="currentStep < totalSteps"
+                    @click="updateTransition('right'); $wire.incrementStep()"
                     class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300">
                     Next
                 </button>
@@ -108,19 +116,21 @@
                     <x-button-loader message="" />
                 </button>
 
-                <button wire:loading wire:target='cover'
+                <button wire:loading wire:target='onBoardForm.cover'
                     class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300"
                     :disabled="true">
                     <x-button-loader message="Cover image" />
                 </button>
 
-                <button wire:loading wire:target='profile'
+                <button wire:loading wire:target='onBoardForm.profile'
                     class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300"
                     :disabled="true">
                     <x-button-loader message="Profile image" />
                 </button>
 
-                <button wire:loading.remove type="button" x-show="currentStep == totalSteps" @click="$wire.submit()"
+                <button wire:loading.remove
+                    wire:target='onBoardForm.incrementStep, onBoardForm.cover, onBoardForm.profile, submit'
+                    type="button" x-show="currentStep == totalSteps" @click="$wire.submit()"
                     class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-500 transition duration-300">
                     Submit
                 </button>

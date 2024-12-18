@@ -2,7 +2,7 @@
     'name' => '',
     'label' => '',
     'placeholder' => '',
-    'value' => '',
+    'model' => '',
     'required' => false,
     'autofocus' => false,
     'disabled' => false,
@@ -19,9 +19,9 @@
     </label>
     <textarea name="{{ $name }}" id="{{ $name }}"
         class="w-full p-2 outline-none border {{ $error ? 'border-red-500' : 'border-gray-500' }} rounded-md dark:bg-slate-700"
-        placeholder="{{ $placeholder }}" value="{{ $value }}" {{ $required ? 'required' : '' }}
-        {{ $autofocus ? 'autofocus' : '' }} {{ $disabled ? 'disabled' : '' }} {{ $readonly ? 'readonly' : '' }}
-        wire:model="{{ $name }}" rows="{{ $rows }}" style="resize: none;"></textarea>
+        placeholder="{{ $placeholder }}" {{ $required ? 'required' : '' }} {{ $autofocus ? 'autofocus' : '' }}
+        {{ $disabled ? 'disabled' : '' }} {{ $readonly ? 'readonly' : '' }} wire:model="{{ $model }}"
+        rows="{{ $rows }}" style="resize: none;"></textarea>
     <p class="text-red-500 text-xs">
         @if ($error)
             {{ $error }}

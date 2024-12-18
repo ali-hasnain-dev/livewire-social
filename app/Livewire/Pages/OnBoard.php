@@ -2,60 +2,51 @@
 
 namespace App\Livewire\Pages;
 
-use Livewire\Component;
+use App\Livewire\Forms\OnBoardForm;
 use Livewire\WithFileUploads;
+use Livewire\Component;
+
 
 class OnBoard extends Component
 {
     use WithFileUploads;
-    public $currentStep = 1;
-    public $totalSteps = 2;
-
-    public $cover;
-    public $profile;
-
-    public $first_name;
-    public $last_name;
-    public $phone;
-    public $dob;
-    public $bio;
-
-    public $gender;
+    public OnBoardForm $onBoardForm;
 
     public function incrementStep()
     {
         $this->formValidation();
-        if ($this->currentStep != $this->totalSteps) {
-            $this->currentStep++;
+        if ($this->onBoardForm->currentStep != $this->onBoardForm->totalSteps) {
+            $this->onBoardForm->currentStep++;
         }
     }
 
     public function decrementStep()
     {
 
-        if ($this->currentStep != 1) {
-            $this->currentStep--;
+        if ($this->onBoardForm->currentStep != 1) {
+            $this->onBoardForm->currentStep--;
         }
     }
 
     public function submit()
     {
         $this->formValidation();
-        dd('submitted');
+        $this->onBoardForm->store();
+        return $this->redirect(Home::class, true);
     }
 
     public function formValidation()
     {
-        if ($this->currentStep == 1) {
+        if ($this->onBoardForm->currentStep == 1) {
             $this->validate([
-                'first_name' => 'required|min:2',
-                'last_name' => 'nullable|string',
+                'onBoardForm.first_name' => 'required|min:2',
+                'onBoardForm.last_name' => 'nullable|string',
             ]);
-        } elseif ($this->currentStep == 2) {
+        } elseif ($this->onBoardForm->currentStep == 2) {
             $this->validate([
-                'gender' => 'required',
-                'dob' => 'required',
-                'bio' => 'nullable|string',
+                'onBoardForm.gender' => 'required',
+                'onBoardForm.dob' => 'required',
+                'onBoardForm.bio' => 'nullable|string',
             ]);
         }
     }
