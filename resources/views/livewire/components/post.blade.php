@@ -5,7 +5,8 @@
                 <img src="{{ $post->user->avatar ? $post->user->avatar : asset('images/user.png') }}" alt=""
                     class="w-10 h-10 rounded-full object-cover">
                 <div class="flex flex-col gap-1">
-                    <span class="text-sm font-semibold">{{ $post->user->name }}</span>
+                    <span
+                        class="text-sm font-semibold">{{ $post->user->first_name . ' ' . $post->user->last_name }}</span>
                     <span class="text-xs font-normal">{{ $post->created_at->diffForHumans() }}</span>
                 </div>
             </div>

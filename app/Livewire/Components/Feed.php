@@ -46,7 +46,7 @@ class Feed extends Component
 
     public function checkNewPost()
     {
-        $this->hasNewPosts = Post::with('user:id,name,avatar,username')
+        $this->hasNewPosts = Post::with('user:id,first_name,last_name,avatar,username')
             ->orderByDesc('created_at')->whereDate('created_at', Carbon::today())->whereTime('created_at', '>=', Carbon::now()->subMinutes(3))->count() > 0 ? true : false;
     }
 
@@ -63,9 +63,9 @@ class Feed extends Component
     {
         $newPost = Post::select('id', 'content', 'image', 'user_id', 'allow_comments', 'allow_likes', 'created_at')
             ->with([
-                'user:id,name,avatar,username',
+                'user:id,first_name,last_name,avatar,username',
                 'likes:id,post_id,user_id',
-                'comments' => fn($q) => $q->with('user:id,name,avatar,username')->latest()->limit(3),
+                'comments' => fn($q) => $q->with('user:id,first_name,last_name,avatar,username')->latest()->limit(3),
                 'images',
             ])
             ->withCount([
