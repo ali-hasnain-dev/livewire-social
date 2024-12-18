@@ -12,7 +12,7 @@
         @auth
             <div x-data="{ open: false }" class="relative">
                 <div class="flex items-center gap-2">
-                    <h1 class="text-xs font-bold">{{ auth()->user()->name }}</h1>
+                    <h1 class="text-xs font-bold">{{ auth()->user()->username }}</h1>
                     <img @click="open = !open"
                         src="{{ auth()->user()->avatar ? asset(auth()->user()->avatar) : asset('images/avatar.png') }}"
                         alt="" class="rounded-full w-10 h-10 object-cover cursor-pointer">
