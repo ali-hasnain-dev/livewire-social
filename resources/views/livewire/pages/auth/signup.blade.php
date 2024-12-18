@@ -10,13 +10,13 @@
             </p>
 
             <x-input-text type="text" label="Username" name="username" placeholder="Username" required='true'
-                :error="$errors->first('signupForm.username')" value="signupForm.username" />
+                :error="$errors->first('signupForm.username')" model="signupForm.username" />
 
             <x-input-text type="email" label="Email" name="email" placeholder="Name" required='true'
-                :error="$errors->first('signupForm.email')" value="signupForm.email" />
+                :error="$errors->first('signupForm.email')" model="signupForm.email" />
 
             <x-input-text type="password" label="Password" name="password" placeholder="Password" required='true'
-                :error="$errors->first('signupForm.password')" value="signupForm.password" />
+                :error="$errors->first('signupForm.password')" model="signupForm.password" />
 
             <button class="p-2 bg-black text-white rounded-md" type="submit" wire:loading.remove>Signup</button>
             <button wire:loading class="w-full text-blue-500 font-semibold p-2 rounded-md border border-blue-500"

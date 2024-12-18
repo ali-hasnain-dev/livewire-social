@@ -5,6 +5,25 @@
         transitionDirection: 'right',
         updateTransition(direction) {
             this.transitionDirection = direction;
+            this.$nextTick(() => {
+                const focusable = this.$el.querySelector(`[data-step='${this.currentStep}'] input`);
+                if (focusable) focusable.focus();
+            });
+        },
+        trapFocus(event) {
+            const focusableElements = [
+                ...this.$el.querySelectorAll(`[data-step='${this.currentStep}'] input, [data-step='${this.currentStep}'] button, [data-step='${this.currentStep}'] textarea`)
+            ];
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (event.shiftKey && document.activeElement === firstElement) {
+                event.preventDefault();
+                lastElement.focus();
+            } else if (!event.shiftKey && document.activeElement === lastElement) {
+                event.preventDefault();
+                firstElement.focus();
+            }
         }
     }">
 
@@ -20,15 +39,15 @@
 
         <!-- Steps Wrapper -->
         <div class="relative flex transition-transform duration-500 ease-in-out"
-            :style="`transform: translateX(-${(currentStep - 1) * 100}%);`">
+            :style="`transform: translateX(-${(currentStep - 1) * 100}%);`" @keydown.tab.prevent="trapFocus($event)">
 
             <!-- Step 1 -->
-            <div class="w-full shrink-0 p-6">
+            <div class="w-full shrink-0 p-6" data-step="1">
                 <h2 class="text-md font-bold text-gray-800 dark:text-gray-200 mb-4">Setup General Info</h2>
                 <div class="relative dark:bg-slate-800">
                     <!-- Cover Photo -->
                     <div class="relative w-full h-40">
-                        <img src="{{ $onBoardForm->cover ? $onBoardForm->cover->temporaryUrl() : asset('images/avatar4.png') }}"
+                        <img src="{{ $onBoardForm->cover ? $onBoardForm->cover->temporaryUrl() : asset('images/cover.png') }}"
                             class="rounded-md w-full h-full object-cover" />
                         <button onclick="document.getElementById('coverFile').click();"
                             class="absolute top-2 right-2 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">
@@ -42,7 +61,7 @@
                     </div>
                     <!-- Profile Photo -->
                     <div class="absolute left-1/2 transform -translate-x-1/2 -bottom-6">
-                        <img src="{{ $onBoardForm->profile ? $onBoardForm->profile->temporaryUrl() : asset('images/avatar.png') }}"
+                        <img src="{{ $onBoardForm->profile ? $onBoardForm->profile->temporaryUrl() : asset('images/profile.png') }}"
                             class="rounded-full object-cover w-24 h-24 z-10" />
                         <button onclick="document.getElementById('profileFile').click();"
                             class="absolute bottom-2 right-2 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">
@@ -67,7 +86,7 @@
             </div>
 
             <!-- Step 2 -->
-            <div class="w-full shrink-0 p-6">
+            <div class="w-full shrink-0 p-6" data-step="2">
                 <h2 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">Setup Personal Info</h2>
                 <div class="flex flex-col gap-4">
                     <div>
@@ -87,8 +106,27 @@
                             </p>
                         </div>
                     </div>
-                    <x-input-date name="dob" label="DOB" placeholder="DOB" required="true" :error="$errors->first('onBoardForm.dob')"
-                        model="onBoardForm.dob" />
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-semibold" for="datepicker-autohide">DOB
+                            <span class="text-red-500">*</span>
+                        </label>
+                        <input x-init="flatpickr($el, {
+                            maxDate: new Date(new Date().setFullYear(new Date().getFullYear() - 13)),
+                            onChange: function(selectedDates, dateStr) {
+                                // Emit the date change to Livewire
+                                $wire.set('onBoardForm.dob', dateStr);
+                            }
+                        });" type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Select DOB" wire:model.defer="onBoardForm.dob" wire:ignore>
+                        <p class="text-red-500 text-xs">
+                            @error('onBoardForm.dob')
+                                {{ $message }}
+                            @enderror
+                        </p>
+                    </div>
+
                     <x-textarea label="Bio" name="bio" placeholder="Bio" :error="$errors->first('onBoardForm.bio')"
                         model="onBoardForm.bio" />
                 </div>
@@ -131,12 +169,12 @@
                 <button wire:loading.remove
                     wire:target='onBoardForm.incrementStep, onBoardForm.cover, onBoardForm.profile, submit'
                     type="button" x-show="currentStep == totalSteps" @click="$wire.submit()"
-                    class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-500 transition duration-300">
+                    class="px-4 py-2 bg-black text-white rounded-lg shadow transition duration-300">
                     Submit
                 </button>
 
                 <button wire:loading wire:target='submit'
-                    class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-500 transition duration-300"
+                    class="px-4 py-2 bg-black text-white rounded-lg shadow transition duration-300"
                     :disabled="true">
                     <x-button-loader message="Submit" />
                 </button>

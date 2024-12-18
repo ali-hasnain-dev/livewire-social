@@ -22,9 +22,9 @@
             @endif
 
             <x-input-text type="text" label="Email" name="email" placeholder="Email" required='true'
-                :error="$errors->first('signinForm.email')" value="signinForm.email" />
+                :error="$errors->first('signinForm.email')" model="signinForm.email" />
             <x-input-text type="password" label="Password" name="password" placeholder="Password" required='true'
-                :error="$errors->first('signinForm.password')" value="signinForm.password" />
+                :error="$errors->first('signinForm.password')" model="signinForm.password" />
             <a href="/forgot-password" wire:navigate class="text-xs self-end hover:underline"><b>Forgot
                     Password?</b></a>
             <button class="p-2 bg-black text-white rounded-md mt-5" type="submit" wire:loading.attr="disabled">
