@@ -14,13 +14,11 @@
 
     <!-- Tabs Content - Positioned 15px below tab navbar -->
     <div class="py-4  items-center justify-center flex w-full" x-cloak>
-        <div x-show="activeTab === 1" class="w-full flex flex-col gap-16 items-center">
+        <div x-show="activeTab === 1" class="w-full flex flex-col gap-20 items-center">
             <livewire:components.general-info />
             <livewire:components.about-info />
             <livewire:components.change-password />
-
         </div>
-
         <div x-show="activeTab === 2">
             <p class="text-gray-500 font-semibold">Comming Soon Feature</p>
         </div>

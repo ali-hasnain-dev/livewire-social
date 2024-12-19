@@ -11,14 +11,15 @@ class GeneralInfo extends Component
     public $username = '';
 
     #[Validate('required|min:3|max:40')]
-    public $first_name = '';
+    public $first_name;
 
-    public $last_name = '';
+    public $last_name;
 
     public $gender;
 
-
     public $user;
+
+    public $showMessage = false;
 
 
     public function mount()
@@ -34,12 +35,13 @@ class GeneralInfo extends Component
     {
         $this->validate();
         $this->user->update([
+            'username' => $this->username,
             'first_name' => $this->first_name,
-            'bio' => $this->bio ?? '',
-            'dob' => $this->dob ?? '',
+            'last_name' => $this->last_name,
+            'gender' => $this->gender
         ]);
 
-        session()->flash('profile_success', 'Profile updated successfully');
+        $this->showMessage = true;
     }
 
     public function updateAboutProfile() {}

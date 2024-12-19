@@ -3,10 +3,7 @@
         <h1 class="text-lg font-semibold dark:text-slate-400 text-slate-600">General Info</h1>
         <span class="text-slate-500 text-xs">Update your account's profile information</span>
     </div>
-    @if (session()->has('profile_success'))
-        <p class="flex items-center justify-center self-center text-green-500 text-sm font-semibold">
-            {{ session()->pull('profile_success') }}</p>
-    @endif
+
     <form wire:submit.prevent="updateGeneralProfile">
         @csrf
         <div class="md:flex justify-center items-center gap-24">
@@ -36,10 +33,21 @@
                     </div>
                 </div>
 
-                <button wire:loading.attr="disabled" wire:loading.class="bg-gray-400"
-                    class="p-2 text-sm bg-black text-white rounded-lg self-start">
-                    <x-button-loader message="Save" />
-                </button>
+                <div class="flex items-center gap-2" x-data="{ showMessage: @entangle('showMessage') }"
+                    @hideMessage.window="setTimeout(() => showMessage = false, 3000)">
+                    <button class="p-2 text-sm bg-black text-white rounded-lg self-start" wire:loading.remove
+                        wire:target='updateGeneralProfile'>Save</button>
+                    <button wire:loading class="p-2 text-sm bg-black text-white rounded-lg self-start">
+                        <x-button-loader message="Save" />
+                    </button>
+
+                    <p x-show="showMessage" x-transition:leave="transition-opacity duration-500"
+                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                        class="flex text-green-500 text-sm font-semibold">
+                        Profile updated successfully
+                    </p>
+                </div>
+
             </div>
         </div>
     </form>

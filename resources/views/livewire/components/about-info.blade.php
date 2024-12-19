@@ -3,11 +3,8 @@
         <h1 class="text-lg font-semibold dark:text-slate-400 text-slate-600">About</h1>
         <span class="text-slate-500 text-xs">Update about yourself information</span>
     </div>
-    @if (session()->has('profile_success'))
-        <p class="flex items-center justify-center self-center text-green-500 text-sm font-semibold">
-            {{ session()->pull('profile_success') }}</p>
-    @endif
-    <form wire:submit.prevent="updateAbount">
+
+    <form wire:submit.prevent="updateAbout">
         @csrf
         <div class="md:flex justify-center items-center gap-24">
             <div class="flex flex-col gap-4 w-full">
@@ -35,10 +32,19 @@
                 </div>
 
                 <x-textarea label="Bio" name="bio" placeholder="Bio" :error="$errors->first('bio')" model="bio" />
-                <button wire:loading.attr="disabled" wire:loading.class="bg-gray-400"
-                    class="p-2 text-sm bg-black text-white rounded-lg self-start ">
-                    <x-button-loader message="Save" />
-                </button>
+
+                <div class="flex items-center gap-1">
+                    <button wire:loading.remove
+                        class="p-2 text-sm bg-black text-white rounded-lg self-start">Save</button>
+                    <button wire:loading wire:target="updateAbout"
+                        class="p-2 text-sm bg-black text-white rounded-lg self-start ">
+                        <x-button-loader message="Save" />
+                    </button>
+                    @if (session()->has('about_success'))
+                        <p class="flex  text-green-500 text-sm font-semibold">
+                            {{ session()->pull('about_success') }}</p>
+                    @endif
+                </div>
             </div>
         </div>
     </form>

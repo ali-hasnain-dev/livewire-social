@@ -12,9 +12,7 @@ class AboutInfo extends Component
     #[Validate('nullable|min:3|max:40')]
     public $bio;
 
-    public $email = '';
-
-    public $phone = '';
+    public $phone;
     public $dob;
 
     public $user;
@@ -23,22 +21,20 @@ class AboutInfo extends Component
     {
         $this->user = Auth::user();
         $this->bio = $this->user->bio;
-        $this->email = $this->user->email;
         $this->phone = $this->user->phone;
         $this->dob = $this->user->dob;
     }
 
-    public function updateAbount()
+    public function updateAbout()
     {
         $this->validate();
         $this->user->update([
             'bio' => $this->bio ?? '',
-            'email' => $this->email,
             'phone' => $this->phone,
             'dob' => $this->dob,
         ]);
 
-        session()->flash('profile_success', 'Profile updated successfully');
+        session()->flash('about_success', 'About updated successfully');
     }
 
     public function render()
