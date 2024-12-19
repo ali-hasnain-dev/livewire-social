@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-6 md:w-[550px] bg-white p-4 rounded-xl shadow-xl dark:bg-slate-800">
+<div class="flex flex-col gap-6 md:w-[550px] ">
     <div class="flex flex-col gap-1">
         <h1 class="text-lg font-semibold dark:text-slate-400 text-slate-600">General Info</h1>
         <span class="text-slate-500 text-xs">Update your account's profile information</span>
@@ -36,21 +36,8 @@
                     </div>
                 </div>
 
-                {{-- <x-input-text type="text" label="Bio" name="bio" placeholder="Bio" :error="$errors->first('bio')" />
-
-                <div class="flex flex-col gap-2">
-                    <label for="" class="text-xs font-semibold">DOB</label>
-                    <input type="date" class="w-full p-2 border border-gray-500 rounded-md dark:bg-slate-700"
-                        placeholder="DOB" wire:model="dob">
-                    <p class="text-red-500 text-xs">
-                        @error('dob')
-                            {{ $message }}
-                        @enderror
-                    </p>
-                </div> --}}
-
                 <button wire:loading.attr="disabled" wire:loading.class="bg-gray-400"
-                    class="p-2 bg-black text-white rounded-lg self-start w-20">
+                    class="p-2 text-sm bg-black text-white rounded-lg self-start">
                     <x-button-loader message="Save" />
                 </button>
             </div>

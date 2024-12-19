@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-6 md:w-[550px] bg-white p-4 rounded-xl shadow-xl dark:bg-slate-800">
+<div class="flex flex-col gap-6 md:w-[550px]">
     <div class="flex flex-col gap-1">
         <h1 class="text-lg font-semibold dark:text-slate-400 text-slate-600">About</h1>
         <span class="text-slate-500 text-xs">Update about yourself information</span>
@@ -25,7 +25,7 @@
                             $wire.set('dob', dateStr);
                         }
                     });" type="text"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="w-full p-2 outline-none border text-sm font-normal border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900 shadow"
                         placeholder="Select DOB" wire:model.defer="dob" wire:ignore>
                     <p class="text-red-500 text-xs">
                         @error('dob')
@@ -36,7 +36,7 @@
 
                 <x-textarea label="Bio" name="bio" placeholder="Bio" :error="$errors->first('bio')" model="bio" />
                 <button wire:loading.attr="disabled" wire:loading.class="bg-gray-400"
-                    class="p-2 bg-black text-white rounded-lg self-start w-20">
+                    class="p-2 text-sm bg-black text-white rounded-lg self-start ">
                     <x-button-loader message="Save" />
                 </button>
             </div>
