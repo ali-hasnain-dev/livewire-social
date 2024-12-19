@@ -18,7 +18,7 @@
         @endif
     </label>
     <textarea name="{{ $name }}" id="{{ $name }}"
-        class="w-full p-2 outline-none border {{ $error ? 'border-red-500' : 'border-gray-500' }} rounded-md dark:bg-slate-700"
+        class="w-full p-2 outline-none border text-sm font-normal {{ $error ? 'border-red-500' : 'border-slate-200' }} rounded-md dark:bg-slate-700"
         placeholder="{{ $placeholder }}" {{ $required ? 'required' : '' }} {{ $autofocus ? 'autofocus' : '' }}
         {{ $disabled ? 'disabled' : '' }} {{ $readonly ? 'readonly' : '' }} wire:model="{{ $model }}"
         rows="{{ $rows }}" style="resize: none;"></textarea>

@@ -11,35 +11,38 @@ class GeneralInfo extends Component
     public $username = '';
 
     #[Validate('required|min:3|max:40')]
-    public $name = '';
+    public $first_name = '';
 
-    #[Validate('nullable|min:3|max:40')]
-    public $bio;
+    public $last_name = '';
 
-    public $dob;
+    public $gender;
+
 
     public $user;
+
 
     public function mount()
     {
         $this->user = Auth::user();
         $this->username = $this->user->username;
-        $this->bio = $this->user->bio;
-        $this->name = $this->user->name;
-        $this->dob = $this->user->dob;
+        $this->first_name = $this->user->first_name;
+        $this->last_name = $this->user->last_name;
+        $this->gender = $this->user->gender;
     }
 
-    public function updateProfile()
+    public function updateGeneralProfile()
     {
         $this->validate();
         $this->user->update([
-            'name' => $this->name,
+            'first_name' => $this->first_name,
             'bio' => $this->bio ?? '',
             'dob' => $this->dob ?? '',
         ]);
 
         session()->flash('profile_success', 'Profile updated successfully');
     }
+
+    public function updateAboutProfile() {}
 
     public function render()
     {

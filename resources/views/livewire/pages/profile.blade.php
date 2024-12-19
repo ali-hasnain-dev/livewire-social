@@ -6,7 +6,7 @@
             @endif
         </div>
     </div>
-    <div class=" lg:w-[50%] xl:w-[65%]">
+    <div class="w-full md:w-[500px]">
         <div className="flex flex-col">
             @if ($userId == auth()->user()->id)
                 <livewire:components.add-post />

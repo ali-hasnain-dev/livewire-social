@@ -34,7 +34,6 @@
                         prevEl: '.swiper-button-prev',
                     },
                 })">
-                    <!-- Additional required wrapper -->
                     <div x-cloak class="swiper-wrapper">
                         @foreach ($post->images as $image)
                             <div class="swiper-slide">
@@ -47,10 +46,7 @@
                             </div>
                         @endforeach
                     </div>
-                    <!-- If we need pagination -->
                     <div class="swiper-pagination"></div>
-
-                    <!-- If we need navigation buttons -->
                     <div class="swiper-button-prev absolute top-1/2 z-10 p-2 cursor-pointer">
                         <div class="bg-white/95 border p-1 rounded-full text-gray-900">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -68,7 +64,6 @@
                         </div>
                     </div>
 
-                    <!-- If we need scrollbar -->
                     <div class="swiper-scrollbar"></div>
                 </div>
             </div>
