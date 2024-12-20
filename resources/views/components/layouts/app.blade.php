@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Wire Social</title>
+    <title>{{ $title ?? 'Wire Social' }}</title>
 
     <!-- Ensure dark mode is applied before the content loads -->
     <script>

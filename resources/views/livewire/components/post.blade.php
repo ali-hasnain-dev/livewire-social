@@ -110,7 +110,7 @@
                 <span class="text-gray-500" x-text="data.comments_count"></span>
             </div>
         </div>
-        <div>
+        {{-- <div>
             <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-4">
@@ -123,7 +123,7 @@
                     125
                 </span>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <template x-if="data.allow_comments">

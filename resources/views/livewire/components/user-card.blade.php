@@ -5,10 +5,10 @@
         <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('images/avatar-placeholder.jpg') }}"
             class="rounded-full object-cover w-12 h-12 absolute left-0 right-0 m-auto -bottom-6 ring-1 ring-white z-10" />
     </div>
-    <div class="flex flex-col gap-2 items-center">
+    <div class="flex flex-col gap-2 mt-3 items-center">
         <div class="flex flex-col gap-1 items-center">
-            <span class="font-semibold">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</span>
-            <span class="font-normal text-sm">{{ Auth::user()->username }}</span>
+            <span class="font-semibold text-sm ">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</span>
+            <span class="font-normal text-xs">{{ Auth::user()->username }}</span>
         </div>
         <div class="flex items-center gap-4">
             <div class="flex">
