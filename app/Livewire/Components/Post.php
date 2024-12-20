@@ -22,13 +22,12 @@ class Post extends Component
 
     public $likedByme = false;
 
+    public $data;
+
     public function mount(ModelsPost $post)
     {
-        $this->post = $post;
-        $this->post_id = $post->id;
-        $this->likes = $post->likes_count;
         $this->likedByme = $post->likes ? in_array(Auth::user()->id, $post->likes->pluck('user_id')->toArray()) : false;
-        $this->comments = $post->comments_count;
+        $this->data = $this->post->toArray();
     }
 
     public function like($id)

@@ -9,7 +9,7 @@
 
     @if ($posts)
         @foreach ($posts as $post)
-            <livewire:components.post :post="$post" :key="'post-' . $post->id" />
+            <livewire:components.post :$post :key="'post-' . $post->id" />
         @endforeach
 
         @if ($hasMoreData)

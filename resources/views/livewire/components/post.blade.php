@@ -1,12 +1,11 @@
-<div class="flex rounded-md bg-white p-4 gap-4 flex-col dark:bg-slate-800 w-full" x-data="{ post: @entangle('post') }">
+<div class="flex rounded-md bg-white p-4 gap-4 flex-col dark:bg-slate-800 w-full" x-data="{ data: @entangle('data') }">
     <div class="flex justify-between ">
         <a href="{{ route('profile', ['name' => $post->user->username]) }}" wire:navigate>
             <div class="flex items-center gap-2">
                 <img src="{{ $post->user->avatar ? $post->user->avatar : asset('images/avatar-placeholder.jpg') }}"
                     alt="" class="w-10 h-10 rounded-full object-cover">
                 <div class="flex flex-col gap-1">
-                    <span
-                        class="text-sm font-semibold">{{ $post->user->first_name . ' ' . $post->user->last_name }}</span>
+                    <span class="text-sm font-semibold" x-text="data.user.first_name + ' ' + data.user.last_name"></span>
                     <span class="text-xs font-normal">{{ $post->created_at->diffForHumans() }}</span>
                 </div>
             </div>
@@ -16,12 +15,10 @@
         </span>
     </div>
 
-    @if ($post->content)
-        <p class="text-sm">{{ $post->content }}</p>
-    @endif
+    <p class="text-sm" x-text="data.content"></p>
 
-    @if (count($post->images) > 0)
-        @if (count($post->images) > 1)
+    <template x-if="data.images.length > 0">
+        <template x-if="data.images.length > 1">
             <div class="w-full self-center">
                 <div class="swiper h-[400px] bg-white dark:bg-slate-800 w-full rounded-md" x-init="new Swiper($el, {
                     modules: [Navigation, Pagination],
@@ -34,18 +31,23 @@
                         prevEl: '.swiper-button-prev',
                     },
                 })">
-                    <div x-cloak class="swiper-wrapper">
-                        @foreach ($post->images as $image)
+                    <div class="swiper-wrapper">
+                        <!-- Generate slides using x-for -->
+                        <template x-for="image in data.images" :key="image.id">
                             <div class="swiper-slide">
-                                @if (Str::startsWith($image->type, 'image'))
-                                    <img src="{{ asset($image->url) }}" alt=""
+                                <!-- Conditionally render images or videos -->
+                                <template x-if="image.type.startsWith('image')">
+                                    <img :src="image.url" alt="Image"
                                         class="w-full block object-scale-down h-auto rounded-md">
-                                @elseif (Str::startsWith($image->type, 'video'))
-                                    <x-video :source="asset($image->url)" :type="$post->images[0]->type" />
-                                @endif
+                                </template>
+                                <template x-if="image.type.startsWith('video')">
+                                    <video :src="image.url" controls class="w-full rounded-md"></video>
+                                </template>
                             </div>
-                        @endforeach
+                        </template>
                     </div>
+
+                    <!-- Swiper pagination and navigation -->
                     <div class="swiper-pagination"></div>
                     <div class="swiper-button-prev absolute top-1/2 z-10 p-2 cursor-pointer">
                         <div class="bg-white/95 border p-1 rounded-full text-gray-900">
@@ -67,47 +69,46 @@
                     <div class="swiper-scrollbar"></div>
                 </div>
             </div>
-        @else
-            @if (Str::startsWith($post->images[0]->type, 'image'))
-                <img src="{{ asset($post->images[0]->url) }}" alt="" class="w-auto h-auto  rounded-md">
-            @elseif (Str::startsWith($post->images[0]->type, 'video'))
-                <x-video :source="asset($post->images[0]->url)" :type="$post->images[0]->type" />
-            @endif
+        </template>
+    </template>
 
-        @endif
-    @endif
+    <template x-if="data.images.length === 1">
+        <template x-if="data.images[0].type.startsWith('image')">
+            <img :src="data.images[0].url" alt="Single Image" class="w-auto h-auto rounded-md">
+        </template>
+        <template x-if="data.images[0].type.startsWith('video')">
+            <video :src="data.images[0].url" controls class="w-full rounded-md"></video>
+        </template>
+    </template>
 
     <div class="flex items-center justify-between text-xs my-1">
         <div class="flex gap-2">
-            @if ($post->allow_comments)
+            <template x-if="data.allow_likes">
                 <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700"
-                    x-data="{ likesCount: @entangle('likes'), isLiked: @entangle('likedByme') }">
+                    x-data="{ isLiked: @entangle('likedByme') }">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4 cursor-pointer" :class='isLiked ? "text-blue-500" : ""'
-                        x-on:click="isLiked=!isLiked, isLiked? likesCount++ : likesCount-- ,$wire.like({{ $post->id }})">
+                        x-on:click="isLiked=!isLiked, isLiked ? data.likes_count++ : data.likes_count-- ,$wire.like({{ $post->id }})">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
                     </svg>
 
-                    <span x-show="likesCount > 0" class="text-gray-300">|</span>
-                    <span x-show="likesCount > 0" class="text-gray-500">
-                        <span class="text-gray-500" x-text="likesCount">
+                    <span x-show="data.likes_count > 0" class="text-gray-300">|</span>
+                    <span x-show="data.likes_count > 0" class="text-gray-500">
+                        <span class="text-gray-500" x-text="data.likes_count">
                         </span>
                 </div>
-            @endif
+            </template>
 
-            @if ($post->allow_comments)
-                <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700"
-                    x-data="{ commentCount: @entangle('comments') }">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                    </svg>
-                    <span class="text-gray-300">|</span>
-                    <span class="text-gray-500" x-text="commentCount"></span>
-                </div>
-            @endif
+            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                </svg>
+                <span class="text-gray-300">|</span>
+                <span class="text-gray-500" x-text="data.comments_count"></span>
+            </div>
         </div>
         <div>
             <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700">
@@ -124,7 +125,8 @@
             </div>
         </div>
     </div>
-    @if ($post->allow_comments)
+
+    <template x-if="data.allow_comments">
         <livewire:components.add-comment :post="$post" :key="'post-comment-' . $post->id" />
-    @endif
+    </template>
 </div>
