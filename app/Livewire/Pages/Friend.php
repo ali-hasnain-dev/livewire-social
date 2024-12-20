@@ -21,13 +21,13 @@ class Friend extends Component
     public function updatedSearch()
     {
         if ($this->search) {
-            $users = User::where('id', '!=', Auth::user()->id)->where('name', 'like', '%' . $this->search . '%')->Where('username', 'like', '%' . $this->search . '%')->select('id', 'name', 'username', 'avatar')->get();
+            $users = User::where('id', '!=', Auth::user()->id)->where('first_name', 'like', '%' . $this->search . '%')->Where('username', 'like', '%' . $this->search . '%')->select('id', 'first_name', 'last_name', 'username', 'avatar')->get();
 
             $this->users = $users;
             $this->searchtext = $this->search;
         } else {
             $this->searchtext = 'Suggestions';
-            $this->users = User::with('sentFriendRequest')->where('id', '!=', Auth::user()->id)->select('id', 'name', 'username', 'avatar')->limit(7)->inRandomOrder()->get();
+            $this->users = User::with('sentFriendRequest')->where('id', '!=', Auth::user()->id)->select('id', 'first_name', 'last_name', 'username', 'avatar')->limit(7)->inRandomOrder()->get();
         }
     }
 
