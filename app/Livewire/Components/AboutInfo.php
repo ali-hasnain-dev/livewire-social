@@ -17,6 +17,8 @@ class AboutInfo extends Component
 
     public $user;
 
+    public $showMessage = false;
+
     public function mount()
     {
         $this->user = Auth::user();
@@ -34,7 +36,7 @@ class AboutInfo extends Component
             'dob' => $this->dob,
         ]);
 
-        session()->flash('about_success', 'About updated successfully');
+        $this->showMessage = true;
     }
 
     public function render()

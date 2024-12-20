@@ -18,6 +18,7 @@
             <livewire:components.general-info />
             <livewire:components.about-info />
             <livewire:components.change-password />
+            <livewire:components.delete-account />
         </div>
         <div x-show="activeTab === 2">
             <p class="text-gray-500 font-semibold">Comming Soon Feature</p>

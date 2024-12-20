@@ -33,17 +33,31 @@
 
                 <x-textarea label="Bio" name="bio" placeholder="Bio" :error="$errors->first('bio')" model="bio" />
 
-                <div class="flex items-center gap-1">
+                <div class="flex items-center gap-2" x-data="{
+                    showMessage: @entangle('showMessage'),
+                    fade: true,
+                    interval: null
+                }" x-init="$watch('showMessage', value => {
+                    if (value) {
+                        fade = true;
+                        // Start fading in and out
+                        interval = setInterval(() => fade = !fade, 1000); // Toggle every 1 second (fade in/out)
+                        // Stop fading after 5 seconds and hide the message
+                        setTimeout(() => {
+                            clearInterval(interval); // Stop the fading
+                            showMessage = false;
+                        }, 6000); // 5 seconds duration
+                    }
+                })">
                     <button wire:loading.remove
                         class="p-2 text-sm bg-black text-white rounded-lg self-start">Save</button>
                     <button wire:loading wire:target="updateAbout"
                         class="p-2 text-sm bg-black text-white rounded-lg self-start ">
                         <x-button-loader message="Save" />
                     </button>
-                    @if (session()->has('about_success'))
-                        <p class="flex  text-green-500 text-sm font-semibold">
-                            {{ session()->pull('about_success') }}</p>
-                    @endif
+                    <p class="flex  text-green-500 text-sm font-semibold" x-show="showMessage"
+                        x-bind:class="fade ? 'opacity-100' : 'opacity-0'">
+                        About section updated successfully.</p>
                 </div>
             </div>
         </div>
