@@ -2,8 +2,8 @@
     <div class="flex justify-between ">
         <a href="{{ route('profile', ['name' => $post->user->username]) }}" wire:navigate>
             <div class="flex items-center gap-2">
-                <img src="{{ $post->user->avatar ? $post->user->avatar : asset('images/user.png') }}" alt=""
-                    class="w-10 h-10 rounded-full object-cover">
+                <img src="{{ $post->user->avatar ? $post->user->avatar : asset('images/avatar-placeholder.jpg') }}"
+                    alt="" class="w-10 h-10 rounded-full object-cover">
                 <div class="flex flex-col gap-1">
                     <span
                         class="text-sm font-semibold">{{ $post->user->first_name . ' ' . $post->user->last_name }}</span>

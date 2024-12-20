@@ -16,7 +16,7 @@
             ];
             const firstElement = focusableElements[0];
             const lastElement = focusableElements[focusableElements.length - 1];
-
+    
             if (event.shiftKey && document.activeElement === firstElement) {
                 event.preventDefault();
                 lastElement.focus();
@@ -47,7 +47,7 @@
                 <div class="relative dark:bg-slate-800">
                     <!-- Cover Photo -->
                     <div class="relative w-full h-40">
-                        <img src="{{ $onBoardForm->cover ? $onBoardForm->cover->temporaryUrl() : asset('images/cover.png') }}"
+                        <img src="{{ $onBoardForm->cover ? $onBoardForm->cover->temporaryUrl() : asset('images/placeholder-image.webp') }}"
                             class="rounded-md w-full h-full object-cover" />
                         <button onclick="document.getElementById('coverFile').click();"
                             class="absolute top-2 right-2 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">
@@ -61,7 +61,7 @@
                     </div>
                     <!-- Profile Photo -->
                     <div class="absolute left-1/2 transform -translate-x-1/2 -bottom-6">
-                        <img src="{{ $onBoardForm->profile ? $onBoardForm->profile->temporaryUrl() : asset('images/profile.png') }}"
+                        <img src="{{ $onBoardForm->profile ? $onBoardForm->profile->temporaryUrl() : asset('images/avatar-placeholder.jpg') }}"
                             class="rounded-full object-cover w-24 h-24 z-10" />
                         <button onclick="document.getElementById('profileFile').click();"
                             class="absolute bottom-2 right-2 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">

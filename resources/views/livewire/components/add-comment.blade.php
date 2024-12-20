@@ -1,7 +1,7 @@
 <div>
     <div class="flex items-center gap-4">
-        <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('images/user.png') }}" alt=""
-            class="w-8 h-8 rounded-full object-cover" />
+        <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('images/avatar-placeholder.jpg') }}"
+            alt="" class="w-8 h-8 rounded-full object-cover" />
         <div
             class="flex flex-1 items-center justify-center bg-sky-100 rounded-xl text-sm px-3 py-2 w-full dark:bg-slate-800 dark:border dark:border-slate-600">
             <input type="text" placeholder="Add a comment..." class="bg-transparent outline-none flex-1"

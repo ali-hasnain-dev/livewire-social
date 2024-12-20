@@ -26,6 +26,7 @@ class DeleteAccount extends Component
         }
 
         $user = User::find(Auth::id());
+        Auth::logout();
         $user->delete();
 
         return $this->redirect(Signin::class, true);
