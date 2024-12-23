@@ -47,7 +47,7 @@
                 <div class="relative dark:bg-slate-800">
                     <!-- Cover Photo -->
                     <div class="relative w-full h-40">
-                        <img src="{{ $onBoardForm->cover ? $onBoardForm->cover->temporaryUrl() : asset('images/placeholder-image.webp') }}"
+                        <img src="{{ $onBoardForm->cover ? $onBoardForm->cover->temporaryUrl() : asset('images/cover-placeholder.png') }}"
                             class="rounded-md w-full h-full object-cover" />
                         <button onclick="document.getElementById('coverFile').click();"
                             class="absolute top-2 right-2 bg-gray-700 text-white p-1 rounded-full hover:bg-gray-600 transition">

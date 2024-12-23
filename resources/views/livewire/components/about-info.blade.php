@@ -8,8 +8,8 @@
         @csrf
         <div class="md:flex justify-center items-center gap-24">
             <div class="flex flex-col gap-4 w-full">
-                <x-input-text type="text" label="Phone" name="phone" placeholder="Phone" required='false'
-                    :error="$errors->first('phone')" model="phone" />
+                <x-input-text type="text" label="Phone" name="phone" placeholder="Phone" :error="$errors->first('phone')"
+                    model="phone" />
 
                 <div class="flex flex-col gap-2">
                     <label class="text-xs font-semibold" for="datepicker-autohide">DOB
@@ -55,7 +55,7 @@
                         class="p-2 text-sm bg-black text-white rounded-lg self-start ">
                         <x-button-loader message="Save" />
                     </button>
-                    <p class="flex  text-green-500 text-sm font-semibold" x-show="showMessage"
+                    <p x-cloak class="flex  text-green-500 text-sm font-semibold" x-show="showMessage"
                         x-bind:class="fade ? 'opacity-100' : 'opacity-0'">
                         About section updated successfully.</p>
                 </div>

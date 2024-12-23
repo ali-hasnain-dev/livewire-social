@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(OnBoardMiddleware::class)->group(function () {
         Route::get('/', Home::class)->name('home');
-        Route::get('/settings', Settings::class)->name('Settings');
+        Route::get('/settings', Settings::class)->name('settings');
         Route::prefix('@{name?}')->group(function () {
             Route::get('/', Profile::class)->name('profile');
         });

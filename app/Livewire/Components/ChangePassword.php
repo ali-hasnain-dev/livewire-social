@@ -17,6 +17,8 @@ class ChangePassword extends Component
 
     public $user;
 
+    public $showMessage = false;
+
     public function mount()
     {
         $this->user = Auth::user();
@@ -37,9 +39,9 @@ class ChangePassword extends Component
 
             $this->reset(['old_password', 'new_password', 'confirm_password']);
 
-            session()->flash('password_success', 'Password updated successfully');
+            $this->showMessage = true;
         } catch (\Throwable $th) {
-            Log::error('Error updating password: '.$th->getMessage());
+            Log::error('Error updating password: ' . $th->getMessage());
         }
     }
 

@@ -38,7 +38,7 @@
                     class="p-2 text-sm bg-black text-white rounded-md self-start">
                     <x-button-loader message="Update" />
                 </button>
-                <p x-show="showMessage" x-bind:class="fade ? 'opacity-100' : 'opacity-0'"
+                <p x-cloak x-show="showMessage" x-bind:class="fade ? 'opacity-100' : 'opacity-0'"
                     class="flex text-green-500 text-sm font-semibold">
                     Password updated successfully.
                 </p>

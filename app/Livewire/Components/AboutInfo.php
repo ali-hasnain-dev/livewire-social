@@ -9,7 +9,7 @@ use Livewire\Component;
 class AboutInfo extends Component
 {
 
-    #[Validate('nullable|min:3|max:40')]
+    #[Validate('nullable|min:3|max:255')]
     public $bio;
 
     public $phone;
