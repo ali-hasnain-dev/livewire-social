@@ -1,4 +1,7 @@
-<div class="flex rounded-md bg-white p-4 gap-4 flex-col dark:bg-slate-800 w-full" x-data="{ data: @entangle('data') }">
+<div class="flex rounded-md bg-white p-4 gap-4 flex-col dark:bg-slate-800 w-full" x-data="{
+    data: @entangle('data'),
+    isTruncated: true
+}">
     <div class="flex justify-between ">
         <a href="{{ route('profile', ['name' => $post->user->username]) }}" wire:navigate>
             <div class="flex items-center gap-2">
@@ -15,7 +18,19 @@
         </span>
     </div>
 
-    <p class="text-sm" x-text="data.content"></p>
+    <div x-data="{
+        isTruncated: true,
+
+    }" class="text-sm">
+        <p>
+            <span
+                x-text="isTruncated ? data.content.slice(0, 130) + (data.content.length > 130 ? '...' : '') : data.content"></span>
+            <button x-show="data.content.length > 130" @click="isTruncated = !isTruncated"
+                class="text-blue-500 underline whitespace-nowrap">
+                <span class="text-xs" x-text="isTruncated ? 'See More' : 'See Less'"></span>
+            </button>
+        </p>
+    </div>
 
     <template x-if="data.images.length > 0">
         <template x-if="data.images.length > 1">
