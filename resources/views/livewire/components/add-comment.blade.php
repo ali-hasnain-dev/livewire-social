@@ -24,7 +24,7 @@
         <div class="flex flex-col gap-2 mt-6">
             @if (!empty($latestComments))
                 @foreach ($latestComments as $comment)
-                    <div class="flex gap-4">
+                    <div class="flex gap-4" :key="{{ $comment->id }}">
                         <img src="{{ $comment->user->avatar ? asset($comment->user->avatar) : asset('images/avatar-placeholder.jpg') }}"
                             alt="" class="w-8 h-8 rounded-full">
                         <div class="flex flex-col">
@@ -35,7 +35,7 @@
                                 {{ $comment->content }}
                             </p>
                             <div class="flex items-center gap-8 text-xs text-gray-500 mt-2">
-                                <div class="flex items-center gap-4">
+                                <div class="flex items-center gap-1.5">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-4 cursor-pointer">
                                         <path stroke-linecap="round" stroke-linejoin="round"
