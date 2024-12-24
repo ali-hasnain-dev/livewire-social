@@ -65,7 +65,7 @@ class Feed extends Component
             ->with([
                 'user:id,first_name,last_name,avatar,username',
                 'likes:id,post_id,user_id',
-                'comments' => fn($q) => $q->with('user:id,first_name,last_name,avatar,username')->latest()->limit(3),
+                'comments' => fn($q) => $q->with('user:id,first_name,last_name,avatar,username')->latest()->take(1),
                 'images',
             ])
             ->withCount([

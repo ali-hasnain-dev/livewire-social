@@ -34,6 +34,7 @@ class AddComment extends Component
         ]);
 
         $this->comment = '';
+        $this->getLatestComments();
         defer(function () {
             $post = Post::withCount('comments')->find($this->postId);
             event(new CommentNotification($post));
@@ -48,10 +49,10 @@ class AddComment extends Component
 
     public function getLatestComments()
     {
-        $this->latestComments = Comment::with('user')
+        $this->latestComments = Comment::with('user:id,first_name,last_name,avatar,username')
             ->where('post_id', $this->postId)
-            ->limit(3)
             ->latest()
+            ->take(1)
             ->get();
     }
 
