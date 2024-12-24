@@ -22,7 +22,7 @@
                 <div x-show="open" @click.away="open = false" x-cloak x-transition:enter.duration.500ms
                     x-transition:leave.duration.400ms
                     class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20 dark:bg-slate-800 ">
-                    <div class="flex flex-col gap-3 p-2">
+                    <div class="flex flex-col gap-1.5 p-2">
                         <div class="flex gap-2 items-center p-2 cursor-pointer hover:bg-gray-200 hover:rounded-md dark:hover:bg-slate-600"
                             @click="darkMode = !darkMode">
                             <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -46,6 +46,20 @@
                                 Light Mode
                             </a>
                         </div>
+
+                        <a href="{{ route('profile', ['name' => auth()->user()->username]) }}" wire:navigate
+                            class="block  text-gray-800 rounded-md items-start float-start dark:text-white">
+                            <div
+                                class="flex gap-2 items-center p-2 hover:bg-gray-200 hover:rounded-md dark:hover:bg-slate-600 ">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                </svg>
+
+                                <span>Profile</span>
+                            </div>
+                        </a>
 
                         <a href="/settings" wire:navigate
                             class="block  text-gray-800 rounded-md items-start float-start dark:text-white">

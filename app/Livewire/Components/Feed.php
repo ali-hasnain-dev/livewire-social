@@ -82,6 +82,8 @@ class Feed extends Component
             ->when($this->userId, fn($query) => $query->where('user_id', $this->userId))
             ->get();
 
+        // dd($newPost);
+
         if ($newPost->count() < $this->offsetOfPosts) {
             $this->hasMoreData = false;
         }

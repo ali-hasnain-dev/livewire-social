@@ -30,10 +30,10 @@ class AddComment extends Component
     public function mount($post)
     {
         $this->postId = $post->id;
-        $this->likedByme = $post->latestComment->likes ? in_array(Auth::user()->id, $post->latestComment->likes->pluck('user_id')->toArray()) : false;
+        $this->likedByme = $post->latestComment?->likes ? in_array(Auth::user()->id, $post->latestComment->likes->pluck('user_id')->toArray()) : false;
         $this->latestComment = $post->latestComment;
-        $this->data = $post->latestComment->toArray();
-        $this->likesCount = $post->latestComment->likes->count();
+        $this->data = $post->latestComment?->toArray();
+        $this->likesCount = $post->latestComment?->likes?->count();
     }
 
     public function addComment()
