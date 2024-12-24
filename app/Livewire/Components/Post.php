@@ -34,7 +34,8 @@ class Post extends Component
     {
         $like = Like::firstOrNew([
             'user_id' => Auth::id(),
-            'post_id' => $id,
+            'likeable_id' => $id,
+            'likeable_type' => ModelsPost::class,
         ]);
 
         if ($like->exists) {

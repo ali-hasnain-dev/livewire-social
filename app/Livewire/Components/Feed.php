@@ -64,8 +64,11 @@ class Feed extends Component
         $newPost = Post::select('id', 'content', 'image', 'user_id', 'allow_comments', 'allow_likes', 'created_at')
             ->with([
                 'user:id,first_name,last_name,avatar,username',
-                'likes:id,post_id,user_id',
-                'comments' => fn($q) => $q->with('user:id,first_name,last_name,avatar,username')->latest()->take(1),
+                'likes',
+                'latestComment' => fn($q) => $q->with([
+                    'user:id,first_name,last_name,avatar,username',
+                    'likes'
+                ])->latest()->take(1),
                 'images',
             ])
             ->withCount([

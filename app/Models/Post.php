@@ -21,12 +21,18 @@ class Post extends Model
 
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->morphMany(Like::class, 'likeable');
+        // return $this->hasMany(Like::class);
     }
 
     public function isLikedByMe()
     {
         return Like::where([['user_id', Auth::id()], ['post_id', $this->id]])->exists();
+    }
+
+    public function latestComment()
+    {
+        return $this->hasOne(Comment::class)->latest();
     }
 
     public function comments()
