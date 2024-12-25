@@ -1,4 +1,4 @@
-<div class="w-full self-center">
+<div class="w-full self-center" wire:ignore>
     <div class="swiper h-[400px] bg-white dark:bg-slate-800 w-full rounded-md" x-init="new Swiper($el, {
         modules: [Navigation, Pagination],
         loop: true,
