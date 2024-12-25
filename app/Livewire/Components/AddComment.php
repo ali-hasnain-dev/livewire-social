@@ -60,7 +60,11 @@ class AddComment extends Component
 
     public function getlatestComment()
     {
-        $comment = Comment::with('user:id,first_name,last_name,avatar,username', 'likes')
+        $comment = Comment::with([
+            'user:id,first_name,last_name,avatar,username',
+            'likes'
+        ])
+            ->withCount('likes')
             ->where('post_id', $this->postId)
             ->latest()
             ->first()

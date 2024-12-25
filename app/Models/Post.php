@@ -12,7 +12,7 @@ class Post extends Model
 
     protected $table = 'posts';
 
-    protected $fillable = ['image', 'content', 'allow_comments', 'allow_likes',  'user_id'];
+    protected $fillable = ['content', 'allow_comments', 'allow_likes', 'is_sponsored', 'is_pinned', 'is_reported', 'scheduled_at', 'visibility', 'type', 'parent_id',  'user_id'];
 
     public function user()
     {

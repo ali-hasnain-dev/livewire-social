@@ -131,7 +131,7 @@ class AddPost extends Component
         if ($this->uploadedFiles) {
             foreach ($this->uploadedFiles as $file) {
                 $mimeType = $file->getMimeType();
-                $path = $file->store('uploads/', 'public');
+                $path = $file->store('uploads', 'public');
                 $post->images()->create([
                     'url' => 'storage/' . $path,
                     'type' => $mimeType,

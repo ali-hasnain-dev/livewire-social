@@ -61,7 +61,7 @@ class Feed extends Component
     #[Renderless]
     public function getMorePost()
     {
-        $newPost = Post::select('id', 'content', 'image', 'user_id', 'allow_comments', 'allow_likes', 'created_at')
+        $newPost = Post::select('id', 'content', 'user_id', 'allow_comments', 'allow_likes', 'created_at')
             ->with([
                 'user:id,first_name,last_name,avatar,username',
                 'likes',
@@ -82,7 +82,6 @@ class Feed extends Component
             ->when($this->userId, fn($query) => $query->where('user_id', $this->userId))
             ->get();
 
-        // dd($newPost);
 
         if ($newPost->count() < $this->offsetOfPosts) {
             $this->hasMoreData = false;

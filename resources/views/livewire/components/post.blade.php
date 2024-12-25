@@ -105,12 +105,7 @@
     </template>
 
     <template x-if="data.images.length === 1">
-        <template x-if="data.images[0].type.startsWith('image')">
-            <img :src="data.images[0].url" alt="Single Image" class="w-auto h-auto rounded-md">
-        </template>
-        <template x-if="data.images[0].type.startsWith('video')">
-            <video :src="data.images[0].url" controls class="w-full rounded-md"></video>
-        </template>
+        <x-single-file :image="$post->images[0]->url" :type="$post->images[0]->type" />
     </template>
 
     <div class="flex items-center justify-between text-xs my-1">

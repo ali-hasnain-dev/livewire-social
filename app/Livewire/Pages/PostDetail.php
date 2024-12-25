@@ -15,7 +15,11 @@ class PostDetail extends Component
         $this->post = Post::with([
             'user:id,first_name,last_name,username,avatar',
             'likes',
-            'comments',
+            'images',
+            'comments' => fn($q) => $q->with([
+                'user:id,first_name,last_name,username,avatar',
+                'likes',
+            ])->withCount('likes'),
         ])->find($id);
 
         $this->data = $this->post->toArray();

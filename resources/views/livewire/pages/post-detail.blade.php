@@ -5,8 +5,7 @@
             <!-- User Info -->
             <a href="{{ route('profile', ['name' => $post->user->username]) }}" wire:navigate>
                 <div class="flex items-center gap-2">
-                    <img :src="data.user.avatar ? data.user.avatar : asset('images/avatar-placeholder.jpg')
-                    '"
+                    <img :src="data.user.avatar ? data.user.avatar : '{{ asset('images/avatar-placeholder.jpg') }}'"
                         alt="User Avatar" class="w-10 h-10 rounded-full object-cover">
                     <div class="flex flex-col gap-1">
                         <span class="text-sm font-semibold"
@@ -29,13 +28,12 @@
             <p class="text-sm mt-2" x-text="data.content"></p>
         </div>
 
-        <!-- Likes Section -->
-        <div class="flex items-center gap-2 text-sm">
-            <span x-text="data.likes_count + ' likes'"></span>
-            <button @click="toggleLike" class="text-blue-500 hover:underline">
-                <span x-text="data.is_liked ? 'Unlike' : 'Like'"></span>
-            </button>
-        </div>
+        <template x-if="data.images.length === 1">
+            <x-single-file :image="$post->images[0]->url" :type="$post->images[0]->type" />
+            {{-- <x-single-file x-bind:image="data.images[0].url" x-bind:type="data.images[0].type" />
+        <x-single-file :image='@json('data.images[0].url')' :type="data . images[0] . type" /> --}}
+        </template>
+
 
         <!-- Comments Section -->
         <div class="mt-4">
@@ -55,11 +53,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function toggleLike() {
-        // Implement your like/unlike logic here
-        this.data.is_liked = !this.data.is_liked;
-        this.data.likes_count += this.data.is_liked ? 1 : -1;
-    }
-</script>
