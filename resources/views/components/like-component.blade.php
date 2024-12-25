@@ -1,8 +1,3 @@
-@props([
-    'post' => null,
-    'likedByme' => false,
-])
-
 <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700" x-data="{ isLiked: @entangle('likedByme') }">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
         class="size-4 cursor-pointer" :class='isLiked ? "text-blue-500" : ""'
@@ -15,4 +10,5 @@
     <span class="text-gray-500">
         <span class="text-gray-500" x-text="data.likes_count">
         </span>
+    </span>
 </div>

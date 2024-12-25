@@ -5,6 +5,7 @@
 
     <x-user-avatar-div :post="$post" />
 
+
     <x-content :post="$post" />
 
     <template x-if="data.images.length > 0">
