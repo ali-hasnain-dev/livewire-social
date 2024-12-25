@@ -2,117 +2,25 @@
     data: @entangle('data'),
     isTruncated: true
 }">
-    <div class="flex justify-between ">
-        <a href="{{ route('profile', ['name' => $post->user->username]) }}" wire:navigate>
-            <div class="flex items-center gap-2">
-                <img src="{{ $post->user->avatar ? asset($post->user->avatar) : asset('images/avatar-placeholder.jpg') }}"
-                    alt="" class="w-10 h-10 rounded-full object-cover">
-                <div class="flex flex-col gap-1">
-                    <span class="text-sm font-semibold" x-text="data.user.first_name + ' ' + data.user.last_name"></span>
-                    <span class="text-xs font-normal">{{ $post->created_at->diffForHumans() }}</span>
-                </div>
-            </div>
-        </a>
-        <span class="text-xs font-bold cursor-pointer">
-            <img src="{{ asset('images/more.png') }}" alt="" class="w-5">
-        </span>
-    </div>
 
-    <div class="text-sm">
-        <p>
-            <a href="{{ route('post-detail', ['id' => $post->id]) }}" wire:navigate>
+    <x-user-avatar-div :post="$post" />
 
-                <!-- Truncated Content -->
-                <template x-if="isTruncated">
-                    <span x-text="data.content.slice(0, 130) + (data.content.length > 130 ? '...' : '')"></span>
-                </template>
-
-
-                <!-- Full Content with Transition -->
-                <template x-if="!isTruncated">
-                    <span
-                        x-transition:enter="transition-all ease-in-out duration-500 transform opacity-0 -translate-y-2"
-                        x-transition:enter-start="opacity-0 -translate-y-2"
-                        x-transition:enter-end="opacity-100 translate-y-0"
-                        x-transition:leave="transition-all ease-in-out duration-500 transform opacity-0 translate-y-2"
-                        x-transition:leave-start="opacity-100 translate-y-0"
-                        x-transition:leave-end="opacity-0 translate-y-2" x-text="data.content"></span>
-                </template>
-
-            </a>
-
-            <!-- Button -->
-            <button x-show="data.content.length > 130" @click="isTruncated = !isTruncated"
-                class="text-blue-500 underline whitespace-nowrap ml-1">
-                <span class="text-xs" x-text="isTruncated ? 'See More' : 'See Less'"></span>
-            </button>
-        </p>
-    </div>
+    <x-content :post="$post" />
 
     <template x-if="data.images.length > 0">
         <template x-if="data.images.length > 1">
-            <div class="w-full self-center">
-                <div class="swiper h-[400px] bg-white dark:bg-slate-800 w-full rounded-md" x-init="new Swiper($el, {
-                    modules: [Navigation, Pagination],
-                    loop: true,
-                    pagination: {
-                        el: '.swiper-pagination',
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                })">
-                    <div class="swiper-wrapper">
-                        <!-- Generate slides using x-for -->
-                        <template x-for="image in data.images" :key="image.id">
-                            <div class="swiper-slide">
-                                <!-- Conditionally render images or videos -->
-                                <template x-if="image.type.startsWith('image')">
-                                    <img :src="image.url" alt="Image"
-                                        class="w-full block object-scale-down h-auto rounded-md">
-                                </template>
-                                <template x-if="image.type.startsWith('video')">
-                                    <video :src="image.url" controls class="w-full rounded-md"></video>
-                                </template>
-                            </div>
-                        </template>
-                    </div>
-
-                    <!-- Swiper pagination and navigation -->
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev absolute top-1/2 z-10 p-2 cursor-pointer">
-                        <div class="bg-white/95 border p-1 rounded-full text-gray-900">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="2.8" stroke="currentColor" class="size-4 hover:size-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="swiper-button-next absolute right-0 top-1/2 z-10 p-2 cursor-pointer">
-                        <div class="bg-white/95 border p-1 rounded-full text-gray-900">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="2.8" stroke="currentColor" class="size-4 hover:size-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    <div class="swiper-scrollbar"></div>
-                </div>
-            </div>
+            <x-multiple-files />
         </template>
     </template>
 
     <template x-if="data.images.length === 1">
-        <x-single-file :image="$post->images[0]->url" :type="$post->images[0]->type" />
+        <x-single-file />
     </template>
 
     <div class="flex items-center justify-between text-xs my-1">
         <div class="flex gap-2">
             <template x-if="data.allow_likes">
-                <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700"
-                    x-data="{ isLiked: @entangle('likedByme') }">
+                <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl dark:bg-slate-700" x-data="{ isLiked: @entangle('likedByme') }">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4 cursor-pointer" :class='isLiked ? "text-blue-500" : ""'
                         x-on:click="isLiked=!isLiked, isLiked ? data.likes_count++ : data.likes_count-- ,$wire.like({{ $post->id }})">

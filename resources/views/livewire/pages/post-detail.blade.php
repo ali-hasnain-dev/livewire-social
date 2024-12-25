@@ -30,8 +30,6 @@
 
         <template x-if="data.images.length === 1">
             <x-single-file :image="$post->images[0]->url" :type="$post->images[0]->type" />
-            {{-- <x-single-file x-bind:image="data.images[0].url" x-bind:type="data.images[0].type" />
-        <x-single-file :image='@json('data.images[0].url')' :type="data . images[0] . type" /> --}}
         </template>
 
 
