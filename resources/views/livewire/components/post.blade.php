@@ -5,17 +5,16 @@
 
     <x-user-avatar-div :post="$post" />
 
-
-    <x-content :post="$post" />
-
-    <template x-if="data.images.length > 0">
-        <template x-if="data.images.length > 1">
-            <x-multiple-files />
-        </template>
+    <template x-if="data.content">
+        <x-content :post="$post" />
     </template>
 
-    <template x-if="data.images.length === 1">
+    <template x-if="data.images.length && data.images.length === 1">
         <x-single-file />
+    </template>
+
+    <template x-if="data.images.length && data.images.length > 1">
+        <x-multiple-files />
     </template>
 
     <div class="flex items-center justify-between text-xs my-1">
