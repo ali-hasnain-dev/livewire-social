@@ -18,7 +18,6 @@
             </div>
         @endforeach
     @else
-        <p class="text-md text-gray-400 font-bold flex items-center justify-center h-screen">No friends
-            found</p>
+        <p class="text-md text-gray-400 font-bold flex items-center justify-center">No friends yet</p>
     @endif
 </div>
