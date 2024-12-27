@@ -35,10 +35,12 @@
                                 </div>
                             </a>
                             <div class="flex items-center gap-3.5">
-                                <i class="fa-solid fa-user-plus cursor-pointer "
-                                    wire:click='follow({{ $user->id }})' title="Follow"></i>
+                                <i class="fa-solid fa-user-plus cursor-pointer {{ $user->isFollowing ? 'text-blue-500' : '' }}"
+                                    wire:click='follow({{ $user->id }})'
+                                    title="{{ $user->isFollowing ? 'Unfollow' : 'Follow' }}"></i>
                                 <i class="fa-solid fa-plus cursor-pointer {{ $user->sentFriendRequest ? 'text-blue-500' : '' }}"
-                                    wire:click="addFriend({{ $user->id }})" title="Send Friend Request"></i>
+                                    wire:click="addFriend({{ $user->id }})"
+                                    title="{{ $user->sentFriendRequest ? 'Cancel Request' : 'Add Friend' }}"></i>
                             </div>
                         </div>
                     @endforeach

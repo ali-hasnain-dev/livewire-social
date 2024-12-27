@@ -30,7 +30,7 @@ class Profile extends Component
             $userId = User::where('username', $name)->first()->id;
             $this->userId = $userId;
         } else {
-            $this->userId = Auth::user()->id;
+            $this->userId = Auth::id();
         }
     }
 

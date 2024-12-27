@@ -22,7 +22,7 @@ class Friend extends Component
     {
         if ($this->search) {
             $users = User::query()
-                ->with('sentFriendRequest')
+                ->with('sentFriendRequest', 'isFollowing')
                 ->where('id', '!=', Auth::user()->id)
                 ->where(function ($query) {
                     $query->orWhere('username', 'like', '%' . $this->search . '%')
@@ -38,6 +38,7 @@ class Friend extends Component
         } else {
             $this->searchtext = 'Suggestions';
             $this->users = User::query()
+                ->with('isFollowing')
                 ->where('id', '!=', Auth::user()->id)
                 ->whereDoesntHave('sentFriendRequest', function ($query) {
                     $query->where('sender', Auth::id());
@@ -74,7 +75,6 @@ class Friend extends Component
         } else {
             $user->followers()->attach(Auth::id());
         }
-        // $this->updatedSearch();
     }
 
     public function render()
