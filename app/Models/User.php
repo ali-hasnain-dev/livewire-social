@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,9 +62,9 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function myFriends(): HasMany
+    public function myFriends(): BelongsToMany
     {
-        return $this->hasMany(Friend::class, 'user_id')->where([['user_id', Auth::user()->id], ['status', 'added']]);
+        return $this->belongsToMany(User::class, 'friends', 'friend_id', 'id');
     }
 
     public function friendRequests()
@@ -84,5 +85,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isFollowing()
     {
         return $this->hasOne(Follow::class, 'following', 'id');
+    }
+
+    public function pendingRequests()
+    {
+        return $this->belongsToMany(User::class, 'friend_requests', 'sender', 'receiver');
     }
 }

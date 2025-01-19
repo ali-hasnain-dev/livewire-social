@@ -12,4 +12,9 @@ class FriendRequest extends Model
         'sender',
         'receiver',
     ];
+
+    public function senderUser()
+    {
+        return $this->belongsTo('App\Models\User', 'sender');
+    }
 }

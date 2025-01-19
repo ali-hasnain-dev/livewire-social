@@ -55,7 +55,7 @@
             <livewire:components.my-friend />
         </div>
         <div x-show="activeTab === 3" class="">
-            Pending Request
+            <livewire:components.pending-request />
         </div>
     </div>
 </div>

@@ -32,6 +32,8 @@ class UserFactory extends Factory
             'gender' => fake()->randomElement(['male', 'female']),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'dob' => fake()->dateTimeBetween('-50 years', '-18 years')->format('Y-m-d'),
+            'is_new' => 0,
         ];
     }
 

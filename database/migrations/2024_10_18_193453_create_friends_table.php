@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,8 +13,8 @@ return new class extends Migration
         Schema::create('friends', function (Blueprint $table) {
             $table->id();
             $table->enum('status', ['pending', 'added', 'blocked'])->default('pending');
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('friend_id')->constrained();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('friend_id')->constrained('users');
             $table->timestamps();
         });
     }
